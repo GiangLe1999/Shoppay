@@ -1,0 +1,70 @@
+.label {
+  border: 1px solid $admin-content-border;
+  display: flex;
+  align-items: center;
+  height: 42px;
+  overflow: hidden;
+  border-radius: 3px;
+
+  span {
+    background-color: $admin-text;
+    font-size: 15px;
+    font-weight: 500;
+    color: #fff;
+    display: grid;
+    place-items: center;
+    padding: 0 10px;
+    width: 200px;
+    height: 100%;
+  }
+
+  input,
+  select,
+  textarea {
+    outline: none;
+    border: none;
+    width: 100px;
+    height: 100%;
+    flex: 1;
+    background-color: transparent;
+    color: #111;
+    font-size: 14px;
+    padding: 0 10px;
+
+    &::placeholder {
+      color: rgb(163, 163, 163);
+      font-style: italic;
+    }
+  }
+}
+
+.fixSpan {
+  span {
+    width: 150px !important;
+    font-size: 13px;
+    font-weight: normal;
+    padding: 0 5px;
+  }
+}
+
+.inputError {
+  span {
+    background-color: $error-secondary-color;
+  }
+
+  input {
+    background-color: rgba(255, 0, 0, 0.031);
+    border: 1px solid $error-secondary-color;
+  }
+
+  &__msg {
+    color: $error-secondary-color;
+    font-size: 12px;
+    position: relative;
+  }
+
+  &__skeleton {
+    display: block;
+    height: 24px;
+  }
+}

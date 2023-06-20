@@ -1,0 +1,41 @@
+@import "../base";
+
+.date_picker {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin: 0.25rem 0;
+}
+
+.subLoadingBtn {
+  button {
+    padding: 3px 8px;
+    width: 90px;
+  }
+}
+
+.list {
+  thead {
+    display: grid;
+    grid-template-columns: 0.75fr 0.75fr repeat(2, 1fr) repeat(2, 1.25fr);
+    width: 100%;
+    border-bottom: 1px solid $admin-border;
+    font-size: 13px;
+
+    th {
+      font-size: 14px;
+      padding: 5px 8px 15px 8px;
+    }
+  }
+
+  tr {
+    display: grid;
+    grid-template-columns: repeat(2, 0.75fr) repeat(2, 1fr) repeat(2, 1.25fr);
+
+    td {
+      padding: 8px;
+      font-size: 13px;
+    }
+  }
+}

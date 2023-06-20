@@ -1,0 +1,21 @@
+.inputError {
+  span {
+    background-color: $error-secondary-color;
+  }
+
+  input {
+    background-color: rgba(255, 0, 0, 0.031);
+    border: 1px solid $error-secondary-color;
+  }
+
+  &__msg {
+    color: $error-secondary-color;
+    font-size: 12px;
+    position: relative;
+  }
+
+  &__skeleton {
+    display: block;
+    height: 24px;
+  }
+}

@@ -1,0 +1,38 @@
+@import "../User/styles.module";
+
+.table {
+  thead {
+    th {
+      color: #fff !important;
+    }
+  }
+
+  tbody {
+    th {
+      font-family: "Poppins", sans-serif;
+      color: #666;
+      font-size: 13px;
+    }
+  }
+
+  &__infos {
+    p {
+      font-size: 11px;
+      margin-bottom: 5px;
+
+      span {
+        font-weight: 600;
+      }
+    }
+  }
+
+  &__productImg {
+    width: 60px;
+    object-fit: cover;
+    border-radius: 2px;
+  }
+
+  &__smallTable {
+    border-bottom: none !important;
+  }
+}

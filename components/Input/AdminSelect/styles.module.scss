@@ -1,0 +1,8 @@
+@import "../base";
+
+.wrapper {
+  option[value=""][disabled] {
+    color: rgb(163, 163, 163) !important;
+    font-style: italic;
+  }
+}

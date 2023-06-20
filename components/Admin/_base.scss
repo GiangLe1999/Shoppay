@@ -1,0 +1,166 @@
+.btn {
+  button {
+    text-transform: unset;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: "Poppins", sans-serif;
+    display: flex;
+    align-items: center;
+    border-radius: 3px !important;
+  }
+}
+
+.cateBtn {
+  button {
+    min-width: 120px !important;
+  }
+}
+
+.subCateBtn {
+  button {
+    padding: 3px 8px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    width: 90px;
+
+    span {
+      &:first-of-type {
+        margin: 0;
+      }
+    }
+
+    svg {
+      position: relative;
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+.header {
+  color: $admin-text;
+  font-weight: 700;
+  font-size: 20px;
+  text-transform: uppercase;
+  border-bottom: 1px solid $admin-border;
+  padding-bottom: 5px;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+
+  .flex {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  span {
+    display: block;
+    font-size: 14px;
+    font-weight: normal;
+  }
+
+  img {
+    width: 30px;
+  }
+}
+
+.input_wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+// Categories & Sub-Categories Page----------------------------
+.form_btn {
+  display: flex;
+  justify-content: flex-end;
+
+  button {
+    min-width: 150px;
+  }
+}
+
+.list {
+  width: 100%;
+  margin-top: 1rem;
+  box-shadow: $shadow-3;
+  border-radius: 0.125rem;
+  background-color: rgb(255 255 255);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: rgb(75 85 99);
+  padding: 10px;
+  border-collapse: collapse;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid $admin-border;
+
+  thead {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
+    border-bottom: 1px solid $admin-border;
+
+    th {
+      text-align: left;
+      font-weight: 600;
+      font-size: 15px;
+      text-transform: uppercase;
+      padding: 5px 15px 15px 15px;
+      color: $admin-text;
+    }
+  }
+
+  tr {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    td {
+      padding: 10px 15px;
+    }
+  }
+
+  &__item {
+    align-items: center;
+    font-weight: 500;
+
+    input,
+    select {
+      width: 80%;
+      height: 38px;
+      border: none;
+      outline: none;
+      color: #666;
+      font-weight: 600;
+      background-color: transparent;
+    }
+
+    &_expand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    &_actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    &_notEdit {
+      font-weight: normal;
+      color: #666;
+      font-style: italic;
+    }
+  }
+}
+
+.open {
+  background-color: #fff !important;
+  color: $admin-text !important;
+}
+// End Categories & Sub-Categories Page----------------------------

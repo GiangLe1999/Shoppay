@@ -1,0 +1,66 @@
+@import "../base";
+
+.table {
+  thead {
+    background-color: $admin-text;
+
+    th {
+      text-align: left;
+      font-family: "Poppins", sans-serif;
+      text-transform: uppercase;
+      font-size: 14px;
+      font-weight: 600;
+
+      svg {
+        color: #fff;
+      }
+
+      span {
+        color: #fff;
+
+        &:hover {
+          color: #fff;
+        }
+
+        &:active {
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  tbody {
+    td {
+      text-align: left;
+      font-size: 12.5px;
+      font-family: "Poppins", sans-serif;
+      color: #666;
+    }
+  }
+
+  &__img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  &__ver,
+  &__unver {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    img {
+      width: 20px;
+    }
+    font-weight: 500;
+  }
+
+  &__ver {
+    color: rgb(2, 164, 2);
+  }
+
+  &__unver {
+    color: #d72e23;
+  }
+}

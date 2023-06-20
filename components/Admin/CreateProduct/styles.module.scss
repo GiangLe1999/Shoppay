@@ -1,0 +1,349 @@
+@import "../base";
+
+//Images------------------------------
+.images {
+  &__main {
+    &_grid {
+      max-width: 600px;
+      height: 500px;
+      display: grid;
+
+      img {
+        width: 100%;
+        height: 500px;
+        object-fit: cover;
+      }
+
+      &_wrap {
+        position: relative;
+        cursor: pointer;
+        overflow: hidden;
+        &:hover {
+          .images__main_grid_actions {
+            display: flex;
+          }
+          .blur {
+            display: block;
+          }
+        }
+        .blur {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          background: rgba(0, 0, 0, 0.24);
+          display: none;
+        }
+      }
+      &_actions {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        display: none;
+        z-index: 99;
+        button {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          display: grid;
+          place-items: center;
+          cursor: pointer;
+          transition: transform 0.2s ease-in;
+          &:hover {
+            transform: scale(1.2);
+            svg {
+              transform: scale(1.2);
+              color: $blue-color;
+            }
+          }
+          svg {
+            transition: transform 0.1s ease-in-out;
+            width: 20px;
+            height: 20px;
+          }
+        }
+      }
+    }
+    button {
+      margin-top: 1rem;
+    }
+  }
+
+  &__empty {
+    display: grid;
+    place-items: center;
+    img {
+      width: 400px;
+      height: 400px;
+      object-fit: cover;
+    }
+  }
+
+  &_btn {
+    margin: 1.5rem 0;
+
+    button {
+      width: 100%;
+      height: 50px;
+    }
+  }
+}
+
+.grid__two {
+  grid-template-columns: repeat(2, 1fr);
+}
+.grid__three {
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  .images__main_grid_wrap {
+    img {
+      height: 100%;
+    }
+    &:nth-of-type(1) {
+      //Column: grid-column-start: 1; grid-column-end: 2: Chạy từ cạnh 1 tới cạnh 2
+      //Row: grid-row-start: 1; grid-row-end: 3: Chạy từ cạnh 1 tới cạnh 3
+      grid-column: 1/2;
+      grid-row: 1/3;
+    }
+    &:nth-of-type(2) {
+      grid-column: 2/3;
+      grid-row: 1/2;
+    }
+    &:nth-of-type(3) {
+      grid-column: 2/3;
+      grid-row: 2/3;
+    }
+  }
+}
+
+.grid__four {
+  grid-template-columns: repeat(2, 1fr);
+  img {
+    height: 250px;
+  }
+}
+
+.grid__five {
+  grid-template-areas:
+    "img1 img3"
+    "img1 img3"
+    "img1 img4"
+    "img2 img4"
+    "img2 img5"
+    "img2 img5";
+  .images__main_grid_wrap {
+    img {
+      height: 100%;
+    }
+    &:nth-of-type(1) {
+      grid-area: img1;
+    }
+    &:nth-of-type(2) {
+      grid-area: img2;
+    }
+    &:nth-of-type(3) {
+      grid-area: img3;
+    }
+    &:nth-of-type(4) {
+      grid-area: img4;
+    }
+    &:nth-of-type(5) {
+      grid-area: img5;
+    }
+  }
+}
+
+.grid__six {
+  grid-template-columns: repeat(2, 1fr);
+  img {
+    height: 166.667px;
+  }
+}
+//End Images------------------------------
+
+//Colors----------------------------------
+.colors {
+  margin-top: 1.5rem;
+
+  &__guide {
+    font-size: 13px;
+    color: #666;
+    font-style: italic;
+    display: flex;
+    align-items: center;
+
+    &_svg {
+      background-color: #1976d2;
+      border-radius: 2px;
+      width: 25px;
+      height: 25px;
+      color: #fff;
+      display: grid;
+      place-items: center;
+      margin: 0 6px;
+
+      svg {
+        width: 15px;
+        height: 15px;
+      }
+    }
+  }
+}
+
+.wheel {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.square__color {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+
+  &_fill {
+    width: 65px;
+    height: 65px;
+    border-radius: 10px;
+  }
+
+  &_text {
+    font-size: 12px;
+  }
+}
+
+.toggle {
+  position: relative;
+  height: 50px;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  &__btn {
+    margin-top: 10px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    &:hover {
+      stroke: $blue-color;
+    }
+  }
+}
+//End Colors---------------------------
+
+//Sizes------------------------------------
+.sizes {
+  &__row {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    &_actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 20px;
+    }
+
+    &_action,
+    &_action2 {
+      display: flex;
+      align-items: center;
+      font-size: 12px;
+      color: #666;
+      cursor: pointer;
+      gap: 2px;
+
+      color: $blue-color;
+
+      svg {
+        color: $blue-color;
+      }
+
+      &:hover {
+        color: $hover-color;
+
+        svg {
+          color: $hover-color;
+        }
+      }
+    }
+
+    &_action2 {
+      color: $error-secondary-color;
+
+      svg {
+        color: $error-secondary-color;
+      }
+
+      &:hover {
+        color: $error-color;
+        svg {
+          color: $error-color;
+        }
+      }
+    }
+  }
+
+  &__guide {
+    font-size: 13px;
+    color: #666;
+    font-style: italic;
+    display: flex;
+    align-items: center;
+
+    button {
+      color: $admin-text;
+      text-decoration: underline;
+      font-weight: 500;
+      background-color: transparent;
+      padding: 0;
+      margin: 0;
+      cursor: pointer;
+
+      &:hover {
+        color: #0476e8;
+      }
+    }
+  }
+}
+
+.clickToAdd {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 10px;
+  margin-bottom: 1rem;
+
+  select,
+  input {
+    border: 1px solid rgba(204, 204, 204, 0.5568627451);
+    display: flex;
+    align-items: center;
+    height: 42px;
+    overflow: hidden;
+    border-radius: 3px;
+    color: #111;
+    font-size: 14px;
+    padding: 0 10px;
+
+    &:focus,
+    &:active {
+      border: 1px solid rgba(204, 204, 204, 0.5568627451);
+      outline: none;
+    }
+  }
+}
+
+.clickToAdd2 {
+  margin-top: 0.5rem;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.clickToAdd3 {
+  grid-template-columns: repeat(2, 1fr);
+}

@@ -1,0 +1,21 @@
+.product__item {
+  td {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 5px;
+    padding: 12px 8px !important;
+
+    img {
+      border-radius: 50%;
+      width: 25px;
+      height: 25px;
+    }
+  }
+}
+
+.product__color {
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+}

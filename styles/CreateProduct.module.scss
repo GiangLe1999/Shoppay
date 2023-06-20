@@ -1,0 +1,69 @@
+@import "../components/Admin/base";
+
+.submit_btn {
+  button {
+    width: 100%;
+    height: 50px;
+  }
+}
+
+.form__row {
+  &_flex {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &_section {
+    margin-bottom: 2rem;
+  }
+}
+
+.subHeader {
+  font-size: 15px;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: #666;
+
+  span {
+    background-color: $blue-color;
+    padding: 2px 5px;
+    border-radius: 3px;
+    color: #fff;
+  }
+}
+
+.color_span {
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+  gap: 5px;
+
+  span {
+    &:first-of-type {
+      font-size: 13px;
+      color: #666;
+      font-style: italic;
+      display: flex;
+      align-items: center;
+    }
+
+    &:last-of-type {
+      width: 20px;
+      height: 20px;
+      border-radius: 3px;
+      display: inline-block;
+    }
+  }
+}
+
+.image_span {
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
+  margin-top: 1rem;
+  margin-right: 1rem;
+}

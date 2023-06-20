@@ -1,0 +1,27 @@
+.input {
+  &__wrapper {
+    position: relative;
+  }
+
+  &__icon {
+    top: 50%;
+    right: 10px;
+    transform: translateY(-40%);
+    position: absolute;
+
+    svg {
+      width: 23px;
+      height: 18px;
+      color: rgb(175, 175, 175);
+    }
+  }
+
+  &__container {
+    p {
+      margin-top: 5px;
+      font-size: 12px;
+      color: $redish-color;
+      margin-bottom: 1rem;
+    }
+  }
+}

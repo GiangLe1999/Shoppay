@@ -1,0 +1,28 @@
+.checkout {
+  display: flex;
+  gap: 1rem;
+  max-width: 1200px;
+  padding: 0 10px;
+  margin: 0 auto;
+
+  &__left_side {
+    width: 65%;
+    flex-shrink: 0;
+  }
+
+  &_right_side {
+    flex: 1;
+  }
+
+  @media screen and (max-width: 1200px) {
+    flex-direction: column;
+
+    &__left_side {
+      width: 100%;
+    }
+
+    &_right_side {
+      width: 100%;
+    }
+  }
+}

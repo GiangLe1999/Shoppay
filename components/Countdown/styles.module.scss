@@ -1,0 +1,38 @@
+.countdown {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  span {
+    display: grid;
+    place-items: center;
+    width: 25px;
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 20px;
+    font-weight: 600;
+
+    &:nth-of-type(3) {
+      width: fit-content;
+    }
+  }
+
+  b {
+    font-size: 20px;
+  }
+
+  @media screen and (max-width: 700px) {
+    span {
+      width: 23px;
+      font-size: 18px;
+    }
+  }
+
+  @media screen and (max-width: 450px) {
+    span {
+      width: 18px;
+      font-size: 14px;
+    }
+  }
+}

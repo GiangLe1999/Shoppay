@@ -1,0 +1,164 @@
+.header {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.title {
+  color: $blue-color;
+  font-size: 25px;
+  padding: 2rem 0;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.orders {
+  box-shadow: $shadow-1;
+  padding: 1rem 20px;
+
+  nav {
+    width: 100%;
+    margin-bottom: 2rem;
+
+    ul {
+      padding: 0 5px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(8, auto);
+      place-items: center;
+      gap: 2px;
+      height: 40px;
+      background-color: $blue-color;
+      border-radius: 3px;
+      box-shadow: $shadow-1;
+
+      li {
+        text-transform: uppercase;
+        font-size: 14px;
+        font-weight: 500;
+        color: #fff;
+        cursor: pointer;
+        transition: all 0.1s;
+        border-radius: 3px;
+        padding: 5px 20px;
+
+        &:hover {
+          background-color: #3399ff;
+        }
+      }
+    }
+  }
+
+  table {
+    width: 100%;
+    margin-top: 1rem;
+    font-size: 13px;
+    border-radius: 3px;
+
+    thead {
+      background: #222;
+      color: #fff;
+      font-weight: 600;
+
+      td {
+        padding: 10px;
+        border-radius: 3px;
+      }
+    }
+
+    tbody {
+      td {
+        padding: 10px 5px;
+      }
+    }
+
+    td {
+      text-align: center;
+      svg {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        stroke: $blue-color;
+
+        &:hover {
+          stroke: $hover-color;
+          transform: scale(1.2);
+          transition: all 0.3s;
+        }
+      }
+    }
+  }
+
+  &__images {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+    text-align: center;
+    background: #eee;
+    color: #222;
+    img {
+      width: 30px;
+      height: 30px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+  }
+
+  &__paid {
+    img {
+      width: 18px !important;
+    }
+
+    .ver,
+    .unver {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+  }
+}
+
+.active {
+  background-color: #fff;
+  color: $blue-color !important;
+  font-weight: 700 !important;
+
+  &:hover {
+    background-color: #fff !important;
+    color: $blue-color !important;
+  }
+}
+
+.shipping {
+  margin-top: -40px;
+}
+
+.payment {
+  margin-top: -40px;
+}
+
+.security {
+  box-shadow: $shadow-1;
+  padding: 1rem 3rem 3rem;
+}
+
+.btn {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  button {
+    font-size: 18px;
+    height: 50px;
+    width: 100%;
+    text-transform: unset;
+    font-family: "Poppins", sans-serif;
+
+    svg {
+      width: 25px;
+      height: 25px;
+    }
+  }
+}

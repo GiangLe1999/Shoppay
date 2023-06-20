@@ -1,0 +1,42 @@
+.button {
+  border: none;
+  outline: none;
+  border: none;
+  height: 52px;
+  border-radius: 3px;
+  background-color: $blue-color;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 3px;
+
+  &__title {
+    position: relative;
+    left: 16px;
+    flex: 1;
+    color: #fff !important;
+    line-height: 1;
+    font-size: 1.1rem;
+    margin: 0 auto;
+  }
+
+  .svg__wrap {
+    background-color: #fff;
+    width: 48px;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    border-radius: 3px;
+
+    svg {
+      width: 22px;
+      height: 22px;
+      fill: $blue-color;
+    }
+  }
+
+  &:hover {
+    background-color: $hover-color;
+    transition: $transition-1;
+  }
+}

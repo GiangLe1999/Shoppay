@@ -1,0 +1,76 @@
+@import "../components/Admin/base";
+
+.products {
+  &__stats {
+    display: flex;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    justify-content: center;
+
+    &_item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 60px;
+      border-right: 1px solid $admin-content-border;
+
+      &:first-of-type {
+        padding-left: 0;
+      }
+
+      &:last-of-type {
+        border: none;
+      }
+
+      span {
+        &:first-of-type {
+          font-size: 14px;
+          color: #666;
+        }
+
+        &:last-of-type {
+          font-size: 25px;
+          font-weight: 700;
+          color: $admin-text;
+        }
+      }
+    }
+  }
+
+  &__table {
+    margin-bottom: 3rem;
+  }
+}
+
+.list {
+  thead {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1.3fr 1fr 1fr;
+    width: 100%;
+    border-bottom: 1px solid $admin-border;
+    font-size: 13px;
+
+    th {
+      font-size: 14px;
+      padding: 5px 8px 15px 8px;
+    }
+  }
+
+  tr {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1.3fr 1fr 1fr;
+
+    td {
+      padding: 8px;
+      font-size: 13px;
+
+      &:first-of-type {
+        max-width: 95%;
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}

@@ -1,0 +1,76 @@
+.input {
+  position: relative;
+  width: 100%;
+  background-color: #f0f0f0;
+  height: 55px;
+  border-radius: 3px;
+  display: grid;
+  grid-template-columns: 10% 90%;
+  align-items: center;
+  padding: 0 1rem;
+  margin: 0.25rem 0 1rem;
+  border: 1px solid transparent;
+
+  svg {
+    width: 25px;
+    height: 25px;
+    stroke: #6666669a;
+    fill: #6666669a;
+  }
+
+  input {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    line-height: 1;
+    font-size: 1.1rem;
+    color: #333;
+    font-size: 15px;
+
+    &::placeholder {
+      color: #aaa;
+    }
+  }
+}
+
+.error {
+  border: 1px solid $redish-color;
+  background-color: transparent;
+  transition: $transition-1;
+
+  input {
+    &::placeholder {
+      color: $redish-color !important;
+    }
+  }
+
+  svg {
+    color: $redish-color !important;
+    fill: $redish-color !important;
+  }
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  line-height: 20px;
+  margin: 0;
+}
+
+.errorMessage {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 14px;
+  color: $error-color !important;
+  font-weight: 500;
+  transition: $transition-1;
+  line-height: 20px;
+  padding-bottom: 3px;
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}

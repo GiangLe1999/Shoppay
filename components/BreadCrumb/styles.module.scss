@@ -1,0 +1,27 @@
+.wrapper {
+  font-size: 15px;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+
+  a {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    &:hover {
+      color: $blue-color;
+      svg {
+        fill: $blue-color;
+      }
+    }
+  }
+
+  svg {
+    width: 14px;
+    height: 14px;
+    fill: #666;
+  }
+}

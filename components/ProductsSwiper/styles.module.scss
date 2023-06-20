@@ -1,0 +1,46 @@
+.wrapper {
+  border-radius: 3px;
+
+  .product {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+
+    &__img {
+      overflow: hidden;
+      height: 300px;
+
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        border-radius: 3px;
+        object-position: center;
+
+        &:hover {
+          transform: scale(1.1);
+          transition: transform 200ms linear;
+        }
+      }
+    }
+
+    &__infos {
+      padding: 2px;
+
+      h3 {
+        font-size: 13px;
+        font-weight: normal;
+        color: #222;
+        display: -webkit-box;
+        max-width: 200px;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      span {
+        color: $redish-color;
+      }
+    }
+  }
+}

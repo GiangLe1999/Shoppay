@@ -1,0 +1,29 @@
+.cart {
+  padding: 1rem 0;
+  background: rgb(245, 245, 250) !important;
+
+  h1 {
+    font-size: 20px;
+    font-weight: 500;
+    color: rgb(0, 0, 0);
+    line-height: 28px;
+    text-transform: uppercase;
+    max-width: 1200px;
+    margin: 1rem auto 0;
+    padding: 0 10px;
+  }
+
+  &__container {
+    padding: 1rem 10px;
+    display: grid;
+    grid-template-columns: 0.69fr 0.31fr;
+    color: #222;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 1rem;
+
+    @media screen and (max-width: 1100px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}

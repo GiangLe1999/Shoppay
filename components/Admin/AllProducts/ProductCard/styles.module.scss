@@ -1,0 +1,76 @@
+.product {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+
+  &__name {
+    font-size: 16px;
+    padding: 5px 0 0 5px;
+    color: #666;
+    font-weight: 600;
+  }
+
+  &__subTitle {
+    margin: 0.25rem 0 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #666;
+
+    &_category,
+    &_updated {
+      font-size: 12px;
+      font-weight: normal;
+      padding-left: 5px;
+
+      span {
+        &:last-of-type {
+          color: $blue-color;
+        }
+      }
+    }
+  }
+
+  &__item {
+    box-shadow: $shadow-1;
+  }
+
+  &__actions {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 5px;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    a {
+      &:nth-of-type(1) {
+        svg {
+          stroke: $admin-text;
+        }
+      }
+
+      &:nth-of-type(2) {
+        svg {
+          fill: green;
+        }
+      }
+
+      &:nth-of-type(3) {
+        svg {
+          fill: $error-color;
+        }
+      }
+    }
+  }
+}
+
+.admin_swiper {
+  img {
+    border-radius: none !important;
+  }
+}

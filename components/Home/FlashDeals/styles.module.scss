@@ -1,0 +1,142 @@
+.flashDeals {
+  margin: 1.5rem 0;
+  background-color: #fff;
+
+  &__header {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #fff;
+    font-weight: 700;
+    font-size: 20px;
+    text-transform: uppercase;
+    background-color: $redish-color;
+    border-radius: 3px;
+
+    @media screen and (max-width: 700px) {
+      flex-direction: column;
+      justify-content: center;
+      padding-bottom: 1.5rem;
+      h2 {
+        margin-left: 15px;
+        font-size: 35px;
+      }
+    }
+
+    @media screen and (max-width: 450px) {
+      h2 {
+        margin-left: 12px;
+        font-size: 25px;
+      }
+    }
+
+    h2 {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 1rem;
+    @media screen and (max-width: 600px) {
+      justify-content: center;
+    }
+  }
+
+  .card {
+    height: 420px;
+
+    &__img {
+      position: relative;
+      margin-top: 10px;
+      width: 100%;
+      height: 320px;
+      cursor: pointer;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+
+        &:hover {
+          transform: scale(1.1);
+          transition: transform 200ms linear;
+        }
+      }
+
+      .flash {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 99;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 50px;
+        height: 65px;
+        background-color: $redish-color;
+        border-top-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        padding: 1rem;
+        span {
+          color: #fff;
+          font-weight: 600;
+          font-size: 14px;
+          transform: translateY(24px);
+        }
+
+        svg {
+          position: absolute;
+          transform: scale(2);
+          fill: #fff;
+        }
+      }
+    }
+
+    &__price {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 2px;
+      span {
+        font-weight: 700;
+
+        &:first-of-type {
+          color: $redish-color;
+        }
+
+        &:last-of-type {
+          font-size: 14px;
+          font-weight: normal;
+          color: #666;
+        }
+      }
+    }
+
+    &__bar {
+      width: 100%;
+      height: 10px;
+      border-radius: 10px;
+      background-color: #ccc;
+      margin-top: 2px;
+
+      &_inner {
+        background-color: $yellow-color;
+        border-radius: 10px;
+        height: 100%;
+      }
+    }
+
+    &__percentage {
+      font-size: 14px;
+      margin-top: 2px;
+      color: #111;
+      width: 100%;
+      text-align: left;
+    }
+  }
+}

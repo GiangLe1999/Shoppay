@@ -1,0 +1,26 @@
+@import "../base";
+
+.subLoadingBtn {
+  button {
+    padding: 3px 8px;
+    width: 90px;
+  }
+}
+
+.list {
+  thead {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    width: 100%;
+    border-bottom: 1px solid $admin-border;
+  }
+
+  tr {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+
+    td {
+      padding: 10px 15px;
+    }
+  }
+}
