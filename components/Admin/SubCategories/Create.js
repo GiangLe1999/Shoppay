@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import AdminSelect from "@/components/Input/AdminSelect";
 
-const Create = ({ categories, setSubCategories }) => {
+const SubCreate = ({ categories, setSubCategories }) => {
   const [name, setName] = useState("");
   const [parent, setParent] = useState("");
 
@@ -92,4 +92,4 @@ const Create = ({ categories, setSubCategories }) => {
   );
 };
 
-export default Create;
+export default SubCreate;

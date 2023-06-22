@@ -1,7 +1,11 @@
 import ListItem from "./ListItem";
 import styled from "./styles.module.scss";
 
-export default function List({ categories, subCategories, setSubCategories }) {
+export default function SubList({
+  categories,
+  subCategories,
+  setSubCategories,
+}) {
   return (
     <>
       <div className={styled.header}>Sub-Categories list</div>
