@@ -2,11 +2,12 @@ import Layout from "../../../components/Admin/Layout";
 
 import React from "react";
 import { useState } from "react";
-import Create from "@/components/Admin/Subcategories/Create";
-import List from "@/components/Admin/Subcategories/List";
+
 import db from "@/utils/db";
 import { Category } from "@/models/Category";
 import { SubCategory } from "@/models/SubCategory";
+import Create from "@/components/Admin/Categories/Create";
+import List from "@/components/Admin/Categories/List";
 
 export default function SubCategoriesPage({ categories, subCategories }) {
   const [data, setData] = useState(subCategories);

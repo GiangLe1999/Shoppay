@@ -24,7 +24,7 @@ export default function App({
           content="Shoppay-online shopping service for all of your needs."
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/logo-500x500.png" />
       </Head>
       <SessionProvider session={session}>
         <Provider store={store}>
