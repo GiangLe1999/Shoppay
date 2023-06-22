@@ -5,8 +5,8 @@ import db from "@/utils/db";
 import Layout from "../../../components/Admin/Layout";
 import { Category } from "@/models/Category";
 import { SubCategory } from "@/models/SubCategory";
-import SubCreate from "@/components/Admin/SubCategories/Create";
-import SubList from "@/components/Admin/SubCategories/List";
+import SubCreate from "@/components/Admin/SubCategories/SubCreate";
+import SubList from "@/components/Admin/SubCategories/SubList";
 
 export default function SubCategoriesPage({ categories, subCategories }) {
   const [data, setData] = useState(subCategories);
