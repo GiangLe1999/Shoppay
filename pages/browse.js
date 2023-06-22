@@ -1,6 +1,6 @@
 import Link from "next/link";
-import React from "react";
-import { Button } from "@mui/material";
+import React, { useEffect, useRef, useState } from "react";
+import { Button, Pagination } from "@mui/material";
 
 import styled from "@/styles/Browse.module.scss";
 import db from "@/utils/db";
@@ -21,6 +21,9 @@ import MaterialsFilter from "@/components/Browse/MaterialsFilter";
 import GenderFilter from "@/components/Browse/GenderFilter";
 import HeadingFilters from "@/components/Browse/HeadingFilters";
 import { useRouter } from "next/router";
+import StarsFilter from "@/components/Browse/StarsFilter";
+import ShippingFeeFilter from "@/components/Browse/ShippingFeeFilter";
+import Footer from "@/components/Footer";
 
 export default function BrowsePage({
   categories,
@@ -32,15 +35,41 @@ export default function BrowsePage({
   styles,
   patterns,
   materials,
+  paginationCount,
 }) {
   const router = useRouter();
 
-  const filter = ({ search, category, brand, style }) => {
+  const filter = ({
+    search,
+    category,
+    brand,
+    style,
+    pattern,
+    material,
+    size,
+    color,
+    gender,
+    price,
+    shipping,
+    rating,
+    sort,
+    page,
+  }) => {
     const path = router.pathname;
     if (search) router.query.search = search;
     if (category) router.query.category = category;
     if (brand) router.query.brand = brand;
     if (style) router.query.style = style;
+    if (pattern) router.query.pattern = pattern;
+    if (material) router.query.material = material;
+    if (size) router.query.size = size;
+    if (color) router.query.color = color;
+    if (gender) router.query.gender = gender;
+    if (price) router.query.price = price;
+    if (shipping) router.query.shipping = shipping;
+    if (rating) router.query.rating = rating;
+    if (sort) router.query.sort = sort;
+    if (page) router.query.page = page;
 
     router.push({ pathname: path, query: router.query });
   };
@@ -54,7 +83,85 @@ export default function BrowsePage({
   };
 
   const categoryHandler = (category) => {
-    filter({});
+    filter({ category });
+  };
+
+  const brandHandler = (brand) => {
+    filter({ brand });
+  };
+
+  const patternHandler = (pattern) => {
+    filter({ pattern });
+  };
+
+  const styleHandler = (style) => {
+    filter({ style });
+  };
+
+  const materialHandler = (material) => {
+    filter({ material });
+  };
+
+  const sizeHandler = (size) => {
+    filter({ size });
+  };
+
+  const colorHandler = (color) => {
+    filter({ color });
+  };
+
+  const genderHandler = (gender) => {
+    filter({ gender });
+  };
+
+  const priceHandler = (price, type) => {
+    let priceQuery = router.query.price?.split("_") || "";
+    let min = priceQuery[0] || "";
+    let max = priceQuery[1] || "";
+
+    let newPrice = "";
+
+    if (type === "min") {
+      newPrice = `${price}_${max}`;
+    }
+
+    if (type === "max") {
+      newPrice = `${min}_${price}`;
+    }
+
+    //Nếu chỉ nhập mỗi min, query có dạng price=min_
+    //Nếu chỉ nhập mỗi max, query có dang price=_max
+
+    filter({ price: newPrice });
+  };
+
+  const shippingHandler = (shipping) => {
+    filter({ shipping });
+  };
+
+  const ratingHandler = (rating) => {
+    filter({ rating });
+  };
+
+  const sortHandler = (sort) => {
+    filter({ sort });
+  };
+
+  const pageHandler = (e, page) => {
+    filter({ page });
+  };
+
+  const multiPriceHandler = (min, max) => {
+    filter({ price: `${min}_${max}` });
+  };
+
+  const checkChecked = (queryName, value) => {
+    //Sử dụng search method với đối số là value
+    if (router.query[queryName]?.includes(value)) {
+      return true;
+    }
+
+    return false;
   };
 
   return (
@@ -81,39 +188,97 @@ export default function BrowsePage({
           <div
             className={`${styled.browse__store_filters} ${styled.scrollbar}`}
           >
-            <div className={styled.browse__clearBtn}>
-              <Button variant="contained">Clear All (3)</Button>
-            </div>
-
             <CategoryFilter
               categories={categories}
               subCategories={subCategories}
+              categoryHandler={categoryHandler}
+              checkChecked={checkChecked}
             />
 
-            <SizesFilter sizes={sizes} />
+            <SizesFilter
+              sizes={sizes}
+              sizeHandler={sizeHandler}
+              checkChecked={checkChecked}
+            />
 
-            <ColorsFilter colors={colors} />
+            <ColorsFilter
+              colors={colors}
+              colorHandler={colorHandler}
+              checkChecked={checkChecked}
+            />
 
-            <BrandsFilter brands={brands} />
+            <BrandsFilter
+              brands={brands}
+              brandHandler={brandHandler}
+              checkChecked={checkChecked}
+            />
 
-            <StylesFilter styles={styles} />
+            <StylesFilter
+              styles={styles}
+              styleHandler={styleHandler}
+              checkChecked={checkChecked}
+            />
 
-            <PatternsFilter patterns={patterns} />
+            <PatternsFilter
+              patterns={patterns}
+              patternHandler={patternHandler}
+              checkChecked={checkChecked}
+            />
 
-            <MaterialsFilter materials={materials} />
+            <MaterialsFilter
+              materials={materials}
+              materialHandler={materialHandler}
+              checkChecked={checkChecked}
+            />
 
-            <GenderFilter />
+            <GenderFilter
+              genderHandler={genderHandler}
+              checkChecked={checkChecked}
+            />
+
+            <StarsFilter
+              checkChecked={checkChecked}
+              ratingHandler={ratingHandler}
+            />
+
+            <ShippingFeeFilter
+              checkChecked={checkChecked}
+              shippingHandler={shippingHandler}
+            />
+
+            <div className={styled.browse__clearBtn}>
+              <Button
+                variant="contained"
+                onClick={() => router.push("/browse")}
+              >
+                Clear All ({Object.keys(router.query).length})
+              </Button>
+            </div>
           </div>
           <div className={styled.browse__store_products_wrap}>
-            <HeadingFilters />
+            <HeadingFilters
+              priceHandler={priceHandler}
+              multiPriceHandler={multiPriceHandler}
+              sortHandler={sortHandler}
+            />
             <div className={styled.browse__store_products}>
               {products.map((product) => (
                 <ProductCard product={product} key={product._id} />
               ))}
             </div>
+            <div className={styled.pagination}>
+              <Pagination
+                count={paginationCount}
+                defaultPage={Number(router.query.page) || 1}
+                onChange={pageHandler}
+                shape="rounded"
+                color="primary"
+              />
+            </div>
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
@@ -123,6 +288,57 @@ export async function getServerSideProps(ctx) {
 
   const searchQuery = ctx.query.search || "";
   const categoryQuery = ctx.query.category || "";
+  const priceQuery = ctx.query.price?.split("_");
+  const shippingQuery = ctx.query.shipping || 0;
+  const ratingQuery = ctx.query.rating || "";
+  const sortQuery = ctx.query.sort || "";
+  const pageQuery = ctx.query.page || 1;
+  const pageSize = 10;
+
+  //------------------
+  function createRegex(data, styleRegex) {
+    if (data.length > 1) {
+      for (let i = 1; i < data.length; i++) {
+        styleRegex += `|^${data[i]}`;
+      }
+    }
+    return styleRegex;
+  }
+  //------------------
+
+  const brandQuery = ctx.query.brand?.split("_") || "";
+  const brandRegex = `^${brandQuery[0]}`;
+  const brandMultiRegex = createRegex(brandQuery, brandRegex);
+
+  const styleQuery = ctx.query.style?.split("_") || "";
+  const styleRegex = `^${styleQuery[0]}`;
+  const styledMultiRegex = createRegex(styleQuery, styleRegex);
+
+  const patternQuery = ctx.query.pattern?.split("_") || "";
+  const patternRegex = `^${patternQuery[0]}`;
+  const patternMultiRegex = createRegex(patternQuery, patternRegex);
+
+  const sizeQuery = ctx.query.size?.split("_") || "";
+  const sizeRegex = `^${sizeQuery[0]}`;
+  const sizeMultiRegex = createRegex(sizeQuery, sizeRegex);
+
+  const materialQuery = ctx.query.material?.split("_") || "";
+  const materialRegex = `^${materialQuery[0]}`;
+  const materialMultiRegex = createRegex(materialQuery, materialRegex);
+
+  const colorQuery = ctx.query.color?.split("_") || "";
+  const colorRegex = `^${colorQuery[0]}`;
+  const colorMultiRegex = createRegex(colorQuery, colorRegex);
+
+  const genderQuery = ctx.query.gender?.split("_") || "";
+  const genderRegex = `^${genderQuery[0]}`;
+  const genderMultiRegex = createRegex(genderQuery, genderRegex);
+
+  const starQuery = ctx.query.star?.split("_") || "";
+  const starRegex = `^${starQuery[0]}`;
+  const starMultiRegex = createRegex(starQuery, starRegex);
+
+  //------------------
 
   const searchOptions =
     searchQuery && searchQuery.trim().length > 0
@@ -134,13 +350,122 @@ export async function getServerSideProps(ctx) {
       ? { category: categoryQuery }
       : {};
 
-  await db.disConnectDb();
+  const brandOptions =
+    brandQuery && brandQuery.length > 0
+      ? { brand: { $regex: brandMultiRegex, $options: "i" } }
+      : {};
 
-  let productsDb = await Product.find({ ...searchOptions, ...categoryOptions })
-    .sort({ createdAt: -1 })
+  const styleOptions =
+    styleQuery && styleQuery.length > 0
+      ? { "details.value": { $regex: styledMultiRegex, $options: "i" } }
+      : {};
+
+  const patternOptions =
+    patternQuery && patternQuery.length > 0
+      ? { "details.value": { $regex: patternMultiRegex, $options: "i" } }
+      : {};
+
+  const materialOptions =
+    materialQuery && materialQuery.length > 0
+      ? { "details.value": { $regex: materialMultiRegex, $options: "i" } }
+      : {};
+
+  const sizeOptions =
+    sizeQuery && sizeQuery.length > 0
+      ? { "subProducts.sizes.size": { $regex: sizeMultiRegex, $options: "i" } }
+      : {};
+
+  const colorOptions =
+    colorQuery && colorQuery.length > 0
+      ? {
+          "subProducts.color.color": { $regex: colorMultiRegex, $options: "i" },
+        }
+      : {};
+
+  let genderOptions;
+  if (genderQuery.includes("Unisex")) {
+    genderOptions = {};
+  } else {
+    genderQuery && genderQuery.length > 0
+      ? { "details.value": { $regex: genderMultiRegex, $options: "i" } }
+      : {};
+  }
+
+  const priceOptions =
+    priceQuery && priceQuery.length > 0
+      ? {
+          "subProducts.sizes.price": {
+            //GTE là Minimum//LTE là Maximum
+            $gte: Number(priceQuery[0]) || 0,
+            $lte: Number(priceQuery[1]) || Infinity,
+          },
+        }
+      : {};
+
+  const starOptions =
+    starQuery && starQuery.length > 0
+      ? { ratings: { $regex: starMultiRegex, $options: "i" } }
+      : {};
+
+  let shippingOptions = {};
+  if (shippingQuery) {
+    if (shippingQuery == "Free") {
+      shippingOptions = { shipping: 0 };
+    } else if (shippingQuery == "Charged") {
+      shippingOptions = { shipping: { $gt: 0 } };
+    }
+  }
+
+  let ratingOptions = {};
+  if (ratingQuery) {
+    if (ratingQuery == "3") {
+      ratingOptions = { rating: { $gte: 3 } };
+    } else if (ratingQuery == "4") {
+      ratingOptions = { rating: { $gte: 4 } };
+    } else if (ratingQuery == "5") {
+      ratingOptions = { rating: 5 };
+    }
+  }
+
+  const sortOptions =
+    sortQuery == "recommend"
+      ? {}
+      : sortQuery == "popular"
+      ? { rating: -1, "subProducts.sold": -1 }
+      : sortQuery == "newest"
+      ? { createdAt: -1 }
+      : sortQuery == "topSelling"
+      ? { "subProducts.sold": -1 }
+      : sortQuery == "topReviewed"
+      ? { rating: -1 }
+      : sortQuery == "priceHighToLow"
+      ? { "subProducts.sizes.price": -1 }
+      : sortQuery == "priceLowToHigh"
+      ? { "subProducts.sizes.price": 1 }
+      : {};
+
+  let productsDb = await Product.find({
+    ...searchOptions,
+    ...categoryOptions,
+    ...brandOptions,
+    ...styleOptions,
+    ...patternOptions,
+    ...materialOptions,
+    ...sizeOptions,
+    ...colorOptions,
+    ...genderOptions,
+    ...priceOptions,
+    ...shippingOptions,
+    ...ratingOptions,
+  })
+    .skip(pageSize * (pageQuery - 1))
+    .limit(pageSize)
+    .sort(sortOptions)
     .lean();
+
   //Dùng hàm helper randomize để random mảng productsDb
-  let products = randomize(productsDb);
+  let products =
+    sortQuery && sortQuery !== "" ? productsDb : randomize(productsDb);
 
   let categories = await Category.find().lean();
   let subCategories = await SubCategory.find()
@@ -148,10 +473,14 @@ export async function getServerSideProps(ctx) {
     .lean();
 
   //Dùng distinct để nhận về mảng chỉ chứa các value tương ứng với key
-  let colors = await Product.find().distinct("subProducts.color.color");
-  let brandsDb = await Product.find().distinct("brand");
-  let sizes = await Product.find().distinct("subProducts.sizes.size");
-  let details = await Product.find().distinct("details");
+  let colors = await Product.find({ ...categoryOptions }).distinct(
+    "subProducts.color.color"
+  );
+  let brandsDb = await Product.find({ ...categoryOptions }).distinct("brand");
+  let sizes = await Product.find({ ...categoryOptions }).distinct(
+    "subProducts.sizes.size"
+  );
+  let details = await Product.find({ ...categoryOptions }).distinct("details");
 
   //Sử dụng hàm helper filterArray lọc ra toàn bộ value của các Object Details
   let stylesDb = filterArray(details, "Style");
@@ -165,6 +494,21 @@ export async function getServerSideProps(ctx) {
   let brands = removeDuplicates(brandsDb);
   let materials = removeDuplicates(materialsDb);
 
+  let totalProducts = await Product.countDocuments({
+    ...searchOptions,
+    ...categoryOptions,
+    ...brandOptions,
+    ...styleOptions,
+    ...patternOptions,
+    ...materialOptions,
+    ...sizeOptions,
+    ...colorOptions,
+    ...genderOptions,
+    ...priceOptions,
+    ...shippingOptions,
+    ...ratingOptions,
+  });
+
   return {
     props: {
       categories: JSON.parse(JSON.stringify(categories)),
@@ -176,6 +520,7 @@ export async function getServerSideProps(ctx) {
       styles,
       patterns,
       materials,
+      paginationCount: Math.ceil(totalProducts.length / pageSize),
     },
   };
 }

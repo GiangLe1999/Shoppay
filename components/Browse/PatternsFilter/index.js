@@ -1,9 +1,19 @@
 import { useState } from "react";
 import styled from "../styles.module.scss";
 import { FaMinus, FaPlus } from "react-icons/fa";
+import { useRouter } from "next/router";
+import { replaceQuery } from "@/utils/filter";
 
-export default function PatternsFilter({ patterns }) {
+export default function PatternsFilter({
+  patterns,
+  patternHandler,
+  checkChecked,
+}) {
   const [show, setShow] = useState(true);
+  const router = useRouter();
+
+  const existedPattern = router.query.pattern || "";
+
   return (
     <div className={styled.filter}>
       <h3>
@@ -11,17 +21,28 @@ export default function PatternsFilter({ patterns }) {
       </h3>
 
       {show && (
-        <div className={styled.filter__sizes}>
-          {patterns.map((pattern, i) => (
-            <div className={styled.filter__sizes_size} key={i}>
-              <input type="checkbox" name="style" id={pattern} />
-              <label htmlFor={pattern}>
-                {pattern.length > 12
-                  ? `${pattern.substring(0, 12)}...`
-                  : pattern}
+        <div className={styled.filter__patterns}>
+          {patterns.map((pattern, i) => {
+            const check = checkChecked("pattern", pattern);
+            return (
+              <label
+                className={styled.filter__patterns_pattern}
+                key={i}
+                htmlFor={pattern}
+                onClick={() =>
+                  replaceQuery(existedPattern, check, pattern, patternHandler)
+                }
+              >
+                <input
+                  type="checkbox"
+                  name="pattern"
+                  id={pattern}
+                  check={check}
+                />
+                <span>{pattern}</span>
               </label>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </div>

@@ -2,9 +2,19 @@
 import { useState } from "react";
 import styled from "../styles.module.scss";
 import { FaMinus, FaPlus } from "react-icons/fa";
+import { useRouter } from "next/router";
+import { replaceQuery } from "@/utils/filter";
 
-export default function BrandsFilter({ brands }) {
+export default function BrandsFilter({
+  brands,
+  brandHandler,
+  removeByIndex,
+  checkChecked,
+}) {
   const [show, setShow] = useState(true);
+  const router = useRouter();
+  const existedBrand = router.query.brand || "";
+
   return (
     <div className={styled.filter}>
       <h3>
@@ -12,12 +22,23 @@ export default function BrandsFilter({ brands }) {
       </h3>
 
       {show && (
-        <div className={styled.filter__sizes}>
-          {brands.map((brand, i) => (
-            <button className={styled.filter__brand} key={i}>
-              <img src={`/images/brands/${brand}.png`} alt="" />
-            </button>
-          ))}
+        <div className={styled.filter__brands}>
+          {brands.map((brand, i) => {
+            const check = checkChecked("brand", brand);
+            return (
+              <button
+                className={`${styled.filter__brands_brand} ${
+                  check ? styled.activeFilter : ""
+                }`}
+                key={i}
+                onClick={() => {
+                  replaceQuery(existedBrand, check, brand, brandHandler);
+                }}
+              >
+                <img src={`/images/brands/${brand}.png`} alt="" />
+              </button>
+            );
+          })}
         </div>
       )}
     </div>

@@ -3,11 +3,17 @@ import { useState } from "react";
 
 import styled from "../styles.module.scss";
 
-export default function Size({ size }) {
+export default function Size({ size, existedSize, sizeHandler, check }) {
   return (
-    <div className={styled.filter__sizes_size}>
-      <input type="checkbox" name="size" id={size} />
-      <label htmlFor={size}>{size}</label>
-    </div>
+    <label
+      htmlFor={size}
+      className={styled.filter__sizes_size}
+      onClick={() => {
+        sizeHandler(existedSize ? `${existedSize}_${size}` : size);
+      }}
+    >
+      <input type="checkbox" name="size" id={size} checked={check} />
+      <span>Size {size}</span>
+    </label>
   );
 }

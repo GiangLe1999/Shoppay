@@ -17,15 +17,19 @@ const Main = ({ searchHandler2 }) => {
 
   const searchHandler = (e) => {
     e.preventDefault();
-    //Sau khi submit search form, chuyển hướng người dùng về Browse page
-    if (query && query.trim().length > 0) {
-      if (router.pathname !== "/browse") {
+
+    if (router.pathname == "/browse") {
+      //Value của input tại Browse page cho phép bằng rỗng
+      searchHandler2(query);
+    } else {
+      //Đối với các trang ngoài /Browse
+      //Sau khi submit search form, chuyển hướng người dùng về Browse page
+      //Value của input phải khác rỗng, nếu bằng rỗng thi return
+      if (query && query.trim().length > 0) {
         router.push(`/browse?search=${query}`);
       } else {
-        searchHandler2(query);
+        return toast.error("Invalid search query!");
       }
-    } else {
-      toast.error("Invalid search query!");
     }
   };
 

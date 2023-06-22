@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import styled from "./styles.module.scss";
 import Policy from "./Policy";

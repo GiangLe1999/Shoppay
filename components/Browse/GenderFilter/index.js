@@ -1,25 +1,48 @@
 import { useState } from "react";
 import styled from "../styles.module.scss";
 import { FaMinus, FaPlus } from "react-icons/fa";
+import { useRouter } from "next/router";
+import { replaceQuery } from "@/utils/filter";
 
-export default function GenderFilter() {
+export default function GenderFilter({ genderHandler, checkChecked }) {
   const genders = ["Men", "Women", "Unisex"];
+
+  const router = useRouter();
+  const existedGender = router.query.gender || "";
+
   const [show, setShow] = useState(true);
   return (
     <div className={styled.filter}>
       <h3>
-        Patterns <span>{show ? <FaMinus /> : <FaPlus />}</span>
+        Gender <span>{show ? <FaMinus /> : <FaPlus />}</span>
       </h3>
 
       {show && (
-        <div className={styled.filter__sizes}>
-          {genders.map((gender, i) => (
-            <div className={styled.filter__sizes_size} key={i}>
-              <input type="checkbox" name="style" id={gender} />
-              <label htmlFor={gender}>{gender}</label>
-            </div>
-          ))}
-        </div>
+        <>
+          {genders.map((gender, i) => {
+            const check = checkChecked("gender", gender);
+            return (
+              <label
+                className={styled.filter__genders}
+                htmlFor={gender}
+                key={i}
+                onClick={() => {
+                  replaceQuery(existedGender, check, gender, genderHandler);
+                }}
+              >
+                <div className={styled.filter__genders_gender}>
+                  <input
+                    type="checkbox"
+                    name="style"
+                    id={gender}
+                    checked={check}
+                  />
+                  <span>{gender}</span>
+                </div>
+              </label>
+            );
+          })}
+        </>
       )}
     </div>
   );
