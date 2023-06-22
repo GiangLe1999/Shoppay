@@ -217,7 +217,7 @@ const SigninPage = ({ providers, callbackUrl, csrfToken }) => {
                         onClick={() => signIn(provider.id)}
                       >
                         <img
-                          src={`./icons/${provider.name}.png`}
+                          src={`/icons/${provider.name}.png`}
                           alt={provider.name}
                         />
                         <p>Sign in with {provider.name}</p>
