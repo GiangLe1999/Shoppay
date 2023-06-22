@@ -6,8 +6,8 @@ import { useState } from "react";
 import db from "@/utils/db";
 import { Category } from "@/models/Category";
 import { SubCategory } from "@/models/SubCategory";
-import Create from "@/components/Admin/Categories/Create";
-import List from "@/components/Admin/Categories/List";
+import Create from "@/components/Admin/SubCategories/Create";
+import List from "@/components/Admin/SubCategories/List";
 
 export default function SubCategoriesPage({ categories, subCategories }) {
   const [data, setData] = useState(subCategories);

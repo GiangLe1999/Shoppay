@@ -113,7 +113,7 @@ const Dashboard = ({ users, orders, products }) => {
               <tbody>
                 {orders.map((order, i) => (
                   <tr key={i}>
-                    <td>{order.user.name}</td>
+                    <td>{order.user?.name}</td>
                     <td>${order.total}</td>
                     <td>
                       {order.isPaid ? (
