@@ -37,10 +37,22 @@ export async function getServerSideProps() {
   await db.connectDb();
 
   //lean method trả về các document dưới dạng plain Object chứ không phải Mongoose document thông thường
-  let products = await Product.find().sort({ createdAt: -1 }).lean();
+  let products = await Product.find()
+    .sort({ createdAt: -1 })
+    .select("category name rating slug subProducts _id")
+    .lean();
+
+  //Giảm số lượng ảnh để giảm dung lượng load của getServerSideProps
+  const reduceImagesProducts = products.map((p) => {
+    const newSubProducts = p.subProducts.map((s) => {
+      return { ...s, images: s.images.slice(0, 2) };
+    });
+
+    return { ...p, subProducts: newSubProducts };
+  });
 
   //Lọc mảng gồm các subProduct có discout cho Component FlashDeals
-  const leanProducts = products.map((p) => ({
+  const leanProducts = reduceImagesProducts.map((p) => ({
     parentId: p._id,
     name: p.name,
     slug: p.slug,
@@ -68,11 +80,11 @@ export async function getServerSideProps() {
   //   .sort({ rating: -1, "subProducts.sold": -1 })
   //   .lean();
 
-  const featuredProducts = products
+  const featuredProducts = reduceImagesProducts
     .sort((a, b) => b.rating - a.rating)
     .slice(0, 10);
 
-  const freeShippingProducts = products
+  const freeShippingProducts = reduceImagesProducts
     .filter((p) => p.shipping === 0)
     .slice(0, 10);
 
@@ -88,7 +100,7 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      products: JSON.parse(JSON.stringify(products)),
+      products: JSON.parse(JSON.stringify(reduceImagesProducts)),
       flashDeals: JSON.parse(JSON.stringify(flashDealsArray)),
       featuredProducts: JSON.parse(JSON.stringify(featuredProducts)),
       freeShippingProducts: JSON.parse(JSON.stringify(freeShippingProducts)),

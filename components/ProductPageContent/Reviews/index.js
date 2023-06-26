@@ -29,7 +29,6 @@ const Reviews = ({ product }) => {
           </div>
           <div className={styled.reviews__stats_reviews}>
             {product.ratings.map((rating, index) => {
-              console.log(rating);
               return (
                 <div
                   className={styled.reviews__stats_reviews_review}
