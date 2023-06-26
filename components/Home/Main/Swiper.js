@@ -28,7 +28,7 @@ export default function App() {
         }}
         className="mainSwiper"
       >
-        {[...Array(10).keys()].map((i) => (
+        {[...Array(4).keys()].map((i) => (
           <SwiperSlide key={i}>
             <img
               src={`/images/swiper/${i + 1}.jpg`}

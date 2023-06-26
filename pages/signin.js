@@ -217,7 +217,7 @@ const SigninPage = ({ providers, callbackUrl, csrfToken }) => {
                         onClick={() => signIn(provider.id)}
                       >
                         <img
-                          src={`/icons/${provider.name}.png`}
+                          src={`/icons/${provider.id}.png`}
                           alt={provider.name}
                         />
                         <p>Sign in with {provider.name}</p>
@@ -339,6 +339,7 @@ export async function getServerSideProps(context) {
   const csrfToken = await getCsrfToken(context);
 
   const providers = Object.values(await getProviders());
+
   return {
     // Pass thêm csrfToken và callbackUrl vào props
     props: {

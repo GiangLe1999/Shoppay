@@ -17,7 +17,7 @@ const ProductsSwiper = ({ header, products }) => {
         navigation={true}
         modules={[Navigation]}
         rewind={true}
-        className="products__swiper"
+        className="products_swiper"
         breakpoints={{
           300: { slidesPerView: 1 },
           360: { slidesPerView: 2 },

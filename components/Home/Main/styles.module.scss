@@ -1,378 +1,252 @@
 .main {
   display: grid;
   gap: 10px;
-  grid-template-columns: 1fr 3fr 1fr;
-  grid-template-areas: "menu swiper user" "menu offers user" "menu header header";
+  grid-template-columns: 1fr 4fr;
+  margin-top: 1rem;
 
-  @media screen and (max-width: 1023px) {
-    grid-template-columns: 1fr;
-    grid-template-areas: "menu" "swiper" "offers";
-    overflow: hidden;
+  &__right {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow: hidden;
+    background-color: #fff;
+    padding: 0 10px;
+  }
+
+  &__left {
+    max-height: 100vh;
+    position: sticky;
+    top: 20px;
   }
 
   .menu {
-    grid-area: menu;
-    height: 600px;
+    width: 100%;
     background-color: #fff;
     box-shadow: $shadow-1;
     border-radius: 3px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 3px;
+    max-height: 100vh;
+    overflow-y: scroll;
 
-    @media screen and (max-width: 1023px) {
-      height: 80px;
-      max-width: 100vw;
-      overflow-y: hidden;
-      box-shadow: none;
+    &::-webkit-scrollbar {
+      display: none;
     }
 
     &__header {
       width: 100%;
-      height: 35px;
       display: flex;
       align-items: center;
-      gap: 5px;
-      padding: 0 10px;
-      background-color: $blue-color;
+      gap: 8px;
+      padding: 10px 24px;
+      background-color: $admin-text;
+      border-top-left-radius: 3px;
+      border-top-right-radius: 3px;
       color: #fff;
-      border-top-left-radius: 5px;
-      border-top-right-radius: 5px;
       box-shadow: $shadow-2;
       font-weight: 600;
-      letter-spacing: 1px;
+      font-size: 15px;
 
       svg {
-        height: 20px;
-        width: 20px;
-      }
-
-      @media screen and (max-width: 1023px) {
-        display: none;
+        height: 25px;
+        width: 25px;
+        margin-left: 5px;
       }
     }
 
     &__list {
-      padding: 5px 0;
-      display: flex;
-      flex-direction: column;
-
-      @media screen and (max-width: 1023px) {
-        flex-direction: row;
-        padding: 15px 0;
-        gap: 10px;
-      }
+      padding-top: 8px;
     }
 
-    ul {
-      li {
-        height: 32.5px;
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-        margin: 0 5px;
-        padding: 0 10px;
-        border-bottom: 1px solid #cccccc48;
-
-        &:last-of-type {
-          border-bottom: none;
-        }
-
-        &:hover {
-          background-color: $gray-color;
-          border-color: transparent;
-        }
-
-        a {
-          height: 100%;
-          display: flex;
-          align-items: center;
-          font-size: 12px;
-          gap: 5px;
-
-          span {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            color: #4d4d4d;
-
-            @media screen and (max-width: 1023px) {
-              font-size: 16px;
-            }
-          }
-
-          svg {
-            width: 16px;
-            height: 16px;
-            fill: #8c8484;
-            stroke: #8c8484;
-
-            @media screen and (max-width: 1023px) {
-              width: 20px;
-              height: 20px;
-            }
-          }
-        }
-
-        @media screen and (max-width: 1023px) {
-          min-width: 220px;
-          border: 1px solid #64646448;
-          border-radius: 3px;
-          height: 52px;
-          margin: 0;
-          justify-content: center;
-
-          &:last-of-type {
-            border: 1px solid #64646448;
-          }
-        }
-      }
-    }
-  }
-
-  .header {
-    grid-area: header;
-    height: 60px;
-    padding: 0.5rem 0.75rem;
-    box-shadow: $shadow-1;
-    border-radius: 3px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    justify-content: center;
-
-    h2 {
-      font-weight: 600;
-      font-size: 15px;
-      color: #4d4d4d;
-    }
-
-    ul {
+    &__item {
       display: flex;
       align-items: center;
-      gap: 1rem;
-      height: 100%;
+      padding: 7px 16px;
+      margin: 0 8px;
+      -webkit-box-align: center;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease 0s;
 
-      li {
-        display: flex;
-        align-items: center;
-        font-size: 16px;
-        padding: 5px 10px;
-        background-color: transparent;
-        border: 1px solid #2f82ff;
-        color: #2f82ff;
-        border-radius: 3px;
-        font-size: 15px;
+      &_img {
+        width: 32px;
+        height: 32px;
 
-        &:hover {
-          background-color: $blue-color;
-          color: #fff;
-          transition: $transition-1;
+        img {
+          width: 100%;
+          object-fit: cover;
         }
       }
-    }
 
-    @media screen and (max-width: 1023px) {
-      display: none;
+      &:hover {
+        background-color: $gray-color;
+      }
+
+      a {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+        gap: 10px;
+
+        span {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          color: $home-text;
+        }
+      }
     }
   }
 
   .swiper {
-    grid-area: swiper;
-    height: 300px;
+    width: 100%;
+    max-height: 300px;
     background-color: #fff;
     box-shadow: $shadow-1;
     border-radius: 3px;
   }
 
-  .offers {
-    grid-area: offers;
-    background-color: #fff;
-    box-shadow: $shadow-1;
+  .featuredBrands,
+  .featuredCategories,
+  .featuredProducts,
+  .goodPrice,
+  .freeShippingProducts,
+  flashDeals {
+    padding: 14px 24px 24px;
+    border-radius: 3px;
+    box-shadow: $shadow-3;
+    border: 1px solid #edededed;
     overflow: hidden;
-    border-radius: 3px;
 
-    span {
-      position: absolute;
-      color: #fff;
-      &:first-of-type {
-        bottom: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 90px;
-        border-radius: 50px;
-        padding: 2px 0;
-        font-weight: 600;
-        font-size: 16px;
-        background-color: $redish-color;
-      }
-      &:last-of-type {
-        font-style: italic;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        top: 0;
-        right: 0;
-        background-color: $redish-color;
-        height: 30px;
-        width: 60px;
-        border-top-right-radius: 5px;
-        border-bottom-left-radius: 5px;
-        font-size: 14px;
-        box-shadow: $shadow-1;
-      }
-    }
-
-    @media screen and (max-width: 677px) {
-      span {
-        &:first-of-type {
-          padding: 0;
-          font-size: 13px;
-          width: 60%;
-        }
-
-        &:last-of-type {
-          height: 20px;
-          width: 60px;
-          font-size: 12px;
-        }
-      }
-    }
-  }
-
-  .user {
-    position: relative;
-    grid-area: user;
-    height: 528px;
-    background-color: #fff;
-    box-shadow: $shadow-1;
-    border-radius: 3px;
-
-    @media screen and (max-width: 1023px) {
-      display: none;
-    }
-
-    &__container {
-      padding: 1rem;
-    }
-
-    &__infos {
+    &__title {
+      margin-bottom: 12px;
+      font-weight: 700;
+      font-size: 16px;
       display: flex;
-      flex-direction: column;
+      -webkit-box-align: center;
       align-items: center;
+      gap: 5px;
+
+      h3 {
+        font-weight: 700;
+        font-size: 15px;
+        text-transform: uppercase;
+        color: $admin-text;
+      }
 
       img {
         width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        box-shadow: $shadow-1;
+        position: relative;
+      }
+    }
+
+    &__container {
+      margin: 1px;
+      box-shadow: $shadow-1;
+    }
+
+    &__item {
+      img {
+        width: 100%;
+        object-fit: cover;
+        box-shadow: none !important;
       }
 
       h4 {
+        font-size: 13px;
         margin-top: 10px;
-        margin-bottom: 5px;
-        text-transform: capitalize;
-        font-size: 18px;
-        text-decoration: underline;
+        color: $home-text;
+        font-weight: 600;
+        padding: 7.5px 0;
+      }
+    }
+  }
+
+  .goodPrice {
+    &__title {
+      h3 {
+        color: #ff4100;
       }
 
-      span {
-        font-size: 14px;
-        text-transform: capitalize;
-        display: flex;
-        align-items: center;
-        gap: 2px;
-      }
-
-      p {
-        margin-top: 5px;
-        font-size: 14px;
-      }
-
-      &_btns {
-        margin-top: 1rem;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        button {
-          width: 100px;
-          height: 35px;
-          border-radius: 3px;
-          cursor: pointer;
-          font-weight: 600;
-
-          &:first-of-type {
-            background: linear-gradient($blue-color, #002583ad);
-            color: #fff;
-
-            &:hover {
-              background: linear-gradient($blue-color, #003bcfad);
-              transition: $transition-1;
-            }
-          }
-
-          &:last-of-type {
-            background-color: transparent;
-            border: 1px solid $blue-color;
-            color: $blue-color;
-          }
-        }
+      img {
+        width: 70px;
       }
     }
 
-    &__links {
-      margin-top: 15px;
+    &__item {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 5px;
+    }
 
-      li {
-        height: 45px;
-        border-bottom: 1.5px solid #e9e9e9;
-        transition: $transition-1;
-        padding: 10px;
+    &__item_right {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+  }
 
-        a {
-          height: 100%;
-          display: flex;
-          align-items: center;
-          gap: 7px;
-          color: $hover-color;
-          font-size: 15px;
-        }
+  .featuredCategories {
+    &__title {
+      h3 {
+        color: rgb(138, 29, 216);
+      }
 
-        &:nth-child(3) {
-          svg {
-            color: $blue-color;
-          }
+      img {
+        width: 80px;
+      }
+    }
 
-          &:hover {
-            svg {
-              color: #fff;
-            }
-          }
-        }
+    &__item {
+      h4 {
+        max-width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-top: 0;
+        padding: 0 10px 20px;
+      }
+    }
+  }
 
-        svg {
-          width: 25px;
-          height: 25px;
-          stroke: $blue-color;
-        }
+  .featuredProducts,
+  .freeShippingProducts {
+    background: none;
+    border: 1px solid #edededed;
+
+    &__title {
+      justify-content: space-between;
+
+      a {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        color: $admin-text;
+        font-size: 13px;
 
         &:hover {
-          background-color: $blue-color;
-          svg {
-            &:last-of-type {
-              stroke: #fff;
-            }
-          }
-          a {
-            color: #fff;
-          }
+          color: $blue-color;
+          text-decoration: underline;
         }
       }
-    }
 
-    &__wish {
-      font-style: italic;
-      margin-top: 15px;
-      font-size: 14px;
-      text-align: center;
+      img {
+        width: 115px;
+      }
+    }
+  }
+
+  .freeShippingProducts {
+    &__title {
+      img {
+        width: 68px;
+      }
     }
   }
 }

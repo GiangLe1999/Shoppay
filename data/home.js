@@ -1,50 +1,34 @@
-export const offersArray = [
-  {
-    image:
-      "https://ae01.alicdn.com/kf/H7026c7b0e94641b197a629356be07928y.jpg_220x220.webp_480x480Q90.webp",
-    price: "144.37",
-    discount: "17",
-  },
-
-  {
-    image:
-      "https://ae01.alicdn.com/kf/S02af1ff99faa46858dd1156cebd9986cj.jpg_220x220.webp_480x480Q90.webp",
-    price: "12.76",
-    discount: "19",
-  },
-  {
-    image:
-      "https://ae01.alicdn.com/kf/S2c3ed57a2ca84a0ea3666ae9ddb15d97s.jpg_220x220.webp_480x480Q90.webp",
-    price: "4.09",
-    discount: "32",
-  },
-  {
-    image:
-      "https://ae01.alicdn.com/kf/Se5174cc7f58d445d9c33f628d61cd23cm.jpg_220x220.webp_480x480Q90.webp",
-    price: "9.61",
-    discount: "90",
-  },
-  {
-    image:
-      "https://ae01.alicdn.com/kf/S32ed35b0d0974171996af11e6c44d065T.jpg_220x220.webp_480x480Q90.webp",
-    price: "6.25",
-    discount: "45",
-  },
-  {
-    image:
-      "https://ae01.alicdn.com/kf/Sba6e2cc9d2ce4bf986c34d353dfdd5ecF.jpg_220x220.webp_480x480Q90.webp",
-    price: "13.74",
-    discount: "10",
-  },
-  {
-    image:
-      "https://ae01.alicdn.com/kf/Sb462e23c63664774ab37abfc0f3a29daT.jpg_220x220.webp_480x480Q90.webp",
-    price: "198.2",
-    discount: "5",
-  },
+export const featuredBrands = [
+  { cateName: "Beauty & Hair", image: "anessa" },
+  { cateName: "Sneaker", image: "anta" },
+  { cateName: "Appliance", image: "ariston" },
+  { cateName: "For kids", image: "bobby" },
+  { cateName: "For kids", image: "dutch-lady" },
+  { cateName: "For kids", image: "frisco" },
+  { cateName: "For kids", image: "huggies" },
+  { cateName: "Appliance", image: "lock&lock" },
+  { cateName: "Grocery", image: "pepsico" },
+  { cateName: "For pets", image: "petkit" },
+  { cateName: "Appliance", image: "zinus" },
+  { cateName: "Electronics", image: "samsung" },
 ];
 
 export const menuArray = [
+  {
+    name: "Toys & Kids",
+    link: "",
+    subMenu: [
+      {
+        name: "",
+        link: "",
+      },
+    ],
+    brands: [],
+    images: "children.webp",
+    featured: true,
+    featuredImg: "toy.png",
+  },
+
   {
     name: "Women's Fashion",
     link: "",
@@ -55,8 +39,11 @@ export const menuArray = [
       },
     ],
     brands: [],
-    images: [],
+    images: "women.webp",
+    featured: true,
+    featuredImg: "women-fashion.png",
   },
+
   {
     name: "Men's Fashion",
     link: "",
@@ -67,59 +54,13 @@ export const menuArray = [
       },
     ],
     brands: [],
-    images: [],
-  },
-  {
-    name: "Electronics",
-    link: "",
-    subMenu: [
-      {
-        name: "",
-        link: "",
-      },
-    ],
-    brands: [],
-    images: [],
-  },
-  {
-    name: "Jewlery & Watches",
-    link: "",
-    subMenu: [
-      {
-        name: "",
-        link: "",
-      },
-    ],
-    brands: [],
-    images: [],
-  },
-  {
-    name: "Home, Pet & Appliances",
-    link: "",
-    subMenu: [
-      {
-        name: "",
-        link: "",
-      },
-    ],
-    brands: [],
-    images: [],
-  },
-  {
-    name: "Beauty, Health & Hair",
-    link: "",
-    subMenu: [
-      {
-        name: "",
-        link: "",
-      },
-    ],
-    brands: [],
-    images: [],
+    images: "men.webp",
+    featured: true,
+    featuredImg: "men-fashion.png",
   },
 
   {
-    name: "Shoes, Sneakers & Heels",
+    name: "Home & Appliances",
     link: "",
     subMenu: [
       {
@@ -128,11 +69,25 @@ export const menuArray = [
       },
     ],
     brands: [],
-    images: [],
+    images: "appliance.webp",
+    featured: true,
+    featuredImg: "appliance.png",
+  },
+  {
+    name: "Beauty & Hair",
+    link: "",
+    subMenu: [
+      {
+        name: "",
+        link: "",
+      },
+    ],
+    brands: [],
+    images: "beauty.webp",
   },
 
   {
-    name: "Accessories",
+    name: "Men's Shoes & Sneakers",
     link: "",
     subMenu: [
       {
@@ -141,7 +96,89 @@ export const menuArray = [
       },
     ],
     brands: [],
-    images: [],
+    images: "men-shoes.webp",
+  },
+
+  {
+    name: "Men's Bag",
+    link: "",
+    subMenu: [
+      {
+        name: "",
+        link: "",
+      },
+    ],
+    brands: [],
+    images: "man-bag.webp",
+  },
+
+  {
+    name: "Women's Shoes & Heels",
+    link: "",
+    subMenu: [
+      {
+        name: "",
+        link: "",
+      },
+    ],
+    brands: [],
+    images: "heels.webp",
+  },
+
+  {
+    name: "Wallet & Hanbag",
+    link: "",
+    subMenu: [
+      {
+        name: "",
+        link: "",
+      },
+    ],
+    brands: [],
+    images: "wallet.webp",
+    featured: true,
+    featuredImg: "wallet.png",
+  },
+
+  {
+    name: "Accessories & Fashion",
+    link: "",
+    subMenu: [
+      {
+        name: "",
+        link: "",
+      },
+    ],
+    brands: [],
+    images: "assessories.webp",
+  },
+
+  {
+    name: "Watches & Jewelry",
+    link: "",
+    subMenu: [
+      {
+        name: "",
+        link: "",
+      },
+    ],
+    brands: [],
+    images: "watch.webp",
+  },
+
+  {
+    name: "Laptops & Components",
+    link: "",
+    subMenu: [
+      {
+        name: "",
+        link: "",
+      },
+    ],
+    brands: [],
+    images: "laptop.webp",
+    featured: true,
+    featuredImg: "laptop.png",
   },
 
   {
@@ -154,10 +191,11 @@ export const menuArray = [
       },
     ],
     brands: [],
-    images: [],
+    images: "sport.webp",
   },
+
   {
-    name: "Kids & Babies",
+    name: "Smartphones",
     link: "",
     subMenu: [
       {
@@ -166,10 +204,13 @@ export const menuArray = [
       },
     ],
     brands: [],
-    images: [],
+    images: "smartphone.webp",
+    featured: true,
+    featuredImg: "smartphone.png",
   },
+
   {
-    name: "Movies & Television",
+    name: "Online Grocery",
     link: "",
     subMenu: [
       {
@@ -178,10 +219,11 @@ export const menuArray = [
       },
     ],
     brands: [],
-    images: [],
+    images: "department.webp",
   },
+
   {
-    name: "Gaming & Video Games",
+    name: "Digital Equipments",
     link: "",
     subMenu: [
       {
@@ -190,10 +232,11 @@ export const menuArray = [
       },
     ],
     brands: [],
-    images: [],
+    images: "digital.webp",
   },
+
   {
-    name: "Phones & Smart phones",
+    name: "Vehicles",
     link: "",
     subMenu: [
       {
@@ -202,10 +245,11 @@ export const menuArray = [
       },
     ],
     brands: [],
-    images: [],
+    images: "motorcycle.webp",
   },
+
   {
-    name: "Toys & Hobbies",
+    name: "Electronics",
     link: "",
     subMenu: [
       {
@@ -214,10 +258,13 @@ export const menuArray = [
       },
     ],
     brands: [],
-    images: [],
+    images: "electronic.webp",
+    featured: true,
+    featuredImg: "electronics.png",
   },
+
   {
-    name: "Gifts & Crafts",
+    name: "Cameras",
     link: "",
     subMenu: [
       {
@@ -226,32 +273,15 @@ export const menuArray = [
       },
     ],
     brands: [],
-    images: [],
+    images: "camera.webp",
   },
-  {
-    name: "Machinery",
-    link: "",
-    subMenu: [
-      {
-        name: "",
-        link: "",
-      },
-    ],
-    brands: [],
-    images: [],
-  },
-  {
-    name: "Security, Safety",
-    link: "",
-    subMenu: [
-      {
-        name: "",
-        link: "",
-      },
-    ],
-    brands: [],
-    images: [],
-  },
+];
+
+export const goodPrices = [
+  { image1: "huggies", image2: "shiseido", image3: "pay-later" },
+  { image1: "nestle", image2: "shinhanbank", image3: "freeship" },
+  { image1: "bonecare", image2: "tiger", image3: "man" },
+  { image1: "paylater2", image2: "freeship2", image3: "freeship3" },
 ];
 
 export const flashDealsArray = [
@@ -380,6 +410,7 @@ export const women_shoes = [
       "https://img.ltwebstatic.com/images3_pi/2022/04/27/1651047458260c8e9c705b77227c9acdba9104c367_thumbnail_600x.webp",
   },
 ];
+
 export const women_accessories = [
   {
     image:

@@ -68,7 +68,7 @@ const Infos = ({ product, setActiveImg, setImages }) => {
       //Nếu tồn tại rồi thì update bằng cách cộng thêm số lượng
       if (exist) {
         let newCart = cart.cartItems.map((p) => {
-          if (p._uid == exist._uid) {
+          if (p._uniqueId == exist._uniqueId) {
             return { ...p, qty: p.qty + qty };
           }
           return p;
@@ -85,12 +85,15 @@ const Infos = ({ product, setActiveImg, setImages }) => {
             _uniqueId,
           })
         );
+
+        toast.success("Add product to cart successfully!");
       }
     }
   };
 
   const addToWishListHandler = async () => {
     if (!session) {
+      toast.error("Please sign in to use this feature!");
       return signIn();
     }
 

@@ -1,0 +1,202 @@
+.flashDeals {
+  padding: 14px 24px 24px;
+  background: linear-gradient(
+      rgba(255, 255, 255, 0) 22.49%,
+      rgb(255, 246, 246) 73.49%
+    ),
+    linear-gradient(
+      264.03deg,
+      rgb(255, 126, 133) -10.27%,
+      rgb(255, 163, 167) -10.27%,
+      rgb(255 234 234) -10.27%
+    );
+  border-radius: 3px;
+  border: 1px solid #edededed;
+  box-shadow: $shadow-3;
+  overflow: hidden;
+
+  &__title {
+    padding-bottom: 15px;
+    font-weight: 700;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    gap: 5px;
+
+    h3 {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      span {
+        font-weight: 700;
+        font-size: 25px;
+        text-transform: uppercase;
+        color: red;
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    img {
+      width: 140px;
+      height: 22px;
+    }
+  }
+
+  &__item {
+    margin-bottom: 1px;
+    border-radius: 3px;
+    box-shadow: $shadow-3;
+
+    &_img {
+      overflow: hidden;
+
+      &:hover {
+        img {
+          transform: scale(1.1);
+          transition: all 0.3s ease;
+        }
+      }
+    }
+
+    &_infos {
+      padding: 5px 20px 15px;
+    }
+
+    img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    h4 {
+      font-size: 13px;
+      margin-top: 10px;
+      color: $home-text;
+      font-weight: 600;
+      padding: 7.5px 0;
+    }
+
+    &_discount {
+      padding: 8px 0 4px;
+      text-align: left;
+
+      span {
+        &:first-of-type {
+          border-radius: 2px;
+          font-weight: 400;
+          line-height: 12px;
+          margin-right: 6px;
+          padding: 2px 3px;
+          background-color: #cc0c39;
+          color: #ffffff;
+          font-size: 13px;
+        }
+
+        &:last-of-type {
+          font-size: 12px;
+          font-weight: 500;
+          color: #cc0c39;
+        }
+      }
+    }
+
+    &_btn {
+      border-radius: 3px;
+      background-color: #fff;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      padding: 0;
+      height: 45px;
+      margin: 15px 0 10px;
+      width: 100%;
+      cursor: pointer;
+      border: 1px solid $admin-text;
+
+      &:hover {
+        transform: scale(1.05);
+        transition: 0.3s all ease;
+      }
+
+      span {
+        &:first-of-type {
+          width: 60px;
+          height: 100%;
+          display: grid;
+          place-items: center;
+          background-color: $admin-text;
+          border-top-left-radius: 3px;
+          border-bottom-left-radius: 3px;
+
+          svg {
+            width: 25px;
+            height: 25px;
+          }
+        }
+
+        &:last-of-type {
+          flex: 1;
+          font-size: 14px;
+          font-weight: 600;
+          color: $admin-text;
+          padding: 0 10px;
+          display: block;
+          text-transform: uppercase;
+        }
+      }
+    }
+
+    &_name {
+      max-width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: 500;
+      font-size: 15px;
+      padding: 5px 0;
+      color: #666;
+      text-align: left;
+    }
+
+    &_price {
+      text-align: left;
+      color: #cc0c39;
+
+      span {
+        &:nth-of-type(1) {
+          font-size: 11px;
+          position: relative;
+          top: -4px;
+          font-weight: 600;
+        }
+
+        &:nth-of-type(2) {
+          font-size: 17px;
+          font-weight: 600;
+          margin-right: 5px;
+        }
+
+        &:nth-of-type(3) {
+          color: #787878;
+          font-size: 13px;
+        }
+
+        &:nth-of-type(4) {
+          color: #787878;
+          font-size: 13px;
+        }
+
+        &:nth-of-type(5) {
+          color: #787878;
+          font-size: 13px;
+          text-decoration: line-through;
+        }
+      }
+    }
+  }
+}

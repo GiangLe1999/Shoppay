@@ -22,13 +22,14 @@ const Reviews = ({ product }) => {
               <Ratings defaultRating={product.rating} />
               <b>
                 {product.rating === 0
-                  ? "No review yet."
+                  ? "No review yet"
                   : product.rating.toFixed(2)}
               </b>
             </div>
           </div>
           <div className={styled.reviews__stats_reviews}>
             {product.ratings.map((rating, index) => {
+              console.log(rating);
               return (
                 <div
                   className={styled.reviews__stats_reviews_review}
@@ -43,7 +44,9 @@ const Reviews = ({ product }) => {
                       style={{ width: `${rating.percentage}%` }}
                     ></div>
                   </div>
-                  <span className={styled.percent}>{rating.percentage}%</span>
+                  <span className={styled.percent}>
+                    {rating.percentage !== "NaN" ? rating.percentage : 0}%
+                  </span>
                 </div>
               );
             })}

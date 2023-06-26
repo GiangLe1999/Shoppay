@@ -8,6 +8,7 @@ $error-color: #d93e3e;
 $error-secondary-color: #f02f2fd8;
 $redish-color: #bf323f;
 $violet-color: #a03988;
+$home-text: #4d4d4d;
 $admin-bg: rgb(234 232 251);
 $admin-text: #1976d2;
 $admin-border: #c6c1f463;
@@ -101,33 +102,34 @@ $cubic-bezier: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 .mainSwiper,
 .offers_swiper,
 .flashDeals_Swiper,
-.products__swiper {
-  .swiper-slide img {
-    border-radius: 3px !important;
-    box-shadow: $shadow-1 !important;
-  }
-
+.products_swiper {
   .swiper-pagination-bullet {
-    width: 9px !important;
+    width: 10px !important;
+    height: 5px;
     border-radius: 5px !important;
   }
 
   .swiper-pagination-bullet-active {
     background-color: #fff !important;
-    width: 15px !important;
+    width: 25px !important;
+    height: 5px;
   }
 
   .swiper-button-prev,
   .swiper-button-next {
     color: #fff !important;
     transform: scale(0.5) translateY(-50%) !important;
-    width: 50px !important;
-    height: 80px !important;
+    width: 45px !important;
+    height: 70px !important;
     transition: 0.2s;
     background-color: rgba(102, 102, 102, 0.354) !important;
     border-radius: 3px;
     display: none;
     place-items: center;
+
+    &::after {
+      font-size: 22px;
+    }
   }
 
   .swiper-button-prev {
@@ -139,49 +141,28 @@ $cubic-bezier: cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
 }
 
-.offers_swiper {
+.mainSwiper {
+  aspect-ratio: 2.5;
+}
+
+.offers_swiper,
+.products_swiper {
   .swiper-pagination-bullets {
     display: none;
   }
 }
 
-.flashDeals_Swiper {
-  .swiper-slide {
-    img {
-      border-radius: 5px !important;
-      height: 320px !important;
-    }
-  }
-
+.products_swiper {
   .swiper-button-prev,
   .swiper-button-next {
-    top: 38%;
+    top: 34%;
   }
 }
 
-.products__swiper {
+.flashDeals_Swiper {
   .swiper-button-prev,
   .swiper-button-next {
-    background-color: #fff !important;
-    width: 50px !important;
-    height: 50px !important;
-    border-radius: 50% !important;
-    top: 46%;
-
-    color: #666 !important;
-    box-shadow: $shadow-1 !important;
-
-    &::after {
-      font-size: 25px;
-    }
-  }
-
-  .swiper-button-prev {
-    left: -5px;
-  }
-
-  .swiper-button-next {
-    right: -5px;
+    top: 38%;
   }
 }
 
@@ -294,4 +275,8 @@ $cubic-bezier: cubic-bezier(0.175, 0.885, 0.32, 1.275);
   .css-1ex1afd-MuiTableCell-root {
     border-bottom: none !important;
   }
+}
+
+.grid__4 {
+  width: 260px;
 }

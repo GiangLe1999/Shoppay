@@ -12,6 +12,8 @@ import db from "@/utils/db";
 import clientPromise from "@/lib/mongodb";
 import { User } from "@/models/User";
 
+db.connectDb();
+
 export default NextAuth({
   adapter: MongoDBAdapter(clientPromise),
   providers: [

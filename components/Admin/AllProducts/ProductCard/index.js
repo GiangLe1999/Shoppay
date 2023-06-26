@@ -37,7 +37,7 @@ export default function ProductCard({ product }) {
         spaceBetween={10}
         navigation={true}
         modules={[Navigation]}
-        className={`products__swiper ${styled.admin_swiper}`}
+        className={`products_swiper ${styled.admin_swiper}`}
         style={{ padding: "5px 0 5px 5px" }}
         breakpoints={{
           450: {

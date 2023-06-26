@@ -72,10 +72,22 @@ export default function CreateProductPage({ parents, categories }) {
   const [description_images, setDescription_images] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const validate = Yup.object({
+    name: Yup.string()
+      .required("Please add a name")
+      .min(10, "Product name must bewteen 10 and 300 characters.")
+      .max(300, "Product name must bewteen 10 and 300 characters."),
+    brand: Yup.string().required("Please add a brand"),
+    category: Yup.string().required("Please select a category."),
+    sku: Yup.string().required("Please add a sku/number"),
+    color: Yup.string().required("Please add a color"),
+    description: Yup.string().required("Please add a description"),
+  });
+
   //Khi change parent input field, thực hiện fetch API theo _id của parent product để nhận về data
   useEffect(() => {
     axios
-      .get(`/api/product/${product.parent}`)
+      .get(`/api/admin/product/${product.parent}`)
       .then(({ data }) => {
         if (data) {
           setProduct({
@@ -109,28 +121,13 @@ export default function CreateProductPage({ parents, categories }) {
       });
   }, [product.category]);
 
-  const validate = Yup.object({
-    name: Yup.string()
-      .required("Please add a name")
-      .min(10, "Product name must bewteen 10 and 300 characters.")
-      .max(300, "Product name must bewteen 10 and 300 characters."),
-    brand: Yup.string().required("Please add a brand"),
-    category: Yup.string().required("Please select a category."),
-    sku: Yup.string().required("Please add a sku/number"),
-    color: Yup.string().required("Please add a color"),
-    description: Yup.string().required("Please add a description"),
-  });
-
-  const createProductHandler = async () => {
-    setLoading(true);
-
+  const createProductHandler = async (e) => {
     if (images.length < 1) {
       Swal.fire({
         icon: "error",
         title: "Not found any images!",
         text: "Please upload at least 1 image of product (Step 2).",
       });
-      setLoading(false);
       return;
     }
 
@@ -140,8 +137,6 @@ export default function CreateProductPage({ parents, categories }) {
         title: "Not found any main color!",
         text: "Please choose a main color for product (Step 3).",
       });
-      setLoading(false);
-
       return;
     }
 
@@ -161,6 +156,8 @@ export default function CreateProductPage({ parents, categories }) {
         return;
       }
     }
+
+    setLoading(true);
 
     let uploaded_images = [];
     let style_image = "";
@@ -199,7 +196,10 @@ export default function CreateProductPage({ parents, categories }) {
       });
 
       setLoading(false);
+
       toast.success(data.message);
+
+      window.location.reload(false);
     } catch (error) {
       setLoading(false);
       toast.error(error.response.data.message);
@@ -273,6 +273,7 @@ export default function CreateProductPage({ parents, categories }) {
                 handleChange={handleChange}
                 //Nếu đã có parent thì không cần phải chọn Category và Subs nữa
                 disabled={product.parent}
+                value={product.category}
               />
             </div>
 
@@ -300,6 +301,8 @@ export default function CreateProductPage({ parents, categories }) {
                 product={product}
                 setProduct={setProduct}
                 colorImage={colorImage}
+                setColorImage={setColorImage}
+                images={images}
               />
               <div className={styled.form__row_flex}>
                 {product.color.color && (

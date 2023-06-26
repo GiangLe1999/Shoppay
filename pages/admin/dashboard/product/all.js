@@ -72,7 +72,7 @@ export default function AllProductsPage({ products }) {
 
       <div className={styled.header}>products & styles</div>
       {/* Swiper */}
-      <div className={styled.products__swiper}>
+      <div className={styled.products_swiper}>
         {products.map((product) => (
           <ProductCard key={product._id} product={product} />
         ))}

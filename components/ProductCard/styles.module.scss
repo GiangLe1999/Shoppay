@@ -1,85 +1,171 @@
 .product {
-  position: relative;
-  max-width: 260px;
+  box-shadow: $shadow-3;
+  margin: 1px;
 
   &__infos {
+    padding: 10px;
     width: 100%;
-    h4 {
-      font-size: 13px;
-      color: #222;
-      font-weight: normal;
-      display: -webkit-box;
-      max-width: 100%;
-      -webkit-line-clamp: 1;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
 
-    span {
-      color: $redish-color;
-      font-weight: 600;
-    }
-  }
+    &_sizes {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 0 13px;
 
-  &__colors {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 5px;
+      button {
+        color: #666;
+        display: grid;
+        place-content: center;
+        font-size: 12px;
+        width: 32px;
+        height: 32px;
+        background-color: transparent;
+        border: 1px solid #ededed;
+        border-radius: 2px;
+        cursor: pointer;
+        font-weight: 500;
 
-    img {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      object-fit: cover;
-      box-shadow: $shadow-1;
-      cursor: pointer;
-      outline-offset: 2px;
-      &:hover {
-        outline: 1px solid #000;
+        &:hover {
+          color: #fff;
+          background-color: $admin-text;
+          border: none;
+        }
+      }
+
+      .sizeActive {
+        color: #fff;
+        background-color: $admin-text;
+        border: none;
       }
     }
 
-    .active {
-      outline: 1px solid #000;
+    &_flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
-    span {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      box-shadow: $shadow-1;
+    &_name {
+      text-align: left;
+      max-width: 100%;
+      white-space: nowrap;
       overflow: hidden;
-    }
-  }
-
-  &__discount {
-    img {
-      position: absolute;
-      top: -6px;
-      right: -1px;
-      z-index: 1;
-      color: #333;
-      width: 75px;
-      height: 50px;
-      display: grid;
-      place-items: center;
+      text-overflow: ellipsis;
+      font-weight: 500;
       font-size: 15px;
-      font-weight: 600;
+      color: #666;
+      padding-bottom: 5px;
     }
 
-    span {
+    &_price {
+      text-align: left;
+      color: #cc0c39;
+      padding-bottom: 5px;
+
+      span {
+        &:nth-of-type(1) {
+          font-size: 13px;
+          font-weight: 700;
+        }
+
+        &:nth-of-type(2) {
+          font-size: 11px;
+          position: relative;
+          top: -4px;
+          font-weight: 600;
+        }
+
+        &:nth-of-type(3) {
+          font-size: 17px;
+          font-weight: 600;
+          margin-right: 5px;
+        }
+
+        &:nth-of-type(4) {
+          color: #787878;
+          font-size: 13px;
+        }
+
+        &:nth-of-type(5) {
+          color: #787878;
+          font-size: 13px;
+          text-decoration: line-through;
+        }
+      }
+    }
+
+    &_colors {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 0 13px;
+
+      img {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        object-fit: cover;
+        box-shadow: $shadow-1;
+        cursor: pointer;
+        outline-offset: 1.5px;
+
+        &:hover {
+          outline: 1px solid rgb(116, 121, 124);
+        }
+      }
+
+      .active {
+        outline: 1px solid rgb(116, 121, 124);
+      }
+
+      span {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        box-shadow: $shadow-1;
+        overflow: hidden;
+      }
+    }
+
+    &_discount {
       position: absolute;
-      z-index: 2;
-      top: 5px;
-      right: 16px;
+      top: 0;
+      left: 0;
+      cursor: pointer;
+      font-size: 12px;
+      line-height: 1.45;
+      font-weight: 500;
+      color: #fff;
+      background: #cc0c39ee;
+      z-index: 99;
+      width: 60px;
+      height: 30px;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 2px;
-      color: #fff;
-      font-size: 14px;
+      border-bottom-right-radius: 3px;
+    }
+
+    &_ratings {
+      text-align: left;
+
+      svg {
+        width: 18px;
+        height: 18px;
+      }
+    }
+
+    &_actions {
+      position: absolute;
+      top: -11px;
+      right: 0px;
+      width: 30px;
+      z-index: 99;
+      transform-origin: top;
+      transition: all 0.2s;
+      border-bottom-left-radius: 5px;
     }
   }
 }
@@ -90,9 +176,8 @@
   background-color: #fff;
 
   img {
-    height: 390px;
+    height: 320px;
     object-fit: cover;
     display: block;
-    border-radius: 3px;
   }
 }

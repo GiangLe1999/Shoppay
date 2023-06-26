@@ -6,19 +6,18 @@ import { MdDiscount } from "react-icons/md";
 import ProductCardSwiper from "./ProductCardSwiper";
 
 import styled from "./styles.module.scss";
+import { priceAfterDiscount, sortPricesArr } from "@/utils/productUltils";
+import Ratings from "../Ratings";
+import Actions from "../Actions";
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, className }) => {
   //Index của subProduct được active
-
   const [active, setActive] = useState(0);
+  const [sizeActive, setSizeActive] = useState(0);
+  const [showActions, setShowActions] = useState(false);
 
   //Lấy ra các ảnh của subProduct được active
   const [images, setImages] = useState(product.subProducts[active]?.images);
-
-  //Lấy ra tất cả giá của subProduct được active
-  // const [prices, setPrices] = useState(
-  //   product.subProducts[active]?.sizes.map((s) => s.price).sort((a, b) => a - b)
-  // );
 
   //Lấy ra màu của tất cả subProducts (toàn bộ màu của product)
   const [styles, setStyles] = useState(
@@ -27,19 +26,11 @@ const ProductCard = ({ product }) => {
     })
   );
 
-  let prices = product.subProducts[active].sizes
-    .map((s) => s.price)
-    .sort((a, b) => a - b);
+  let prices = sortPricesArr(product.subProducts[active]?.sizes);
 
-  const priceRange = product.subProducts[active].discount
-    ? `From $${
-        prices[0] - (prices?.[0] * product.subProducts[active].discount) / 100
-      } to $${
-        prices?.[prices?.length - 1] -
-        (prices?.[prices?.length - 1] * product.subProducts[active].discount) /
-          100
-      }`
-    : `From $${prices?.[0]} to $${prices?.[prices?.length - 1]}`;
+  const priceFrom = product.subProducts[active]?.discount
+    ? priceAfterDiscount(prices[0], product.subProducts[active].discount)
+    : prices?.[0];
 
   //Active subProduct thay đổi, cập nhật lại state ảnh và giá
   useEffect(() => {
@@ -47,28 +38,45 @@ const ProductCard = ({ product }) => {
   }, [active]);
 
   return (
-    <div className={styled.product}>
+    <div className={`${styled.product} ${className}`}>
       <div className={styled.product__container}>
-        <Link href={`/product/${product.slug}?style=${active}`}>
-          <div className="">
+        <Link
+          href={`/product/${product.slug}?style=${active}&size=${sizeActive}`}
+        >
+          <div
+            style={{ position: "relative" }}
+            onMouseOver={() => setShowActions(true)}
+            onMouseLeave={() => setShowActions(false)}
+          >
             <ProductCardSwiper images={images} />
+            <div
+              className={styled.product__infos_actions}
+              style={{
+                transform: showActions ? "scale3d(1,1,1)" : "scale3d(1,0,1)",
+              }}
+            >
+              <Actions
+                product={product}
+                productStyle={active}
+                productSize={sizeActive}
+                productSizeInText={
+                  product.subProducts[active]?.sizes[sizeActive].size
+                }
+              />
+            </div>{" "}
+            {product.subProducts[active]?.discount ? (
+              <div className={styled.product__infos_discount}>
+                <MdDiscount />
+                <p>{product.subProducts[active].discount}%</p>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
         </Link>
-        {product.subProducts[active]?.discount ? (
-          <div className={styled.product__discount}>
-            <img src="/images/discount-tag.png" alt="Discount tag" />
-            <span>
-              <MdDiscount />
-              {product.subProducts[active].discount}%
-            </span>
-          </div>
-        ) : (
-          ""
-        )}
+
         <div className={styled.product__infos}>
-          <h4>{product.name}</h4>
-          <span>{priceRange}</span>
-          <div className={styled.product__colors}>
+          <div className={styled.product__infos_colors}>
             {styles &&
               styles.map((style, index) =>
                 style.image ? (
@@ -98,6 +106,42 @@ const ProductCard = ({ product }) => {
                   ></span>
                 )
               )}
+          </div>
+
+          <div className={styled.product__infos_sizes}>
+            {product.subProducts[active]?.sizes.map((size, i) => {
+              return (
+                <div key={i}>
+                  <button
+                    onClick={() => setSizeActive(i)}
+                    className={sizeActive === i && styled.sizeActive}
+                    htmlFor="size"
+                  >
+                    {size.size}
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+
+          <h4 className={styled.product__infos_name}>{product.name}</h4>
+
+          <div className={styled.product__infos_flex}>
+            <div className={styled.product__infos_price}>
+              <span>from </span>
+              <span>$</span>
+              <span>{priceFrom}</span>
+              {product.subProducts[active]?.discount > 0 && (
+                <>
+                  <span>$</span>
+                  <span>{prices[0]}</span>
+                </>
+              )}
+            </div>
+
+            <div className={styled.product__infos_ratings}>
+              <Ratings value={product.rating} />
+            </div>
           </div>
         </div>
       </div>

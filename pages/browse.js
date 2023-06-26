@@ -402,11 +402,6 @@ export async function getServerSideProps(ctx) {
         }
       : {};
 
-  const starOptions =
-    starQuery && starQuery.length > 0
-      ? { ratings: { $regex: starMultiRegex, $options: "i" } }
-      : {};
-
   let shippingOptions = {};
   if (shippingQuery) {
     if (shippingQuery == "Free") {

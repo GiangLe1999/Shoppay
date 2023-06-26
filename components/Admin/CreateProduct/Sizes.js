@@ -119,7 +119,7 @@ export default function Sizes({ sizes, product, setProduct }) {
                   type="number"
                   name="qty"
                   placeholder={noSize ? "Product Quantity" : "Size Quantity"}
-                  min={1}
+                  min={0}
                   value={size.qty}
                   onChange={(e) => changeSizeHandler(i, e)}
                 />
@@ -130,6 +130,7 @@ export default function Sizes({ sizes, product, setProduct }) {
                   min={1}
                   value={size.price}
                   onChange={(e) => changeSizeHandler(i, e)}
+                  step="0.01"
                 />
               </div>
             </div>

@@ -1,14 +1,17 @@
 import styled from "./styles.module.scss";
 import React from "react";
 import MainSwiper from "./Swiper";
-import Offers from "./Offers";
+import FeaturedBrands from "./FeaturedBrands";
 import Menu from "./Menu";
-import User from "./User";
-import Header from "./Header";
 
 import { BsListUl } from "react-icons/bs";
+import GoodPrice from "./GoodPrice";
+import FeaturedCategories from "./FeaturedCategories";
+import FlashDeals from "./FlashDeals";
+import FeaturedProducts from "./FeaturedProducts";
+import FreeShippingProducts from "./FreeShippingProducts";
 
-const Main = () => {
+const Main = ({ flashDeals, featuredProducts, freeShippingProducts }) => {
   return (
     <>
       <a href="" className={styled.category__header}>
@@ -16,11 +19,18 @@ const Main = () => {
         <b>CATEGORIES</b>
       </a>
       <div className={styled.main}>
-        <Header />
-        <Menu />
-        <MainSwiper />
-        <Offers />
-        <User />
+        <div className={styled.main__left}>
+          <Menu />
+        </div>
+        <div className={styled.main__right}>
+          <MainSwiper />
+          <FeaturedBrands />
+          <FeaturedCategories />
+          <GoodPrice />
+          <FlashDeals flashDeals={flashDeals} />
+          <FeaturedProducts featuredProducts={featuredProducts} />
+          <FreeShippingProducts freeShippingProducts={freeShippingProducts} />
+        </div>
       </div>
     </>
   );

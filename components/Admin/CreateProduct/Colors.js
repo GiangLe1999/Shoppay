@@ -12,6 +12,8 @@ export default function Colors({
   setProduct,
   name,
   colorImage,
+  setColorImage,
+  images,
   ...props
 }) {
   const [colors, setColors] = useState([]);
@@ -55,7 +57,15 @@ export default function Colors({
         {colors.length === 0 && (
           <span className={styled.colors__guide}>
             Click Extract Color button{" "}
-            <span className={styled.colors__guide_svg}>
+            <span
+              className={styled.colors__guide_svg}
+              onClick={() => {
+                if (images.length === 0) {
+                  toast.error("Can't pick color because there is no image.");
+                }
+                setColorImage(images[0]);
+              }}
+            >
               <CgColorPicker />
             </span>
             on Product image to receive colors.

@@ -14,8 +14,8 @@ const SingularSelect = ({ data, placeholder, ...rest }) => {
     <div className={styled.input}>
       <TextField
         variant="outlined"
-        select
         fullWidth
+        select
         label={placeholder}
         //Thêm class để CSS border cho Input
         className={`${styled.select} ${
@@ -33,6 +33,7 @@ const SingularSelect = ({ data, placeholder, ...rest }) => {
         {...field}
         {...rest}
       >
+        <MenuItem value="">None</MenuItem>
         {data.map((option, index) => (
           <MenuItem key={index} value={option._id || option.name || option}>
             {option.name || option}
