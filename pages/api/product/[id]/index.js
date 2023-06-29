@@ -2,21 +2,19 @@ import { Product } from "@/models/Product";
 import db from "@/utils/db";
 
 async function handler(req, res) {
-  if (req.method === "GET") {
-    try {
-      await db.connectDb();
+  try {
+    await db.connectDb();
 
-      const id = req.query?.id;
+    const id = req.query?.id;
+    const product = await Product.findById(id).lean();
 
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    if (req.method === "GET") {
       const style = req.query.style || 0;
       const size = req.query.size || 0;
-
-      const product = await Product.findById(id).lean();
-
-      if (!product) {
-        return res.status(404).json({ message: "Product not found" });
-      }
-
       let discount = product.subProducts[style].discount;
       let priceBefore = product.subProducts[style].sizes[size]?.price;
       let priceAfter = priceBefore - (priceBefore * discount) / 100;
@@ -42,9 +40,10 @@ async function handler(req, res) {
         priceBefore,
         quantity: product.subProducts[style].sizes[size]?.qty,
       });
-    } catch (error) {
-      return res.status(500).json({ message: error.message });
     }
+  } catch (error) {
+    await db.disConnectDb();
+    return res.status(500).json({ message: error.message });
   }
 }
 

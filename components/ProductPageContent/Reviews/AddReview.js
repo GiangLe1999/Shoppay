@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Rating } from "@mui/material";
+import { Button, Rating } from "@mui/material";
 
 import styled from "./styles.module.scss";
 import "react-toastify/dist/ReactToastify.css";
@@ -134,7 +134,7 @@ const AddReview = ({ product, setReviews }) => {
             <Select
               size={size}
               text="Size"
-              data={product.allSizes.filter((s) => s.size !== size)}
+              data={product.allSizes.filter((s) => s !== size)}
               sizeChangeHandler={setSize}
             />
             <Select
@@ -184,13 +184,11 @@ const AddReview = ({ product, setReviews }) => {
               onChange={(e) => setRating(e.target.value)}
             />
           </div>
-          <button
-            className={styled.submit_btn}
-            type="submit"
-            onClick={submitHandler}
-          >
-            Submit review
-          </button>
+          <div className={styled.submit_btn}>
+            <Button variant="contained" type="submit" onClick={submitHandler}>
+              Submit review
+            </Button>
+          </div>
         </div>
       </div>
     </>

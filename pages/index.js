@@ -39,7 +39,7 @@ export async function getServerSideProps() {
   //lean method trả về các document dưới dạng plain Object chứ không phải Mongoose document thông thường
   let products = await Product.find()
     .sort({ createdAt: -1 })
-    .select("category name rating slug subProducts _id")
+    .select("category name rating slug subProducts _id shipping")
     .lean();
 
   //Giảm số lượng ảnh để giảm dung lượng load của getServerSideProps

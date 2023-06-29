@@ -92,11 +92,11 @@ const Select = ({
                     <li
                       key={index}
                       onClick={() => {
-                        sizeChangeHandler(item.size);
+                        sizeChangeHandler(item);
                         setVisible(false);
                       }}
                     >
-                      <span>{`Size ${item.size}`}</span>
+                      <span>{`Size ${item}`}</span>
                     </li>
                   );
                 }

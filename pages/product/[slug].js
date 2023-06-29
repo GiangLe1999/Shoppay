@@ -1,23 +1,51 @@
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
+import { useEffect, useState } from "react";
+import Head from "next/head";
+
 import { Category } from "@/models/Category";
 import { Product } from "@/models/Product";
 import { SubCategory } from "@/models/SubCategory";
 import db from "@/utils/db";
-import Head from "next/head";
+import {
+  calculatePercentage,
+  findAllSizes,
+  priceAfterDiscount,
+  sortPricesArr,
+} from "@/utils/productUltils";
 
 import styled from "../../styles/Product.module.scss";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 import BreadCrumb from "@/components/BreadCrumb";
 import MainSwiper from "@/components/ProductPageContent/MainSwiper";
-import { useState } from "react";
 import Infos from "@/components/ProductPageContent/Infos";
 import Reviews from "@/components/ProductPageContent/Reviews";
-import { User } from "@/models/User";
 import Payment from "@/components/ProductPageContent/Payment";
+import axios from "axios";
 
 const ProductPage = ({ product }) => {
   const [activeImg, setActiveImg] = useState("");
   const [images, setImages] = useState(product.images);
+  const [ratings, setRatings] = useState([]);
+
+  useEffect(() => {
+    const fetchRatings = async () => {
+      const { data } = await axios.get(`/api/product/${product._id}/review`);
+      setRatings([
+        { percentage: calculatePercentage(data, 5) },
+        { percentage: calculatePercentage(data, 4) },
+        { percentage: calculatePercentage(data, 3) },
+        { percentage: calculatePercentage(data, 2) },
+        { percentage: calculatePercentage(data, 1) },
+      ]);
+    };
+
+    try {
+      fetchRatings();
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
   return (
     <div>
       <Head>
@@ -48,7 +76,7 @@ const ProductPage = ({ product }) => {
               setImages={setImages}
             />
           </main>
-          <Reviews product={product} />
+          <Reviews product={product} ratings={ratings} />
         </div>
       </div>
       <Footer />
@@ -69,17 +97,11 @@ export async function getServerSideProps(context) {
     //path là property category cần điền thông tin
     .populate({ path: "category", model: Category })
     .populate({ path: "subCategories", model: SubCategory })
-    .populate({ path: "reviews.reviewBy", model: User })
     .lean();
-  let subProduct = product.subProducts[style];
-  let prices = subProduct?.sizes.map((s) => s.price).sort((a, b) => a - b);
 
-  function calculatePercentage(num) {
-    const nums = product.reviews.filter(
-      (r) => r.rating == num || r.rating == num - 0.5
-    );
-    return ((nums.length / product.numReviews) * 100).toFixed(1);
-  }
+  let subProduct = product.subProducts[style];
+
+  let prices = sortPricesArr(subProduct.sizes);
 
   let newProduct = {
     ...product,
@@ -95,34 +117,24 @@ export async function getServerSideProps(context) {
         return { color: p.color.color };
       }
     }),
+
     priceRange: subProduct?.discount
-      ? `$${prices[0] - (prices?.[0] * subProduct.discount) / 100} ~ $${
-          prices?.[prices?.length - 1] -
-          (prices?.[prices?.length - 1] * subProduct.discount) / 100
-        }`
+      ? `$${priceAfterDiscount(
+          prices[0],
+          subProduct.discount
+        )} ~ $${priceAfterDiscount(
+          prices?.[prices?.length - 1],
+          subProduct.discount
+        )}`
       : `$${prices?.[0]} ~ $${prices?.[prices?.length - 1]}`,
 
     price:
       subProduct?.discount > 0
-        ? (
-            subProduct.sizes[size].price -
-            (subProduct.sizes[size].price * subProduct.discount) / 100
-          ).toFixed(2)
+        ? priceAfterDiscount(subProduct.sizes[size].price, subProduct.discount)
         : subProduct.sizes[size].price,
     priceBefore: subProduct.sizes[size].price,
     quantity: subProduct.sizes[size].qty,
-    ratings: [
-      { percentage: calculatePercentage(5) },
-      { percentage: calculatePercentage(4) },
-      { percentage: calculatePercentage(3) },
-      { percentage: calculatePercentage(2) },
-      { percentage: calculatePercentage(1) },
-    ],
-    allSizes: product.subProducts
-      .map((p) => p.sizes)
-      .flat()
-      .sort((a, b) => a.size - b.size)
-      .filter((e, i, a) => a.findIndex((e2) => e2.size === e.size) === i),
+    allSizes: findAllSizes(product.subProducts),
   };
 
   await db.disConnectDb();

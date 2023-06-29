@@ -1,27 +1,26 @@
 /* eslint-disable @next/next/no-img-element */
-import Link from "next/link";
-import { useRouter } from "next/router";
+import axios from "axios";
 import { useEffect, useState } from "react";
-import {
-  BsHandbagFill,
-  BsHeartFill,
-  BsFillCaretDownFill,
-} from "react-icons/bs";
-import { AiFillTags } from "react-icons/ai";
-import { FcShipped, FcDeployment } from "react-icons/fc";
+import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Button } from "@mui/material";
+import { signIn, useSession } from "next-auth/react";
 import { useMediaQuery } from "react-responsive";
 
-import styled from "./styles.module.scss";
-import "react-toastify/dist/ReactToastify.css";
+import { BsFillCaretDownFill } from "react-icons/bs";
+import { BiHeart } from "react-icons/bi";
 import { TbMinus, TbPlus } from "react-icons/tb";
+import { MdCancel } from "react-icons/md";
+import { FaOpencart } from "react-icons/fa";
+import { AiFillTags } from "react-icons/ai";
+import { FcShipped, FcDeployment } from "react-icons/fc";
+
+import styled from "./styles.module.scss";
 import StyledAccordion from "./StyledAccordion";
 import Ratings from "../Ratings";
 import { addToCart, updateCart } from "@/store/cartSlice";
-import axios from "axios";
-import { MdCancel } from "react-icons/md";
-import { useDispatch, useSelector } from "react-redux";
-import { signIn, useSession } from "next-auth/react";
-import { toast } from "react-toastify";
 
 const Infos = ({ product, setActiveImg, setImages }) => {
   const Router = useRouter();
@@ -74,6 +73,9 @@ const Infos = ({ product, setActiveImg, setImages }) => {
           return p;
         });
         dispatch(updateCart(newCart));
+        toast.success(
+          "Increase quantity of this product in your cart successfully!"
+        );
       } else {
         //Nếu chưa tồn tại thì push vào item mới
         dispatch(
@@ -106,6 +108,32 @@ const Infos = ({ product, setActiveImg, setImages }) => {
     } catch (error) {
       return toast.error(error.response.data.message);
     }
+  };
+
+  const changeSizeHandler = (newSize, index) => {
+    setSize(newSize);
+    Router.push(
+      {
+        pathname: `/product/${product.slug}`,
+        query: { ...Router.query, size: index },
+      },
+      undefined,
+      { scroll: false }
+    );
+  };
+
+  const changeStyleHandler = (index) => {
+    setSize("");
+    setImages(product.subProducts[index].images);
+    setActiveImg(product.subProducts[index].images[0]);
+    Router.push(
+      {
+        pathname: `/product/${product.slug}`,
+        query: { style: index },
+      },
+      undefined,
+      { scroll: false }
+    );
   };
 
   return (
@@ -174,44 +202,7 @@ const Infos = ({ product, setActiveImg, setImages }) => {
             </span>
           )}
         </div>
-        <span className={styled.infos__shipping}>
-          {product.shipping > 0 && (
-            <>
-              <FcShipped /> ${product.shipping} Shipping fee
-            </>
-          )}
-          {!product.shipping && (
-            <>
-              <FcShipped /> Free shipping
-            </>
-          )}
-        </span>
-        <span className={styled.infos__available}>
-          <FcDeployment />
-          {size
-            ? product.quantity
-            : product.sizes.reduce((acc, cur) => acc + cur.qty, 0)}
-          &nbsp;pieces available
-        </span>
-        <div className={styled.infos__sizes}>
-          <span className={styled.infos__sizes_title}>
-            Select size <BsFillCaretDownFill />
-          </span>
-          <div className={styled.infos__sizes_wrapper}>
-            {product.sizes.map((size, index) => (
-              <Link
-                href={`/product/${product.slug}?style=${Router.query.style}&size=${index}`}
-                key={index}
-                className={`${styled.infos__sizes_size} ${
-                  index == Router.query.size ? styled.active_size : ""
-                }`}
-                onClick={() => setSize(size.size)}
-              >
-                {size.size}
-              </Link>
-            ))}
-          </div>
-        </div>
+
         <span className={styled.infos__sizes_title}>
           Select color <BsFillCaretDownFill />
         </span>
@@ -219,39 +210,49 @@ const Infos = ({ product, setActiveImg, setImages }) => {
           {product.colors &&
             product.colors.map((color, index) =>
               color.colorImg ? (
-                <Link
-                  href={`/product/${product.slug}?style=${index}`}
+                <button
                   key={index}
                   className={
                     index == Router.query.style ? styled.active_color : ""
                   }
-                  onClick={() => {
-                    setSize("");
-                    setImages(product.subProducts[index].images);
-                    setActiveImg(product.subProducts[index].images[0]);
-                  }}
+                  onClick={() => changeStyleHandler(index)}
                 >
                   <img src={color.colorImg} alt={color.colorImg} />
-                </Link>
+                </button>
               ) : (
-                <Link
-                  href={`/product/${product.slug}?style=${index}`}
+                <button
                   key={index}
                   className={
                     index == Router.query.style ? styled.active_color : ""
                   }
-                  onClick={() => {
-                    setSize("");
-                    setImages(product.subProducts[index].images);
-                    setActiveImg(product.subProducts[index].images[0]);
-                  }}
+                  onClick={() => changeStyleHandler(index)}
                   style={{
                     backgroundColor: `${color.color}`,
                   }}
-                ></Link>
+                ></button>
               )
             )}
         </div>
+
+        <div className={styled.infos__sizes}>
+          <span className={styled.infos__sizes_title}>
+            Select size <BsFillCaretDownFill />
+          </span>
+          <div className={styled.infos__sizes_wrapper}>
+            {product.sizes.map((size, index) => (
+              <button
+                onClick={() => changeSizeHandler(size.size, index)}
+                key={index}
+                className={`${styled.infos__sizes_size} ${
+                  index == Router.query.size ? styled.active_size : ""
+                }`}
+              >
+                {size.size}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <span className={styled.infos__sizes_title}>
           Select quantity <BsFillCaretDownFill />
         </span>
@@ -268,20 +269,49 @@ const Infos = ({ product, setActiveImg, setImages }) => {
             <TbPlus />
           </button>
         </div>
+
+        <div className={styled.infos__flex}>
+          <span className={styled.infos__shipping}>
+            {product.shipping > 0 && (
+              <>
+                <FcShipped /> ${product.shipping} Shipping fee
+              </>
+            )}
+            {!product.shipping && (
+              <>
+                <FcShipped /> Free shipping
+              </>
+            )}
+          </span>
+          <span className={styled.infos__available}>
+            <FcDeployment />
+            {size
+              ? product.quantity
+              : product.sizes.reduce((acc, cur) => acc + cur.qty, 0)}
+            &nbsp;pieces available
+          </span>
+        </div>
+
         <div className={styled.infos__actions}>
-          <button
+          <Button
+            variant="contained"
             disabled={product.quantity < 1}
             style={{ cursor: `${product.quantity < 1 ? "not-allowed" : ""}` }}
             onClick={addToCartHandler}
             type="button"
           >
-            <BsHandbagFill />
+            <FaOpencart />
             ADD TO CART
-          </button>
-          <button type="button" onClick={addToWishListHandler}>
-            <BsHeartFill />
+          </Button>
+          <Button
+            variant="contained"
+            type="button"
+            onClick={addToWishListHandler}
+            color="secondary"
+          >
+            <BiHeart />
             ADD TO WISHLIST
-          </button>
+          </Button>
         </div>
         {error && (
           <span className={styled.error}>

@@ -12,10 +12,7 @@ const TableSelect = ({
   text,
   order,
   data,
-  ratingChangeHandler,
-  sizeChangeHandler,
-  styleChangeHandler,
-  orderChangeHandler,
+  changeHandler,
 }) => {
   const [visible, setVisible] = useState(false);
 
@@ -27,16 +24,16 @@ const TableSelect = ({
 
   const chooseAllOptionHandler = () => {
     if (text == "Size") {
-      sizeChangeHandler("all");
+      changeHandler((prev) => ({ ...prev, size: "all" }));
       setVisible(false);
     } else if (text == "Style") {
-      styleChangeHandler("all");
+      changeHandler((prev) => ({ ...prev, style: "all" }));
       setVisible(false);
     } else if (text == "Rating") {
-      ratingChangeHandler("all");
+      changeHandler((prev) => ({ ...prev, rating: "all" }));
       setVisible(false);
     } else if (text == "Order") {
-      orderChangeHandler("all");
+      changeHandler((prev) => ({ ...prev, order: "all" }));
       setVisible(false);
     }
   };
@@ -71,7 +68,9 @@ const TableSelect = ({
               ></span>
             )}
             {text === "Style" && style === "all" && "All"}
-            {text === "Style" && !style && "Select Style"}
+            {text === "Style" &&
+              Object.keys(style).length === 0 &&
+              "Select Style"}
 
             {text === "Order" ? order || `Select ${text}` : ""}
           </span>
@@ -107,7 +106,10 @@ const TableSelect = ({
                     <li
                       key={index}
                       onClick={() => {
-                        ratingChangeHandler(item.value);
+                        changeHandler((prev) => ({
+                          ...prev,
+                          rating: item.value,
+                        }));
                         setVisible(false);
                       }}
                     >
@@ -120,11 +122,14 @@ const TableSelect = ({
                     <li
                       key={index}
                       onClick={() => {
-                        sizeChangeHandler(item.size);
+                        changeHandler((prev) => ({
+                          ...prev,
+                          size: item,
+                        }));
                         setVisible(false);
                       }}
                     >
-                      <span>{`Size ${item.size}`}</span>
+                      <span>{`Size ${item}`}</span>
                     </li>
                   );
                 }
@@ -133,7 +138,10 @@ const TableSelect = ({
                     <li
                       key={index}
                       onClick={() => {
-                        styleChangeHandler(item);
+                        changeHandler((prev) => ({
+                          ...prev,
+                          style: item,
+                        }));
                         setVisible(false);
                       }}
                     >
@@ -159,7 +167,10 @@ const TableSelect = ({
                     <li
                       key={index}
                       onClick={() => {
-                        orderChangeHandler(item.value);
+                        changeHandler((prev) => ({
+                          ...prev,
+                          order: item.value,
+                        }));
                         setVisible(false);
                       }}
                     >

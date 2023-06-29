@@ -28,11 +28,8 @@ const orderOptions = [
   },
 ];
 
-const TableHeader = ({ reviews, allSizes, colors }) => {
+const TableHeader = ({ reviews, allSizes, colors, filter, setFilter }) => {
   const [rating, setRating] = useState();
-  const [size, setSize] = useState("");
-  const [style, setStyle] = useState("");
-  const [order, setOrder] = useState("");
 
   return (
     <div className={styled.table__header_wrap}>
@@ -42,28 +39,28 @@ const TableHeader = ({ reviews, allSizes, colors }) => {
       </div>
       <div className={styled.table__header_select}>
         <TableSelect
-          rating={rating}
+          rating={filter.rating}
           text="Rating"
-          data={ratings.filter((x) => x.value != rating)}
-          ratingChangeHandler={setRating}
+          data={ratings.filter((x) => x.value != filter.rating)}
+          changeHandler={setFilter}
         />
         <TableSelect
-          size={size}
+          size={filter.size}
           text="Size"
-          data={allSizes.filter((s) => s.size !== size)}
-          sizeChangeHandler={setSize}
+          data={allSizes.filter((s) => s !== filter.size)}
+          changeHandler={setFilter}
         />
         <TableSelect
-          style={style}
+          style={filter.style}
           text="Style"
-          data={colors.filter((c) => c !== style)}
-          styleChangeHandler={setStyle}
+          data={colors.filter((c) => c !== filter.style)}
+          changeHandler={setFilter}
         />
         <TableSelect
-          order={order}
+          order={filter.order}
           text="Order"
-          data={orderOptions.filter((c) => c !== order)}
-          orderChangeHandler={setOrder}
+          data={orderOptions.filter((c) => c.value !== filter.order)}
+          changeHandler={setFilter}
         />
       </div>
     </div>

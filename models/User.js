@@ -1,4 +1,5 @@
 import mongoose, { models, model } from "mongoose";
+const { ObjectId } = mongoose.Schema;
 
 const userSchema = new mongoose.Schema(
   {
@@ -70,7 +71,7 @@ const userSchema = new mongoose.Schema(
     wishlist: [
       {
         product: {
-          type: mongoose.Types.ObjectId,
+          type: ObjectId,
           ref: "Product",
         },
         style: {
@@ -82,4 +83,4 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export const User = models.User || model("User", userSchema);
+export const User = models?.User || model("User", userSchema);

@@ -4,6 +4,7 @@ import { ImUpload2 } from "react-icons/im";
 import { MdCancel } from "react-icons/md";
 
 import styled from "./styles.module.scss";
+import { Button } from "@mui/material";
 
 const Images = ({ images, setImages }) => {
   const inputRef = useRef(null);
@@ -86,13 +87,16 @@ const Images = ({ images, setImages }) => {
         //Giới hạn loại file upload là png, jpeg và webp
         accept="image/png, image/jpeg, image/webp"
       />
-      <button
-        className={styled.upload_btn}
-        style={{ width: "150px", fontSize: "15px", height: "40px" }}
-        onClick={() => inputRef.current.click()}
-      >
-        <ImUpload2 /> Add images
-      </button>
+      <div className={styled.upload_btn}>
+        <Button
+          variant="contained"
+          className={styled.upload_btn}
+          onClick={() => inputRef.current.click()}
+          startIcon={<ImUpload2 />}
+        >
+          Add images
+        </Button>
+      </div>
       {error && (
         <div className={styled.error}>
           <MdCancel />

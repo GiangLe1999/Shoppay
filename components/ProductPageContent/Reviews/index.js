@@ -1,20 +1,68 @@
 import { signIn, useSession } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 import Ratings from "../../Ratings";
 import AddReview from "./AddReview";
 
 import styled from "./styles.module.scss";
 import Table from "./Table";
+import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Button } from "@mui/material";
 
-const Reviews = ({ product }) => {
+const Reviews = ({ product, ratings }) => {
   const { data: session } = useSession();
-  const [reviews, setReviews] = useState(product.reviews);
+  const [reviews, setReviews] = useState([]);
+  const [filter, setFilter] = useState({
+    rating: "",
+    size: "",
+    style: {},
+    order: "",
+  });
+
+  useEffect(() => {
+    try {
+      const fetchReviews = async () => {
+        const data = await axios.get(`/api/product/${product._id}/review`);
+        setReviews(data.data);
+      };
+
+      fetchReviews();
+    } catch (error) {
+      toast.error(error.response?.data.message);
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+      const filters = async () => {
+        const { data } = await axios.post(
+          `/api/product/${product._id}/review`,
+          {
+            filter: filter,
+          }
+        );
+        setReviews(data);
+      };
+
+      if (
+        filter.rating ||
+        filter.size ||
+        Object.keys(filter.style).length > 0 ||
+        filter.order
+      ) {
+        filters();
+      }
+    } catch (error) {
+      toast.error(error.response?.data.message);
+    }
+  }, [filter]);
 
   return (
     <div className={styled.reviews}>
       <div className={styled.reviews__container}>
-        <h3>Customer&apos;s average rating ({product.reviews.length} votes)</h3>
+        <h3>Customer&apos;s average rating ({product.numReviews} votes)</h3>
         <div className={styled.reviews__stats}>
           <div className={styled.reviews__stats_overview}>
             <div className={styled.reviews__stats_overview_rating}>
@@ -27,8 +75,9 @@ const Reviews = ({ product }) => {
               </b>
             </div>
           </div>
+
           <div className={styled.reviews__stats_reviews}>
-            {product.ratings.map((rating, index) => {
+            {ratings.map((rating, index) => {
               return (
                 <div
                   className={styled.reviews__stats_reviews_review}
@@ -57,9 +106,11 @@ const Reviews = ({ product }) => {
           {session ? (
             <AddReview product={product} setReviews={setReviews} />
           ) : (
-            <button className={styled.login_btn} onClick={() => signIn()}>
-              Login to add a review
-            </button>
+            <div className={styled.login_btn}>
+              <Button variant="contained" onClick={() => signIn()}>
+                Login to add a review
+              </Button>
+            </div>
           )}
         </div>
 
@@ -68,6 +119,9 @@ const Reviews = ({ product }) => {
           reviews={reviews}
           allSizes={product.allSizes}
           colors={product.colors}
+          filter={filter}
+          setFilter={setFilter}
+          setReviews={setReviews}
         />
       </div>
     </div>

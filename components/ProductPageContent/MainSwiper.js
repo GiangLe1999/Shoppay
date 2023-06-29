@@ -10,6 +10,7 @@ import {
 
 import styled from "./styles.module.scss";
 import Image from "next/image";
+import { Button } from "@mui/material";
 
 const MainSwiper = ({ images, activeImg }) => {
   //Sửa lại format của Array ảnh để truyền SlideshowLightbox
@@ -149,9 +150,12 @@ const MainSwiper = ({ images, activeImg }) => {
         </SlideshowLightbox>
       </div>
       <div className={styled.swiper__list}>
-        <button onClick={() => containerScrollHandler("up")}>
+        <Button
+          variant="contained"
+          onClick={() => containerScrollHandler("up")}
+        >
           <MdOutlineKeyboardDoubleArrowUp />
-        </button>
+        </Button>
         <div className={styled.swiper__list_container} ref={containerRef}>
           {images.map((img, index) => {
             return (
@@ -167,9 +171,12 @@ const MainSwiper = ({ images, activeImg }) => {
             );
           })}
         </div>
-        <button onClick={() => containerScrollHandler("down")}>
+        <Button
+          variant="contained"
+          onClick={() => containerScrollHandler("down")}
+        >
           <MdOutlineKeyboardDoubleArrowDown />
-        </button>
+        </Button>
       </div>
     </div>
   );

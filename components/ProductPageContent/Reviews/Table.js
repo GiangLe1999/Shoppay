@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import usePagination from "./Pagination";
 import { useState } from "react";
 import { Pagination } from "@mui/material";
@@ -6,7 +7,14 @@ import styled from "./styles.module.scss";
 import Review from "./Review";
 import TableHeader from "./TableHeader";
 
-const Table = ({ reviews, allSizes, colors }) => {
+const Table = ({
+  reviews,
+  allSizes,
+  colors,
+  filter,
+  setFilter,
+  setReviews,
+}) => {
   const [page, setPage] = useState(1);
   const PER_PAGE = 3;
 
@@ -23,15 +31,29 @@ const Table = ({ reviews, allSizes, colors }) => {
   return (
     <div className={styled.table}>
       <div className={styled.table__header}>
-        <TableHeader reviews={reviews} allSizes={allSizes} colors={colors} />
+        <TableHeader
+          reviews={reviews}
+          allSizes={allSizes}
+          colors={colors}
+          filter={filter}
+          setFilter={setFilter}
+        />
       </div>
 
-      <div className={styled.table__data}>
-        {/* Map qua data của page hiện tại và render các review thuộc page đó*/}
-        {_DATA.currentData().map((review, index) => (
-          <Review review={review} key={index} />
-        ))}
-      </div>
+      {reviews.length > 0 ? (
+        <div className={styled.table__data}>
+          {/* Map qua data của page hiện tại và render các review thuộc page đó*/}
+          {_DATA.currentData().map((review, index) => (
+            <Review review={review} key={index} setReviews={setReviews} />
+          ))}
+        </div>
+      ) : (
+        <div className={styled.table__empty}>
+          <img src="/images/no-comments.png" alt="" />
+          <p>No comment yet!</p>
+          <p>Be the first to give this product a review.</p>
+        </div>
+      )}
       <div className={styled.pagination}>
         {/* Sử dụng Component Pagination của MUI để render giao diện */}
         <Pagination
