@@ -14,7 +14,7 @@ const auth = async (req, res, next) => {
     //Cho phép thực hiện tác vụ tiếp theo
     next();
   } else {
-    res.status(401).json({ message: "Not signed in" });
+    res.status(401).json({ message: "Have not signed in yet!" });
   }
 };
 

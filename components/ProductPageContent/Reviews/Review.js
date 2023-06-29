@@ -28,6 +28,7 @@ const Review = ({ review, setReviews }) => {
   };
 
   useEffect(() => {
+    if (!session) return;
     if (review.likes.length > 0) {
       const liked = review.likes.find(
         (user) => user.toString() === session.user.id

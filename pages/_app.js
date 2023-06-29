@@ -8,6 +8,7 @@ import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { ToastContainer } from "react-toastify";
 
 import "@/styles/globals.scss";
+import Chatbot from "@/components/Chatbot";
 
 let persistor = persistStore(store);
 
@@ -26,6 +27,7 @@ export default function App({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/logo-500x500.png" />
       </Head>
+      <Chatbot />
       <SessionProvider session={session}>
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
