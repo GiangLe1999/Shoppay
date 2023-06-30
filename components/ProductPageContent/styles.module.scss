@@ -638,9 +638,14 @@
       border-radius: 3px;
       font-weight: 400;
       font-size: 15px;
+      cursor: pointer;
 
       @media screen and (max-width: 543px) {
         font-size: 12px;
+      }
+
+      &:hover {
+        background-color: rgba(156, 156, 156, 0.075);
       }
 
       &:active {
@@ -691,6 +696,18 @@
 }
 //Accordion-------------------------------
 
+//Similar-------------------------------
+.similar {
+  &__img {
+    width: 100%;
+    aspect-ratio: 0.8;
+    position: relative;
+    display: block;
+  }
+}
+
+// Similar-------------------------------
+
 //Payment---------------------------------
 .payment {
   margin-top: 2.2rem;
@@ -721,17 +738,17 @@
   }
 
   &__image {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid rgba(0, 0, 0, 0.125);
-    border-radius: 0.3rem;
-    padding: 10px;
-    width: 70px;
-    height: 40px;
+    &_wrap {
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(0, 0, 0, 0.125);
+      border-radius: 0.3rem;
+      width: 80px;
+      height: 50px;
 
-    img {
-      width: 100%;
+      img {
+        object-fit: contain !important;
+      }
     }
   }
 

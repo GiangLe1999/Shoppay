@@ -10,6 +10,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Button } from "@mui/material";
+import StyledPulseLoader from "@/components/Loaders/PulseLoader";
 
 const Reviews = ({ product, ratings }) => {
   const { data: session } = useSession();
@@ -20,32 +21,34 @@ const Reviews = ({ product, ratings }) => {
     style: {},
     order: "",
   });
+  const [reviewsLoading, setReviewsLoading] = useState(false);
 
   useEffect(() => {
-    try {
-      const fetchReviews = async () => {
-        const data = await axios.get(`/api/product/${product._id}/review`);
-        setReviews(data.data);
-      };
+    const fetchReviews = async () => {
+      const data = await axios.get(`/api/product/${product._id}/review`);
+      setReviews(data.data);
+    };
 
+    try {
+      setReviewsLoading(true);
       fetchReviews();
+      setReviewsLoading(false);
     } catch (error) {
+      setReviewsLoading(false);
       toast.error(error.response?.data.message);
     }
   }, []);
 
   useEffect(() => {
-    try {
-      const filters = async () => {
-        const { data } = await axios.post(
-          `/api/product/${product._id}/review`,
-          {
-            filter: filter,
-          }
-        );
-        setReviews(data);
-      };
+    const filters = async () => {
+      const { data } = await axios.post(`/api/product/${product._id}/review`, {
+        filter: filter,
+      });
+      setReviews(data);
+    };
 
+    try {
+      setReviewsLoading(true);
       if (
         filter.rating ||
         filter.size ||
@@ -54,7 +57,9 @@ const Reviews = ({ product, ratings }) => {
       ) {
         filters();
       }
+      setReviewsLoading(false);
     } catch (error) {
+      setReviewsLoading(false);
       toast.error(error.response?.data.message);
     }
   }, [filter]);
@@ -76,29 +81,33 @@ const Reviews = ({ product, ratings }) => {
             </div>
           </div>
 
-          <div className={styled.reviews__stats_reviews}>
-            {ratings.map((rating, index) => {
-              return (
-                <div
-                  className={styled.reviews__stats_reviews_review}
-                  key={index}
-                >
-                  <div className={styled.stars}>
-                    <Ratings defaultRating={5 - index} />
+          {!reviewsLoading ? (
+            <div className={styled.reviews__stats_reviews}>
+              {ratings.map((rating, index) => {
+                return (
+                  <div
+                    className={styled.reviews__stats_reviews_review}
+                    key={index}
+                  >
+                    <div className={styled.stars}>
+                      <Ratings defaultRating={5 - index} />
+                    </div>
+                    <div className={styled.bar}>
+                      <div
+                        className={styled.bar__inner}
+                        style={{ width: `${rating.percentage}%` }}
+                      ></div>
+                    </div>
+                    <span className={styled.percent}>
+                      {rating.percentage !== "NaN" ? rating.percentage : 0}%
+                    </span>
                   </div>
-                  <div className={styled.bar}>
-                    <div
-                      className={styled.bar__inner}
-                      style={{ width: `${rating.percentage}%` }}
-                    ></div>
-                  </div>
-                  <span className={styled.percent}>
-                    {rating.percentage !== "NaN" ? rating.percentage : 0}%
-                  </span>
-                </div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
+          ) : (
+            <StyledPulseLoader loading={reviewsLoading} />
+          )}
         </div>
 
         <h3>Add your own reviews</h3>
@@ -122,6 +131,7 @@ const Reviews = ({ product, ratings }) => {
           filter={filter}
           setFilter={setFilter}
           setReviews={setReviews}
+          reviewsLoading={reviewsLoading}
         />
       </div>
     </div>

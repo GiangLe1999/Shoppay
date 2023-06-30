@@ -1,11 +1,11 @@
-import * as React from "react";
-import { styled } from "@mui/material/styles";
-
-import { MdPlayArrow } from "react-icons/md";
+import { useState } from "react";
 import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
-
+import { styled } from "@mui/material/styles";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { MdPlayArrow } from "react-icons/md";
 import { FaCopy, FaShareAlt } from "react-icons/fa";
 
 import styles from "./styles.module.scss";
@@ -50,9 +50,9 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   borderTop: "1px solid rgba(0, 0, 0, .125)",
 }));
 
-export default function Accordian({ details }) {
+export default function Accordian({ details, product }) {
   const url = window.location.href;
-  const [expanded, setExpanded] = React.useState("");
+  const [expanded, setExpanded] = useState("");
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
@@ -154,7 +154,12 @@ export default function Accordian({ details }) {
 
         <AccordionDetails>
           <div className={styles.button_wrapper}>
-            <button onClick={() => navigator.clipboard.writeText(url)}>
+            <button
+              onClick={() => {
+                navigator.clipboard.writeText(url);
+                toast.success("Copied product link successfully!");
+              }}
+            >
               <FaCopy /> Click here to get Product Link
             </button>
           </div>
@@ -182,7 +187,7 @@ export default function Accordian({ details }) {
         </AccordionSummary>
 
         <AccordionDetails className="scrollbar">
-          <SimilarSwiper />
+          <SimilarSwiper product={product} />
         </AccordionDetails>
       </Accordion>
     </div>

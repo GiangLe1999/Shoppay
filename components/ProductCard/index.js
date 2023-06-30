@@ -73,77 +73,77 @@ const ProductCard = ({ product, className }) => {
               ""
             )}
           </div>
+
+          <div className={styled.product__infos}>
+            <div className={styled.product__infos_colors}>
+              {styles &&
+                styles.map((style, index) =>
+                  style.image ? (
+                    <img
+                      key={index}
+                      className={index === active && styled.active}
+                      onMouseOver={() => {
+                        setImages(product.subProducts[index]?.images);
+                        setActive(index);
+                      }}
+                      src={style.image}
+                      alt=""
+                    />
+                  ) : (
+                    <span
+                      key={index}
+                      style={{
+                        backgroundColor: `${style.color}`,
+                        outlineOffset: "2px",
+                        cursor: "pointer",
+                      }}
+                      className={index === active && styled.active}
+                      onMouseOver={() => {
+                        setImages(product.subProducts[index]?.images);
+                        setActive(index);
+                      }}
+                    ></span>
+                  )
+                )}
+            </div>
+
+            <div className={styled.product__infos_sizes}>
+              {product.subProducts[active]?.sizes.map((size, i) => {
+                return (
+                  <div key={i}>
+                    <button
+                      onClick={() => setSizeActive(i)}
+                      className={sizeActive === i && styled.sizeActive}
+                      htmlFor="size"
+                    >
+                      {size.size}
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+
+            <h4 className={styled.product__infos_name}>{product.name}</h4>
+
+            <div className={styled.product__infos_flex}>
+              <div className={styled.product__infos_price}>
+                <span>from </span>
+                <span>$</span>
+                <span>{priceFrom}</span>
+                {product.subProducts[active]?.discount > 0 && (
+                  <>
+                    <span>$</span>
+                    <span>{prices[0]}</span>
+                  </>
+                )}
+              </div>
+
+              <div className={styled.product__infos_ratings}>
+                <Ratings value={product.rating} />
+              </div>
+            </div>
+          </div>
         </Link>
-
-        <div className={styled.product__infos}>
-          <div className={styled.product__infos_colors}>
-            {styles &&
-              styles.map((style, index) =>
-                style.image ? (
-                  <img
-                    key={index}
-                    className={index === active && styled.active}
-                    onMouseOver={() => {
-                      setImages(product.subProducts[index]?.images);
-                      setActive(index);
-                    }}
-                    src={style.image}
-                    alt=""
-                  />
-                ) : (
-                  <span
-                    key={index}
-                    style={{
-                      backgroundColor: `${style.color}`,
-                      outlineOffset: "2px",
-                      cursor: "pointer",
-                    }}
-                    className={index === active && styled.active}
-                    onMouseOver={() => {
-                      setImages(product.subProducts[index]?.images);
-                      setActive(index);
-                    }}
-                  ></span>
-                )
-              )}
-          </div>
-
-          <div className={styled.product__infos_sizes}>
-            {product.subProducts[active]?.sizes.map((size, i) => {
-              return (
-                <div key={i}>
-                  <button
-                    onClick={() => setSizeActive(i)}
-                    className={sizeActive === i && styled.sizeActive}
-                    htmlFor="size"
-                  >
-                    {size.size}
-                  </button>
-                </div>
-              );
-            })}
-          </div>
-
-          <h4 className={styled.product__infos_name}>{product.name}</h4>
-
-          <div className={styled.product__infos_flex}>
-            <div className={styled.product__infos_price}>
-              <span>from </span>
-              <span>$</span>
-              <span>{priceFrom}</span>
-              {product.subProducts[active]?.discount > 0 && (
-                <>
-                  <span>$</span>
-                  <span>{prices[0]}</span>
-                </>
-              )}
-            </div>
-
-            <div className={styled.product__infos_ratings}>
-              <Ratings value={product.rating} />
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );

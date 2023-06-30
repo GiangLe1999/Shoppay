@@ -1,9 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
-import { simillar_products } from "../../data/products";
 
-import styles from "./styles.module.scss";
-import { useRef, useState } from "react";
+import styled from "./styles.module.scss";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
@@ -11,8 +9,31 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 import { Navigation } from "swiper";
+import NextImage from "../NextImage";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
 
-export default function SimilarSwiper() {
+export default function SimilarSwiper({ product }) {
+  const [similarProducts, setSimilarProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchSimilars = async () => {
+      const { data } = await axios.get(`/api/product/${product._id}/similar`);
+      setSimilarProducts(data);
+    };
+
+    try {
+      setLoading(true);
+      fetchSimilars();
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      toast.error(error.response.data.message);
+    }
+  }, []);
+
   return (
     <Swiper
       slidesPerView={4}
@@ -20,7 +41,7 @@ export default function SimilarSwiper() {
       slidesPerGroup={3}
       navigation={true}
       modules={[Navigation]}
-      className="similar_swiper products__swiper"
+      className="similar_swiper products_swiper"
       rewind={true}
       breakpoints={{
         640: {
@@ -29,10 +50,13 @@ export default function SimilarSwiper() {
         },
       }}
     >
-      {simillar_products.map((p, index) => (
+      {similarProducts.map((p, index) => (
         <SwiperSlide key={index}>
-          <Link href="">
-            <img src={p} alt="" />
+          <Link
+            href={`/product/${p.slug}?style=0`}
+            className={styled.similar__img}
+          >
+            <NextImage src={p.image} alt={p.slug} />
           </Link>
         </SwiperSlide>
       ))}

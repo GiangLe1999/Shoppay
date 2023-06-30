@@ -22,6 +22,69 @@ handler.get(async (req, res) => {
   }
 });
 
+handler.post(async (req, res) => {
+  try {
+    await db.connectDb();
+
+    const id = req.query?.id;
+    const product = await Product.findById(id).lean();
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    const { filter } = req.body;
+    const { order, rating, size, style } = filter;
+
+    const ratingOptions =
+      rating && rating !== "all"
+        ? { rating: Number(rating) }
+        : rating === "all"
+        ? {}
+        : {};
+
+    const sizeOptions =
+      size && size !== "all" ? { size: size } : rating === "all" ? {} : {};
+
+    let styleOptions =
+      style.color && !style.colorImg
+        ? { "style.color": style.color }
+        : !style.color && style.colorImg
+        ? { "style.colorImg": style.colorImg }
+        : style.color && style.colorImg
+        ? { "style.color": style.color, "style.colorImg": style.colorImg }
+        : rating === "all"
+        ? {}
+        : {};
+
+    const recommendedSortOptions =
+      order === "Recommended" ? { rating: -1 } : {};
+
+    const sortOptions =
+      order === "Newest to Oldest"
+        ? { updatedAt: -1 }
+        : order === "Oldest to Newest"
+        ? { updatedAt: 1 }
+        : order === "All"
+        ? {}
+        : {};
+
+    const reviewsAfterFilter = await Review.find({
+      product: product._id,
+      ...ratingOptions,
+      ...sizeOptions,
+      ...styleOptions,
+    })
+      .sort({ ...recommendedSortOptions, ...sortOptions })
+      .populate("reviewBy");
+
+    res.status(200).json(reviewsAfterFilter);
+  } catch (error) {
+    await db.disConnectDb();
+    return res.status(500).json({ message: error.message });
+  }
+});
+
 handler.use(auth).put(async (req, res) => {
   try {
     await db.connectDb();
@@ -116,69 +179,6 @@ handler.use(auth).put(async (req, res) => {
           .sort({ updatedAt: -1 }),
       });
     }
-  } catch (error) {
-    await db.disConnectDb();
-    return res.status(500).json({ message: error.message });
-  }
-});
-
-handler.post(async (req, res) => {
-  try {
-    await db.connectDb();
-
-    const id = req.query?.id;
-    const product = await Product.findById(id).lean();
-
-    if (!product) {
-      return res.status(404).json({ message: "Product not found" });
-    }
-
-    const { filter } = req.body;
-    const { order, rating, size, style } = filter;
-
-    const ratingOptions =
-      rating && rating !== "all"
-        ? { rating: Number(rating) }
-        : rating === "all"
-        ? {}
-        : {};
-
-    const sizeOptions =
-      size && size !== "all" ? { size: size } : rating === "all" ? {} : {};
-
-    let styleOptions =
-      style.color && !style.colorImg
-        ? { "style.color": style.color }
-        : !style.color && style.colorImg
-        ? { "style.colorImg": style.colorImg }
-        : style.color && style.colorImg
-        ? { "style.color": style.color, "style.colorImg": style.colorImg }
-        : rating === "all"
-        ? {}
-        : {};
-
-    const recommendedSortOptions =
-      order === "Recommended" ? { rating: -1 } : {};
-
-    const sortOptions =
-      order === "Newest to Oldest"
-        ? { updatedAt: -1 }
-        : order === "Oldest to Newest"
-        ? { updatedAt: 1 }
-        : order === "All"
-        ? {}
-        : {};
-
-    const reviewsAfterFilter = await Review.find({
-      product: product._id,
-      ...ratingOptions,
-      ...sizeOptions,
-      ...styleOptions,
-    })
-      .sort({ ...recommendedSortOptions, ...sortOptions })
-      .populate("reviewBy");
-
-    res.status(200).json(reviewsAfterFilter);
   } catch (error) {
     await db.disConnectDb();
     return res.status(500).json({ message: error.message });

@@ -6,6 +6,7 @@ import { Pagination } from "@mui/material";
 import styled from "./styles.module.scss";
 import Review from "./Review";
 import TableHeader from "./TableHeader";
+import { PulseLoader } from "react-spinners";
 
 const Table = ({
   reviews,
@@ -14,6 +15,7 @@ const Table = ({
   filter,
   setFilter,
   setReviews,
+  reviewsLoading,
 }) => {
   const [page, setPage] = useState(1);
   const PER_PAGE = 3;
@@ -40,14 +42,16 @@ const Table = ({
         />
       </div>
 
-      {reviews.length > 0 ? (
+      {reviewsLoading && <PulseLoader loading={reviewsLoading} />}
+      {reviews.length > 0 && !reviewsLoading && (
         <div className={styled.table__data}>
           {/* Map qua data của page hiện tại và render các review thuộc page đó*/}
           {_DATA.currentData().map((review, index) => (
             <Review review={review} key={index} setReviews={setReviews} />
           ))}
         </div>
-      ) : (
+      )}
+      {reviews.length === 0 && !reviewsLoading && (
         <div className={styled.table__empty}>
           <img src="/images/no-comments.png" alt="" />
           <p>No comment yet!</p>

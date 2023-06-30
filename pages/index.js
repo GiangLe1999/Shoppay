@@ -33,7 +33,7 @@ export default function Home({
   );
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   await db.connectDb();
 
   //lean method trả về các document dưới dạng plain Object chứ không phải Mongoose document thông thường

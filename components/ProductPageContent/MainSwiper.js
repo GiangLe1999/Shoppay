@@ -1,6 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useRef, useState } from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
+import Image from "next/image";
+import { Button } from "@mui/material";
 import { SlideshowLightbox } from "lightbox.js-react";
 import "lightbox.js-react/dist/index.css";
 import {
@@ -9,8 +11,6 @@ import {
 } from "react-icons/md";
 
 import styled from "./styles.module.scss";
-import Image from "next/image";
-import { Button } from "@mui/material";
 
 const MainSwiper = ({ images, activeImg }) => {
   //Sửa lại format của Array ảnh để truyền SlideshowLightbox

@@ -115,7 +115,7 @@ const Infos = ({ product, setActiveImg, setImages }) => {
     Router.push(
       {
         pathname: `/product/${product.slug}`,
-        query: { ...Router.query, size: index },
+        query: { style: Router.query.style, size: index },
       },
       undefined,
       { scroll: false }
@@ -318,7 +318,10 @@ const Infos = ({ product, setActiveImg, setImages }) => {
             <MdCancel /> {error}
           </span>
         )}
-        <StyledAccordion details={[product.description, ...product.details]} />
+        <StyledAccordion
+          product={product}
+          details={[product.description, ...product.details]}
+        />
       </div>
     </div>
   );
