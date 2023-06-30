@@ -1,14 +1,13 @@
-/* eslint-disable @next/next/no-img-element */
-import styled from "./styles.module.scss";
-
-import { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-
 import { Pagination, Navigation, Autoplay } from "swiper";
+
+import Image from "next/image";
+
+import styled from "./styles.module.scss";
+import NextImage from "@/components/NextImage";
 
 export default function App() {
   return (
@@ -30,10 +29,12 @@ export default function App() {
       >
         {[...Array(4).keys()].map((i) => (
           <SwiperSlide key={i}>
-            <img
-              src={`/images/swiper/${i + 1}.jpg`}
-              alt={`Home Banner ${i + 1}`}
-            />
+            <div className={styled.mainSwiper__wrapper}>
+              <NextImage
+                src={`/images/swiper/${i + 1}.jpg`}
+                alt={`Home Banner ${i + 1}`}
+              />
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>

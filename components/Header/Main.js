@@ -1,14 +1,14 @@
-/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { RiSearch2Line } from "react-icons/ri";
 import { FaOpencart } from "react-icons/fa";
-
-import styled from "./styles.module.scss";
-import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import NextImage from "../NextImage";
+
+import styled from "./styles.module.scss";
+import "react-toastify/dist/ReactToastify.css";
 
 const Main = ({ searchHandler2 }) => {
   const { cart } = useSelector((state) => ({ ...state }));
@@ -39,7 +39,7 @@ const Main = ({ searchHandler2 }) => {
         {/* logo */}
         <Link href="/">
           <div className={styled.logo}>
-            <img src="/logo.png" alt="Logo Shoppay" />
+            <NextImage src="/logo.png" alt="Logo Shoppay" />
           </div>
         </Link>
 

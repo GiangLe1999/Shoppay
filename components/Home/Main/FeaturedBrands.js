@@ -9,6 +9,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import styled from "./styles.module.scss";
 import { featuredBrands } from "@/data/home";
+import NextImage from "@/components/NextImage";
 
 export default function FeaturedBrands() {
   const isMobile = useMediaQuery({ query: "(max-width: 500px)" });
@@ -35,10 +36,14 @@ export default function FeaturedBrands() {
             <SwiperSlide key={index}>
               <div className={styled.featuredBrands__container} href="">
                 <Link className={styled.featuredBrands__item} href="">
-                  <img
-                    src={`/images/featured-brand/${brand.image}.png`}
-                    alt=""
-                  />
+                  <div style={{ display: "grid", placeItems: "center" }}>
+                    <div className={styled.featuredBrands__item_img}>
+                      <NextImage
+                        src={`/images/featured-brand/${brand.image}.png`}
+                        alt=""
+                      />
+                    </div>
+                  </div>
                   <h4>{brand.cateName}</h4>
                 </Link>
               </div>

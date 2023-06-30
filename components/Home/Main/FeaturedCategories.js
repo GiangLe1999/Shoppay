@@ -1,12 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
+import NextImage from "@/components/NextImage";
 import { useMediaQuery } from "react-responsive";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper";
-
 import "swiper/css";
 import "swiper/css/pagination";
+
 import styled from "./styles.module.scss";
 import { menuArray } from "@/data/home";
 
@@ -36,10 +37,14 @@ export default function FeaturedCategories() {
             return (
               <SwiperSlide key={index}>
                 <Link className={styled.featuredCategories__item} href="">
-                  <img
-                    src={`/images/featured-category/${category.featuredImg}`}
-                    alt=""
-                  />
+                  <div style={{ display: "grid", placeItems: "center" }}>
+                    <div className={styled.featuredCategories__item_img}>
+                      <NextImage
+                        src={`/images/featured-category/${category.featuredImg}`}
+                        alt=""
+                      />
+                    </div>
+                  </div>
                   <h4>{category.name}</h4>
                 </Link>
               </SwiperSlide>

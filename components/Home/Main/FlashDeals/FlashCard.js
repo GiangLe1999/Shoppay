@@ -1,13 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
-import styled from "./styles.module.scss";
-import { priceAfterDiscount } from "@/utils/productUltils";
-import { FaOpencart } from "react-icons/fa";
-import { addToCart, updateCart } from "@/store/cartSlice";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
+import { FaOpencart } from "react-icons/fa";
+
+import styled from "./styles.module.scss";
+import NextImage from "@/components/NextImage";
+import { priceAfterDiscount } from "@/utils/productUltils";
+import { addToCart, updateCart } from "@/store/cartSlice";
 
 const FlashCard = ({ product }) => {
   const { cart } = useSelector((state) => ({ ...state }));
@@ -57,7 +59,7 @@ const FlashCard = ({ product }) => {
     <div className={styled.flashDeals__item}>
       <Link href={`/product/${product.slug}`}>
         <div className={styled.flashDeals__item_img}>
-          <img src={product.images[0].url} alt="" />
+          <NextImage src={product.images[0].url} alt="" />
         </div>
 
         <div className={styled.flashDeals__item_infos}>

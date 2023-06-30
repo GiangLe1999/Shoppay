@@ -1,9 +1,9 @@
-/* eslint-disable @next/next/no-img-element */
-import { menuArray } from "@/data/home";
 import Link from "next/link";
+import Image from "next/image";
 import { MdDashboard } from "react-icons/md";
 
 import styled from "./styles.module.scss";
+import { menuArray } from "@/data/home";
 
 const Menu = () => {
   return (
@@ -18,7 +18,12 @@ const Menu = () => {
             <li className={styled.menu__item} key={index}>
               <Link href={item.link}>
                 <div className={styled.menu__item_img}>
-                  <img src={`/categories/${item.images}`} alt="" />
+                  <Image
+                    fill={true}
+                    style={{ objectFit: "cover" }}
+                    src={`/categories/${item.images}`}
+                    alt={item.name}
+                  />
                 </div>
                 <span>{item.name}</span>
               </Link>

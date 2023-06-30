@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { useEffect, useRef } from "react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -8,6 +7,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import styled from "./styles.module.scss";
+import NextImage from "../NextImage";
 
 const ProductCardSwiper = ({ images }) => {
   const swiperRef = useRef(null);
@@ -36,11 +36,12 @@ const ProductCardSwiper = ({ images }) => {
         autoplay={{ delay: 500, stopOnLastSlide: false }}
         speed={500}
         modules={[Autoplay]}
-        className="productCard__swiper"
       >
         {images?.map((img, index) => (
           <SwiperSlide key={index}>
-            <img src={img.url} alt="" />
+            <div className={styled.product__infos_img}>
+              <NextImage src={img.url} alt="" />
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>

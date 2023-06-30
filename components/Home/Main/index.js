@@ -14,10 +14,6 @@ import FreeShippingProducts from "./FreeShippingProducts";
 const Main = ({ flashDeals, featuredProducts, freeShippingProducts }) => {
   return (
     <>
-      <a href="" className={styled.category__header}>
-        <BsListUl />
-        <b>CATEGORIES</b>
-      </a>
       <div className={styled.main}>
         <div className={styled.main__left}>
           <Menu />

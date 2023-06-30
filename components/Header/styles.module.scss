@@ -3,17 +3,6 @@
   box-shadow: $shadow-1;
 }
 
-//Ad-------------------------------------------------
-.ad {
-  height: 54px;
-  width: 100%;
-  background-image: url("../../public/images/ad.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-}
-//Ad-------------------------------------------------
-
 //Top------------------------------------------------
 .top {
   background-color: #f8f8f8;
@@ -258,10 +247,9 @@
   }
 
   .logo {
-    img {
-      width: 170px;
-      margin-top: 10px;
-    }
+    width: 170px;
+    aspect-ratio: 3.39;
+    position: relative;
   }
 
   .search {

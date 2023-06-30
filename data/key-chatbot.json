@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "shoppaychatagent-leon",
+  "private_key_id": "e335057a0c843134c19157086507742750ac42bc",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCmIO0FX2PtsXml\nhx3fK8/xeZwUx+R9+3fkjAGSBDHzerpGrSzfQ57GzDjzz5sUGjEYRQpSLoeYx8i/\nuJRLqF9/vvX56QlouCenjbi3IE02wqJUHPDNEe6u1Yougniv2LTFrKgt6yPnd0JD\nTkthXYtKMhkO7jqeZSMsklYKwiNxc8h5mi5pbItreM4jP0mBw158U1FIo9aG9zxS\ntmP5Izk+dycW4a5HWKDnmWPbEYYFFERLDfwmyTO6pI3MTL1Y/bAGrBpYDWRYHSlY\nfM800Z3MzkBkzSCitBLWGy2Syxm+tibzkwQ1GbFc0cCepd92KgbGUB+CsGuSlCsF\n5qStv4xFAgMBAAECggEAIt0PEM0Tggr4PfIspSyjH4iHZl8KxxuSbh6pp7SErRWo\n6PMn0xT0ScELBLOhVmcmvXKjt1p3b2sh6IY6bORBYmQ3Z8JtjJH1FHcr+BZpzd+r\nxF4sdMTaI8vBi4ArBrBCQ6e3xacuqkE/YTOZoy3H8QKxeo4pNBuCdbSiJPDYElNE\nl1UmngdhQl1LoXRz34msnzC7fAvk836KDjXvz23GtmYnBO9BqRcjNLyVyGD+rR+s\nBI1G5pN5SRFo5eogZ1K6hYow8k3V7Q7tl+Vx3A50bGoLfrrgwRmUI8XJb9C/Z5Xv\nbg+mkkzV69bevzre28R7i8QgGAyrioSl7zCk7RsU4wKBgQDjx6ZX09o92wOCdWbS\nL/pIIanwTGXniXx5XFe9GqL+U+co7efIQ7MqDEQBoy2fAS8fMCJM37YQoH68PlL6\nQ0/8JrmyQd+o4js6yVw2ct2sqqoOSzQBl4rh4KOaWHWnCEz4Oj04EK9XDmQvH8dd\nRa75upiIDbwys25LuLPp3CRcgwKBgQC6tewFgWKg64hiQKXz0M/jN1rKJWYEhMfl\nDrwgzu3cVo0GhnKfnv0U4MEBmLsXZg5Qs/bVw3+n9G7qCNevKPDkCDaPWg5+n9lp\n1HPQCh7kj/rbX/WVdnYR0kLZP+7YwSnBxS5cxQX0/9rweARpxniDgaOyS0+Q4cAT\ng+kx99QplwKBgG3dDDRscGVJT8YKzk8u6O8FnavTjYtB2xHGImOJh3hYC7TIGvWT\nAcWUKPEJPaXlsk6+rqyZcn1OjBJLlUY0VU3vd72s3C3fAGZ4XMu+V4FCx8chKrJh\n35DXAtIdPJIWBNntbT2vfoLk5Bl+oHAyfhThlVR6G33w4ZAQRGbV0Yv1AoGAHXJT\npwqg44BCIjzP74QfRVaVmwwK6uuGGzoXsZTxLq73zu+lZEdO4twPlJDh8O7HkzLO\n2yfaGkMSuxZp7dYnJ8+jyzgI0S+kumwnV8hA1wteJPsdYFUuieD/agQLR2Qvkb/n\nb/oi1mEDxqknCQekOhlYF+aIxfDUuj8zqA3OCEECgYBBF0imF0x8vvSbYYLZJgMO\n2rEdqDSnQwQmu1LtHmBWuxSvkq25Vdqhd8C047RfTJrrsNA4eqeBi2OqCGks8n6f\nIVDdHpXb/JRw0DR+rbBzv48mQ5oJdY3J9UQhyW7S/dpi4bwvWC/JGDqIA4zMeGp5\nlNCY1lysY43F8f+FcJDkKA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "shoppay-service@shoppaychatagent-leon.iam.gserviceaccount.com",
+  "client_id": "110793237837504635174",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/shoppay-service%40shoppaychatagent-leon.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

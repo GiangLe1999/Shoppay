@@ -9,6 +9,8 @@ import "swiper/css";
 import "swiper/css/pagination";
 import styled from "./styles.module.scss";
 import { goodPrices } from "@/data/home";
+import Image from "next/image";
+import NextImage from "@/components/NextImage";
 
 export default function GoodPrice() {
   const isMobile = useMediaQuery({ query: "(max-width: 500px)" });
@@ -35,14 +37,23 @@ export default function GoodPrice() {
             <SwiperSlide key={index}>
               <div className={styled.goodPrice__item} href="">
                 <Link href="" className={styled.goodPrice__item_left}>
-                  <img src={`/images/good-price/${item.image1}.png`} alt="" />
+                  <NextImage
+                    src={`/images/good-price/${item.image1}.png`}
+                    alt=""
+                  />
                 </Link>
                 <div className={styled.goodPrice__item_right}>
                   <Link href="">
-                    <img src={`/images/good-price/${item.image2}.png`} alt="" />
+                    <NextImage
+                      src={`/images/good-price/${item.image2}.png`}
+                      alt=""
+                    />
                   </Link>
                   <Link href="">
-                    <img src={`/images/good-price/${item.image3}.png`} alt="" />
+                    <NextImage
+                      src={`/images/good-price/${item.image3}.png`}
+                      alt=""
+                    />
                   </Link>
                 </div>
               </div>
