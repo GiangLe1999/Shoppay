@@ -26,70 +26,41 @@
     }
   }
 
-  &__categories,
-  &__sizes,
-  &__styles,
-  &__patterns,
-  &__materials,
-  &__genders,
-  &__ratings,
-  &__shippingFees {
-    &_category,
-    &_size,
-    &_style,
-    &_pattern,
-    &_material,
-    &_gender,
-    &_rating,
-    &_shippingFee {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 0px 0px 12px;
+  &__input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0px 0px 12px;
+    cursor: pointer;
+
+    input {
+      width: 12px;
       cursor: pointer;
-
-      input {
-        width: 12px;
-        cursor: pointer;
-      }
-
-      span {
-        font-size: 12px;
-        color: rgb(56, 56, 61);
-        line-height: 16px;
-      }
     }
 
-    .flex {
-      display: inline-flex;
-      width: 100%;
-      align-items: center;
-      justify-content: space-between;
-
-      span {
-        &:last-of-type {
-          display: flex;
-          align-items: center;
-        }
-      }
-
-      svg {
-        width: 7px;
-        height: 7px;
-      }
+    span {
+      font-size: 12px;
+      color: rgb(56, 56, 61);
+      line-height: 16px;
     }
+  }
 
-    &_rating {
-      span {
+  .flex {
+    display: inline-flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+
+    span {
+      &:last-of-type {
         display: flex;
         align-items: center;
-
-        svg {
-          width: 15px;
-          height: 15px;
-          color: #faaf00;
-        }
       }
+    }
+
+    svg {
+      width: 7px;
+      height: 7px;
     }
   }
 
@@ -101,8 +72,8 @@
     padding-bottom: 12px;
 
     button {
-      width: 20.46px;
-      height: 20.46px;
+      width: 21px;
+      height: 21px;
       border-radius: 50%;
       box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.2);
       cursor: pointer;
@@ -111,38 +82,6 @@
         outline: 2px solid #ccc;
         outline-offset: 2px;
         transition: all 0.2s;
-      }
-    }
-  }
-
-  &__brands {
-    display: flex;
-    flex-wrap: wrap;
-    column-gap: 10px;
-
-    &_brand {
-      background: transparent;
-      width: 47%;
-      height: 37px;
-      border-radius: 5px;
-      border: 1px solid rgb(235, 235, 240);
-      display: grid;
-      place-items: center;
-      cursor: pointer;
-      margin-bottom: 10px;
-      font-weight: 600;
-      font-size: 15px;
-      color: #222;
-
-      &:hover {
-        border: 1px solid #ccc;
-        transition: $transition-1;
-      }
-
-      img {
-        width: 100%;
-        object-fit: contain;
-        height: 29px;
       }
     }
   }
@@ -159,4 +98,28 @@
 .colorActiveFilter {
   outline: 2px solid $blue-color;
   outline-offset: 2px;
+}
+
+.showHideBtn {
+  padding: 10px 0 15px;
+
+  button {
+    text-transform: unset;
+    padding: 0px 10px;
+    font-family: "Poppins", sans-serif;
+    font-size: 11px;
+  }
+}
+
+.rating {
+  span {
+    display: flex;
+    align-items: center;
+
+    svg {
+      width: 15px;
+      height: 15px;
+      color: #faaf00;
+    }
+  }
 }

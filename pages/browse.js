@@ -24,6 +24,9 @@ import { useRouter } from "next/router";
 import StarsFilter from "@/components/Browse/StarsFilter";
 import ShippingFeeFilter from "@/components/Browse/ShippingFeeFilter";
 import Footer from "@/components/Footer";
+import { useMediaQuery } from "react-responsive";
+import { calculateFiltersApplied } from "@/utils/objectUltils";
+import NextImage from "@/components/NextImage";
 
 export default function BrowsePage({
   categories,
@@ -38,6 +41,9 @@ export default function BrowsePage({
   paginationCount,
 }) {
   const router = useRouter();
+
+  const isMedium = useMediaQuery({ query: "(max-width: 1023px)" });
+  const isLarge = useMediaQuery({ query: "(min-width: 1024px)" });
 
   const filter = ({
     search,
@@ -71,7 +77,9 @@ export default function BrowsePage({
     if (sort) router.query.sort = sort;
     if (page) router.query.page = page;
 
-    router.push({ pathname: path, query: router.query });
+    router.push({ pathname: path, query: router.query }, undefined, {
+      scroll: false,
+    });
   };
 
   const searchHandler = (search) => {
@@ -188,6 +196,15 @@ export default function BrowsePage({
           <div
             className={`${styled.browse__store_filters} ${styled.scrollbar}`}
           >
+            <div className={styled.browse__clearBtn}>
+              <Button
+                variant="contained"
+                onClick={() => router.push("/browse")}
+              >
+                Clear All ({calculateFiltersApplied(router.query)})
+              </Button>
+            </div>
+
             <CategoryFilter
               categories={categories}
               subCategories={subCategories}
@@ -245,15 +262,6 @@ export default function BrowsePage({
               checkChecked={checkChecked}
               shippingHandler={shippingHandler}
             />
-
-            <div className={styled.browse__clearBtn}>
-              <Button
-                variant="contained"
-                onClick={() => router.push("/browse")}
-              >
-                Clear All ({Object.keys(router.query).length})
-              </Button>
-            </div>
           </div>
           <div className={styled.browse__store_products_wrap}>
             <HeadingFilters
@@ -262,19 +270,33 @@ export default function BrowsePage({
               sortHandler={sortHandler}
             />
             <div className={styled.browse__store_products}>
-              {products.map((product) => (
-                <ProductCard product={product} key={product._id} />
-              ))}
+              {products.length > 0 ? (
+                products.map((product) => (
+                  <ProductCard
+                    key={product._id}
+                    product={product}
+                    className={
+                      isLarge ? "grid__4" : isMedium ? "grid__3" : "grid__2"
+                    }
+                  />
+                ))
+              ) : (
+                <div className={styled.browse__store_empty}>
+                  <NextImage src={"/images/empty-search.jpg"} />
+                </div>
+              )}
             </div>
-            <div className={styled.pagination}>
-              <Pagination
-                count={paginationCount}
-                defaultPage={Number(router.query.page) || 1}
-                onChange={pageHandler}
-                shape="rounded"
-                color="primary"
-              />
-            </div>
+            {products.length > 0 && paginationCount > 1 && (
+              <div className={styled.pagination}>
+                <Pagination
+                  count={paginationCount}
+                  defaultPage={Number(router.query.page) || 1}
+                  onChange={pageHandler}
+                  shape="rounded"
+                  color="primary"
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -334,10 +356,6 @@ export async function getServerSideProps(ctx) {
   const genderRegex = `^${genderQuery[0]}`;
   const genderMultiRegex = createRegex(genderQuery, genderRegex);
 
-  const starQuery = ctx.query.star?.split("_") || "";
-  const starRegex = `^${starQuery[0]}`;
-  const starMultiRegex = createRegex(starQuery, starRegex);
-
   //------------------
 
   const searchOptions =
@@ -382,14 +400,10 @@ export async function getServerSideProps(ctx) {
         }
       : {};
 
-  let genderOptions;
-  if (genderQuery.includes("Unisex")) {
-    genderOptions = {};
-  } else {
+  const genderOptions =
     genderQuery && genderQuery.length > 0
       ? { "details.value": { $regex: genderMultiRegex, $options: "i" } }
       : {};
-  }
 
   const priceOptions =
     priceQuery && priceQuery.length > 0
@@ -458,9 +472,19 @@ export async function getServerSideProps(ctx) {
     .sort(sortOptions)
     .lean();
 
+  const reduceImagesProductsDb = productsDb.map((p) => {
+    const newSubProducts = p.subProducts.map((s) => {
+      return { ...s, images: s.images.slice(0, 2) };
+    });
+
+    return { ...p, subProducts: newSubProducts };
+  });
+
   //Dùng hàm helper randomize để random mảng productsDb
   let products =
-    sortQuery && sortQuery !== "" ? productsDb : randomize(productsDb);
+    sortQuery && sortQuery !== ""
+      ? reduceImagesProductsDb
+      : randomize(reduceImagesProductsDb);
 
   let categories = await Category.find().lean();
   let subCategories = await SubCategory.find()

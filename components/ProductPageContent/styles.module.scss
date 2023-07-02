@@ -105,11 +105,16 @@
       padding: 4px;
     }
 
-    img {
+    &_item {
       width: 100%;
-      object-position: center;
-      cursor: pointer;
+      aspect-ratio: 0.8;
+      position: relative;
       border-radius: 3px;
+      margin-bottom: 10px;
+
+      img {
+        border-radius: 3px;
+      }
     }
 
     .active {

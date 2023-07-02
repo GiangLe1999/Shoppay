@@ -4,8 +4,6 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Pagination, Navigation, Autoplay } from "swiper";
 
-import Image from "next/image";
-
 import styled from "./styles.module.scss";
 import NextImage from "@/components/NextImage";
 

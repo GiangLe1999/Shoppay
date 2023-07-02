@@ -21,14 +21,17 @@ import Infos from "@/components/ProductPageContent/Infos";
 import Reviews from "@/components/ProductPageContent/Reviews";
 import Payment from "@/components/ProductPageContent/Payment";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const ProductPage = ({ product }) => {
   const [activeImg, setActiveImg] = useState("");
   const [images, setImages] = useState(product.images);
   const [ratings, setRatings] = useState([]);
+  const [loadRatings, setLoadRatings] = useState(false);
 
   useEffect(() => {
     const fetchRatings = async () => {
+      setLoadRatings(true);
       const { data } = await axios.get(`/api/product/${product._id}/review`);
       setRatings([
         { percentage: calculatePercentage(data, 5) },
@@ -37,12 +40,14 @@ const ProductPage = ({ product }) => {
         { percentage: calculatePercentage(data, 2) },
         { percentage: calculatePercentage(data, 1) },
       ]);
+      setLoadRatings(false);
     };
 
     try {
       fetchRatings();
     } catch (error) {
-      console.log(error);
+      setLoadRatings(false);
+      toast.error(error.response.data.message);
     }
   }, []);
 
@@ -76,7 +81,11 @@ const ProductPage = ({ product }) => {
               setImages={setImages}
             />
           </main>
-          <Reviews product={product} ratings={ratings} />
+          <Reviews
+            product={product}
+            ratings={ratings}
+            loadRatings={loadRatings}
+          />
         </div>
       </div>
       <Footer />

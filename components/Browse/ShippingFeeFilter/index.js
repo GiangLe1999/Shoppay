@@ -1,7 +1,8 @@
 import { useState } from "react";
 import styled from "../styles.module.scss";
 import { FaMinus, FaPlus } from "react-icons/fa";
-import { useRouter } from "next/router";
+import CheckboxItem from "../CheckboxItem";
+import PlusMinusBtn from "../PlusMinusBtn";
 
 export default function ShippingFeeFilter({ checkChecked, shippingHandler }) {
   const shippingFees = ["Free", "Charged"];
@@ -10,31 +11,27 @@ export default function ShippingFeeFilter({ checkChecked, shippingHandler }) {
   return (
     <div className={styled.filter}>
       <h3>
-        Shipping Fee <span>{show ? <FaMinus /> : <FaPlus />}</span>
+        Shipping Fee
+        <PlusMinusBtn show={show} onClick={() => setShow((prev) => !prev)} />
       </h3>
 
       {show && (
-        <div className={styled.filter__shippingFees}>
+        <div>
           {shippingFees.map((fee, i) => {
             const check = checkChecked("shipping", fee);
 
             return (
-              <label
-                className={styled.filter__shippingFees_shippingFee}
+              <CheckboxItem
                 key={i}
-                htmlFor={fee}
                 onClick={() => {
                   shippingHandler(check ? {} : fee);
                 }}
-              >
-                <input
-                  type="radio"
-                  name="shippingFee"
-                  id={fee}
-                  checked={check}
-                />
-                <span>{fee}</span>
-              </label>
+                id={fee}
+                check={check}
+                content={fee}
+                name="shippingFee"
+                type="radio"
+              />
             );
           })}
         </div>

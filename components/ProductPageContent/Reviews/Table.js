@@ -6,7 +6,7 @@ import { Pagination } from "@mui/material";
 import styled from "./styles.module.scss";
 import Review from "./Review";
 import TableHeader from "./TableHeader";
-import { PulseLoader } from "react-spinners";
+import StyledDotLoader2 from "@/components/Loaders/DotLoader2";
 
 const Table = ({
   reviews,
@@ -42,7 +42,7 @@ const Table = ({
         />
       </div>
 
-      {reviewsLoading && <PulseLoader loading={reviewsLoading} />}
+      {reviewsLoading && <StyledDotLoader2 loading={reviewsLoading} />}
       {reviews.length > 0 && !reviewsLoading && (
         <div className={styled.table__data}>
           {/* Map qua data của page hiện tại và render các review thuộc page đó*/}
@@ -54,8 +54,8 @@ const Table = ({
       {reviews.length === 0 && !reviewsLoading && (
         <div className={styled.table__empty}>
           <img src="/images/no-comments.png" alt="" />
-          <p>No comment yet!</p>
-          <p>Be the first to give this product a review.</p>
+          <p>No review yet!</p>
+          <p>Be the first person to give this product a review.</p>
         </div>
       )}
       <div className={styled.pagination}>

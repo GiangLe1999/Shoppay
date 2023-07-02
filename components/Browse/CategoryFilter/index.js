@@ -1,8 +1,10 @@
 import { useState } from "react";
-import styled from "../styles.module.scss";
-import { FaMinus, FaPlus } from "react-icons/fa";
 
-import Card from "./Card";
+import styled from "../styles.module.scss";
+import ShowAllBtn from "../ShowAllBtn";
+import useSeeMore from "@/hook/useSeeMore";
+import CheckboxItem from "../CheckboxItem";
+import PlusMinusBtn from "../PlusMinusBtn";
 
 export default function CategoryFilter({
   categories,
@@ -11,25 +13,39 @@ export default function CategoryFilter({
   checkChecked,
 }) {
   const [show, setShow] = useState(true);
+  const { itemsQty, showAllHandler, hideBtn } = useSeeMore(categories);
 
   return (
     <div className={styled.filter}>
       <h3>
-        Category <span>{show ? <FaMinus /> : <FaPlus />}</span>
+        Category{" "}
+        <PlusMinusBtn show={show} onClick={() => setShow((prev) => !prev)} />
       </h3>
 
       {show && (
         <div className={styled.filter__categories}>
-          {categories.map((category, i) => {
+          {categories.slice(0, itemsQty).map((category, i) => {
+            const check = checkChecked("category", category._id);
+
             return (
-              <Card
-                key={category._id}
-                categoryHandler={categoryHandler}
-                category={category}
-                checkChecked={checkChecked}
+              <CheckboxItem
+                key={i}
+                onClick={() => {
+                  categoryHandler(check ? {} : category._id);
+                }}
+                id={category._id}
+                check={check}
+                content={category.name}
+                name="category"
+                type="radio"
               />
             );
           })}
+          {categories.length > 5 && (
+            <div className={`${styled.showHideBtn}`}>
+              <ShowAllBtn hideBtn={hideBtn} onClick={showAllHandler} />
+            </div>
+          )}
         </div>
       )}
     </div>

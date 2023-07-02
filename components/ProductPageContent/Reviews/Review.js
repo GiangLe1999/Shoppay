@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/react";
+import NextImage from "@/components/NextImage";
 
 const Review = ({ review, setReviews }) => {
   const isMedium = useMediaQuery({ query: "(max-width: 926px)" });
@@ -131,7 +132,9 @@ const Review = ({ review, setReviews }) => {
                   <div className={styled.review__images}>
                     {review.images.length > 0 &&
                       review.images.map((img, index) => (
-                        <img key={index} src={img?.url} alt="" />
+                        <div className={styled.review__image} key={index}>
+                          <NextImage src={img?.url} alt="" />
+                        </div>
                       ))}
                   </div>
                 )}
@@ -140,7 +143,7 @@ const Review = ({ review, setReviews }) => {
 
             <div className={styled.review__likes_count}>
               {review.likes.length === 0
-                ? "Be the first person to like this comment!"
+                ? "Be the first person to like this review!"
                 : `${
                     review.likes.length > 1
                       ? `${review.likes.length} people have`

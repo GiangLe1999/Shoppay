@@ -11,6 +11,7 @@ import {
 } from "react-icons/md";
 
 import styled from "./styles.module.scss";
+import NextImage from "../NextImage";
 
 const MainSwiper = ({ images, activeImg }) => {
   //Sửa lại format của Array ảnh để truyền SlideshowLightbox
@@ -166,7 +167,7 @@ const MainSwiper = ({ images, activeImg }) => {
                 key={index}
                 onMouseOver={() => setActive(index)}
               >
-                <img src={img.url} alt="" />
+                <NextImage src={img.url} alt="" />
               </div>
             );
           })}

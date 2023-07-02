@@ -11,17 +11,32 @@
 
   &__store {
     display: grid;
-    grid-template-columns: 220px 925px;
+    grid-template-columns: 230px 1fr;
     gap: 1.5rem;
     margin-bottom: 4rem;
 
     &_filters {
-      position: relative;
-      width: 100%;
+      position: sticky;
+      top: 20px;
       text-align: center;
       box-shadow: $shadow-1;
       font-size: 12px;
       border-radius: 3px;
+      max-height: 100vh;
+      overflow-y: scroll;
+
+      &::-webkit-scrollbar {
+        width: 5px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background-color: #fafafa;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-image: linear-gradient(-45deg, #d9d8eb, #c0c0c0);
+        border-radius: 50px;
+      }
     }
 
     &_products_wrap {
@@ -34,6 +49,13 @@
       display: flex;
       flex-wrap: wrap;
       gap: 2rem;
+    }
+
+    &_empty {
+      margin: 0 auto;
+      width: 70%;
+      aspect-ratio: 1;
+      position: relative;
     }
   }
 
@@ -50,21 +72,36 @@
   }
 
   &__tags {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    align-items: center;
     padding: 1rem;
-    gap: 1rem;
     border-radius: 3px;
     box-shadow: $shadow-1;
     margin-bottom: 24px;
+    max-width: 100%;
+    overflow-x: scroll;
+    white-space: nowrap;
+    scroll-behavior: smooth;
+
+    &::-webkit-scrollbar {
+      height: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: #fafafa;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-image: linear-gradient(-45deg, #d9d8eb, #c0c0c0);
+      border-radius: 50px;
+    }
 
     a {
-      padding: 10px 20px;
+      padding: 5px 15px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 40px;
+      margin-right: 15px;
       border-radius: 50px;
-      display: grid;
-      place-items: center;
       font-size: 14px;
       font-weight: 500;
       color: #666;

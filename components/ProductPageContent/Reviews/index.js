@@ -10,9 +10,9 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Button } from "@mui/material";
-import StyledPulseLoader from "@/components/Loaders/PulseLoader";
+import StyledDotLoader2 from "@/components/Loaders/DotLoader2";
 
-const Reviews = ({ product, ratings }) => {
+const Reviews = ({ product, ratings, loadRatings }) => {
   const { data: session } = useSession();
   const [reviews, setReviews] = useState([]);
   const [filter, setFilter] = useState({
@@ -81,7 +81,7 @@ const Reviews = ({ product, ratings }) => {
             </div>
           </div>
 
-          {!reviewsLoading ? (
+          {!loadRatings ? (
             <div className={styled.reviews__stats_reviews}>
               {ratings.map((rating, index) => {
                 return (
@@ -106,7 +106,7 @@ const Reviews = ({ product, ratings }) => {
               })}
             </div>
           ) : (
-            <StyledPulseLoader loading={reviewsLoading} />
+            <StyledDotLoader2 loading={loadRatings} />
           )}
         </div>
 

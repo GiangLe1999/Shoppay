@@ -3,6 +3,8 @@ import styled from "../styles.module.scss";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import { useRouter } from "next/router";
 import { replaceQuery } from "@/utils/filter";
+import CheckboxItem from "../CheckboxItem";
+import PlusMinusBtn from "../PlusMinusBtn";
 
 export default function GenderFilter({ genderHandler, checkChecked }) {
   const genders = ["Men", "Women", "Unisex"];
@@ -14,7 +16,8 @@ export default function GenderFilter({ genderHandler, checkChecked }) {
   return (
     <div className={styled.filter}>
       <h3>
-        Gender <span>{show ? <FaMinus /> : <FaPlus />}</span>
+        Gender
+        <PlusMinusBtn show={show} onClick={() => setShow((prev) => !prev)} />
       </h3>
 
       {show && (
@@ -22,24 +25,17 @@ export default function GenderFilter({ genderHandler, checkChecked }) {
           {genders.map((gender, i) => {
             const check = checkChecked("gender", gender);
             return (
-              <label
-                className={styled.filter__genders}
-                htmlFor={gender}
+              <CheckboxItem
                 key={i}
                 onClick={() => {
                   replaceQuery(existedGender, check, gender, genderHandler);
                 }}
-              >
-                <div className={styled.filter__genders_gender}>
-                  <input
-                    type="checkbox"
-                    name="style"
-                    id={gender}
-                    checked={check}
-                  />
-                  <span>{gender}</span>
-                </div>
-              </label>
+                id={gender}
+                check={check}
+                content={gender}
+                name="gender"
+                type="checkbox"
+              />
             );
           })}
         </>
