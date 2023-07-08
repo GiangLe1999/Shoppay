@@ -5,6 +5,7 @@ import { signOut, signIn } from "next-auth/react";
 import { BiLogOut } from "react-icons/bi";
 
 import styled from "./styles.module.scss";
+import { RevealWrapper } from "next-reveal";
 
 const UserMenu = ({ session }) => {
   return (

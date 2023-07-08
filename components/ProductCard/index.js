@@ -59,9 +59,6 @@ const ProductCard = ({ product, className }) => {
                 product={product}
                 productStyle={active}
                 productSize={sizeActive}
-                productSizeInText={
-                  product.subProducts[active]?.sizes[sizeActive].size
-                }
               />
             </div>{" "}
             {product.subProducts[active]?.discount ? (

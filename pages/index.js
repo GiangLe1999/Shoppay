@@ -7,6 +7,8 @@ import db from "@/utils/db";
 
 import styled from "../styles/Home.module.scss";
 import AllProducts from "@/components/Home/AllProducts";
+import { RevealWrapper } from "next-reveal";
+import AnimateWrapper from "@/components/AnimateWrapper";
 
 export default function Home({
   country,
@@ -25,7 +27,9 @@ export default function Home({
             featuredProducts={featuredProducts}
             freeShippingProducts={freeShippingProducts}
           />
-          <AllProducts products={products} />
+          <AnimateWrapper>
+            <AllProducts products={products} />
+          </AnimateWrapper>
         </div>
       </div>
       <Footer country={country} />

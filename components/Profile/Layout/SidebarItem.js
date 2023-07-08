@@ -13,7 +13,7 @@ export default function SidebarItem({ item, visible, index }) {
   const router = useRouter();
 
   return (
-    <li>
+    <li className={styled.sidebar__item}>
       {item.heading == "Sign out" ? (
         <b onClick={() => signOut()}>Sign out</b>
       ) : (
@@ -41,7 +41,16 @@ export default function SidebarItem({ item, visible, index }) {
                       lower: true,
                     })}${link.filter ? `__${link.filter}` : ""}`}
                   >
-                    {link.name}
+                    <input
+                      type="radio"
+                      name="order"
+                      id={link.name}
+                      checked={
+                        (router.query.q?.split("__")[0] || "") ==
+                        slugify(link.name, { lower: true })
+                      }
+                    />
+                    <label htmlFor={link.name}>{link.name}</label>
                   </Link>
                 </li>
               ) : (
@@ -58,7 +67,16 @@ export default function SidebarItem({ item, visible, index }) {
                       lower: true,
                     })}`}
                   >
-                    {link.name}
+                    <input
+                      type="radio"
+                      name="order"
+                      id={link.name}
+                      checked={
+                        (router.query.q || "") ==
+                        slugify(link.name, { lower: true })
+                      }
+                    />
+                    <label htmlFor={link.name}>{link.name}</label>
                   </Link>
                 </li>
               )}

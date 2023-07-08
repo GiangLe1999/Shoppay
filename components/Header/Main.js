@@ -9,6 +9,13 @@ import NextImage from "../NextImage";
 
 import styled from "./styles.module.scss";
 import "react-toastify/dist/ReactToastify.css";
+import HeaderCartItem from "./HeaderCartItem";
+import {
+  calculateSubPrice,
+  calculateTotal,
+  calculateTotalShipping,
+} from "@/utils/productUltils";
+import { Button } from "@mui/material";
 
 const Main = ({ searchHandler2 }) => {
   const { cart } = useSelector((state) => ({ ...state }));
@@ -60,7 +67,54 @@ const Main = ({ searchHandler2 }) => {
         <Link href="/cart">
           <div className={styled.cart}>
             <FaOpencart />
-            <span>{cart.cartItems.length}</span>
+            <span className={styled.cart__number}>{cart.cartItems.length}</span>
+            <div className={styled.cart__dropdown}>
+              {cart.cartItems.length > 0 ? (
+                <div>
+                  <div className={styled.cart__items}>
+                    {cart.cartItems.map((item) => (
+                      <HeaderCartItem key={item._uniqueId} item={item} />
+                    ))}
+                  </div>
+                  <div className={styled.cart__priceComponent}>
+                    <p>
+                      <span>Subtotal :</span>
+                      <span>${calculateSubPrice(cart.cartItems)}</span>
+                    </p>
+                    <p>
+                      <span>Shipping :</span>
+                      <span>${calculateTotalShipping(cart.cartItems)}</span>
+                    </p>
+                  </div>
+                  <div className={styled.cart__total}>
+                    <span>Total :</span>
+                    <span>{calculateTotal(cart.cartItems)}$</span>
+                  </div>
+                  <div className={styled.cart__seeAll}>
+                    See all items in cart
+                  </div>
+                </div>
+              ) : (
+                <div className={styled.cart__empty}>
+                  <div className={styled.cart__empty_img}>
+                    <NextImage src="/images/empty.png" />
+                  </div>
+                  <p>Cart is empty!</p>
+                  <div className={styled.cart__empty_btn}>
+                    <Button
+                      variant="contained"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        router.push("/browse");
+                      }}
+                    >
+                      SHOP NOW
+                    </Button>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </Link>
       </div>

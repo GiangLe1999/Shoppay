@@ -54,3 +54,7 @@ button {
   border: none;
   outline: none;
 }
+
+html.sr .load-hidden {
+  visibility: hidden;
+}

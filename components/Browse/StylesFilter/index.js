@@ -1,6 +1,6 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import styled from "../styles.module.scss";
-import { FaMinus, FaPlus } from "react-icons/fa";
+
 import { useRouter } from "next/router";
 import { replaceQuery } from "@/utils/filter";
 import CheckboxItem from "../CheckboxItem";

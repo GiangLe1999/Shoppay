@@ -6,6 +6,7 @@ import { MdRepeatOn } from "react-icons/md";
 import { useField } from "formik";
 
 import styled from "./styles.module.scss";
+import { FaUserTie } from "react-icons/fa";
 
 const LoginInput = ({ icon, ...props }) => {
   const [field, meta] = useField(props);
@@ -34,10 +35,12 @@ const LoginInput = ({ icon, ...props }) => {
           <GoKey />
         ) : icon === "repeat" ? (
           <MdRepeatOn />
+        ) : icon === "admin" ? (
+          <FaUserTie />
         ) : (
           ""
         )}
-        <input {...field} {...props} />
+        <input {...field} {...props} onClick={props.onClick} />
       </div>
     </>
   );

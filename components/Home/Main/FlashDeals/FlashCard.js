@@ -1,59 +1,17 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { FaOpencart } from "react-icons/fa";
+import NextImage from "@/components/NextImage";
+
+import { addToCartHandler, priceAfterDiscount } from "@/utils/productUltils";
 
 import styled from "./styles.module.scss";
-import NextImage from "@/components/NextImage";
-import { priceAfterDiscount } from "@/utils/productUltils";
-import { addToCart, updateCart } from "@/store/cartSlice";
+import "react-toastify/dist/ReactToastify.css";
 
 const FlashCard = ({ product }) => {
   const { cart } = useSelector((state) => ({ ...state }));
   const dispatch = useDispatch();
-
-  const addToCartHandler = async (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    const { data } = await axios.get(
-      `/api/product/${product.parentId}?style=${product.style}&size=${0}`
-    );
-
-    if (data.quantity < 1) {
-      toast.error("This product is out of stock");
-    } else {
-      let _uniqueId = `${data._id}_${product.style}_0`;
-
-      let exist = cart.cartItems.find((p) => p._uniqueId === _uniqueId);
-
-      if (exist) {
-        let newCart = cart.cartItems.map((p) => {
-          if (p._uniqueId == exist._uniqueId) {
-            return { ...p, qty: p.qty + 1 };
-          }
-          return p;
-        });
-        dispatch(updateCart(newCart));
-      } else {
-        //Nếu chưa tồn tại thì push vào item mới
-        dispatch(
-          addToCart({
-            ...data,
-            qty: 1,
-            size: product.sizes[0].size,
-            sizeIndex: 0,
-            _uniqueId,
-          })
-        );
-
-        toast.success("Add product to cart successfully!");
-      }
-    }
-  };
 
   return (
     <div className={styled.flashDeals__item}>
@@ -87,7 +45,16 @@ const FlashCard = ({ product }) => {
 
           <button
             className={styled.flashDeals__item_btn}
-            onClick={addToCartHandler}
+            onClick={(e) =>
+              addToCartHandler(
+                e,
+                product.parentId,
+                product.style,
+                0,
+                cart,
+                dispatch
+              )
+            }
           >
             <span>
               <FaOpencart />

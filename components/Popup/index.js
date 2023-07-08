@@ -17,10 +17,10 @@ const Popup = (
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
     confirmButtonText: comfirmButtonText || "Yes, delete it!",
-  }).then((result) => {
+  }).then(async (result) => {
     if (result.isConfirmed) {
+      await callback();
       Swal.fire(results, detail, "success");
-      callback();
     }
   });
 };

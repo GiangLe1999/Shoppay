@@ -70,7 +70,7 @@ export const sidebarData = [
     heading: "My Lists",
     links: [
       {
-        name: "Whishlist",
+        name: "Wishlist",
         link: "/profile/wishlist",
       },
       {

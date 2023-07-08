@@ -20,7 +20,6 @@ import { FcShipped, FcDeployment } from "react-icons/fc";
 import styled from "./styles.module.scss";
 import StyledAccordion from "./StyledAccordion";
 import Ratings from "../Ratings";
-import { addToCart, updateCart } from "@/store/cartSlice";
 
 const Infos = ({ product, setActiveImg, setImages }) => {
   const Router = useRouter();
@@ -30,6 +29,7 @@ const Infos = ({ product, setActiveImg, setImages }) => {
   const dispatch = useDispatch();
 
   const [size, setSize] = useState(Router.query.size);
+
   const [qty, setQty] = useState(1);
   const [error, setError] = useState("");
 
@@ -39,59 +39,6 @@ const Infos = ({ product, setActiveImg, setImages }) => {
   useEffect(() => {
     setQty(1);
   }, [Router.query.size, Router.query.style]);
-
-  const addToCartHandler = async () => {
-    //Bắt buộc phải chọn size trước khi thêm vào giỏ hàng
-    if (!Router.query.size) {
-      setError("Please select a size");
-      return;
-    }
-    const { data } = await axios.get(
-      `/api/product/${product._id}?style=${product.style}&size=${Router.query.size}`
-    );
-
-    //Handle khi số lượng thêm vào giỏ lớn hơn số lượng có sẵn
-    if (qty > data.quantity) {
-      setError("Not enough items in stock. Try and lower the quantity input");
-    } else if (data.quantity < 1) {
-      //Handle khi số lượng tồn kho bằng 0
-      setError("This product is out of stock");
-    } else {
-      //Các SP có style, size khác nhau đều được coi là những sp khác nhau
-      //Cần gán unique Id cho chúng để phân biệt sản phẩm cũ hay mới trong giỏ hàng
-      let _uniqueId = `${data._id}_${product.style}_${Router.query.size}`;
-
-      //Kiểm tra SP với style, size được chọn đã tồn tại trong giỏ hàng chưa
-      let exist = cart.cartItems.find((p) => p._uniqueId === _uniqueId);
-
-      //Nếu tồn tại rồi thì update bằng cách cộng thêm số lượng
-      if (exist) {
-        let newCart = cart.cartItems.map((p) => {
-          if (p._uniqueId == exist._uniqueId) {
-            return { ...p, qty: p.qty + qty };
-          }
-          return p;
-        });
-        dispatch(updateCart(newCart));
-        toast.success(
-          "Increase quantity of this product in your cart successfully!"
-        );
-      } else {
-        //Nếu chưa tồn tại thì push vào item mới
-        dispatch(
-          addToCart({
-            ...data,
-            qty,
-            size: data.size,
-            sizeIndex: Router.query.size,
-            _uniqueId,
-          })
-        );
-
-        toast.success("Add product to cart successfully!");
-      }
-    }
-  };
 
   const addToWishListHandler = async () => {
     if (!session) {
@@ -103,6 +50,7 @@ const Infos = ({ product, setActiveImg, setImages }) => {
       const { data } = await axios.put("/api/user/wishlist", {
         product_id: product._id,
         style: product.style,
+        size,
       });
       toast.success(data.message);
     } catch (error) {
@@ -297,7 +245,16 @@ const Infos = ({ product, setActiveImg, setImages }) => {
             variant="contained"
             disabled={product.quantity < 1}
             style={{ cursor: `${product.quantity < 1 ? "not-allowed" : ""}` }}
-            onClick={addToCartHandler}
+            onClick={(e) =>
+              addToCartHandler(
+                e,
+                product._id,
+                product.style,
+                Router.query.size,
+                cart,
+                dispatch
+              )
+            }
             type="button"
           >
             <FaOpencart />

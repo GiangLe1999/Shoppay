@@ -38,6 +38,7 @@
     "next-auth": "^4.22.1",
     "next-connect": "^0.13.0",
     "next-redux-wrapper": "^8.1.0",
+    "next-reveal": "^1.0.6",
     "nodemailer": "^6.9.2",
     "react": "^18.2.0",
     "react-color-extractor": "^1.1.2",

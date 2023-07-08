@@ -5,6 +5,8 @@ import ProductCard from "@/components/ProductCard";
 import { useMediaQuery } from "react-responsive";
 import { Button } from "@mui/material";
 import { MdOutlineExpandMore } from "react-icons/md";
+import { RevealWrapper } from "next-reveal";
+import AnimateWrapper from "@/components/AnimateWrapper";
 
 export default function AllProducts({ products }) {
   const [visible, setVisible] = useState(8);
@@ -20,12 +22,15 @@ export default function AllProducts({ products }) {
     <>
       <div className={styled.allProducts__container}>
         <div className={styled.allProducts__content}>
-          {products.slice(0, visible).map((product) => (
-            <ProductCard
-              key={product._id}
-              product={product}
-              className={isLarge ? "grid__4" : isMedium ? "grid__3" : "grid__2"}
-            />
+          {products.slice(0, visible).map((product, index) => (
+            <AnimateWrapper delay={50 * index} key={product._id}>
+              <ProductCard
+                product={product}
+                className={
+                  isLarge ? "grid__4" : isMedium ? "grid__3" : "grid__2"
+                }
+              />
+            </AnimateWrapper>
           ))}
         </div>
         <h4 className={styled.allProducts__title}>All Products</h4>

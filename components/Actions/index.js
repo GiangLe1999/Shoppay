@@ -9,59 +9,12 @@ import axios from "axios";
 
 import styled from "./styles.module.scss";
 import "react-toastify/dist/ReactToastify.css";
-import { addToCart, updateCart } from "@/store/cartSlice";
+import { addToCartHandler } from "@/utils/productUltils";
 
-export default function Actions({
-  product,
-  productStyle,
-  productSize,
-  productSizeInText,
-}) {
+export default function Actions({ product, productStyle, productSize }) {
   const { data: session } = useSession();
   const { cart } = useSelector((state) => ({ ...state }));
   const dispatch = useDispatch();
-
-  const addToCartHandler = async (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const { data } = await axios.get(
-      `/api/product/${product._id}?style=${productStyle}&size=${productSize}`
-    );
-
-    //Handle khi số lượng thêm vào giỏ lớn hơn số lượng có sẵn
-    if (data.quantity < 1) {
-      //Handle khi số lượng tồn kho bằng 0
-      toast.error("This product is out of stock");
-    } else {
-      let _uniqueId = `${data._id}_${productStyle}_${productSize}`;
-
-      let exist = cart.cartItems.find((p) => p._uniqueId === _uniqueId);
-
-      //Nếu tồn tại rồi thì update bằng cách cộng thêm số lượng
-      if (exist) {
-        let newCart = cart.cartItems.map((p) => {
-          if (p._uniqueId == exist._uniqueId) {
-            return { ...p, qty: p.qty + 1 };
-          }
-          return p;
-        });
-        dispatch(updateCart(newCart));
-      } else {
-        //Nếu chưa tồn tại thì push vào item mới
-        dispatch(
-          addToCart({
-            ...data,
-            qty: 1,
-            size: productSizeInText,
-            sizeIndex: productSize,
-            _uniqueId,
-          })
-        );
-
-        toast.success("Add product to cart successfully!");
-      }
-    }
-  };
 
   const addToWishListHandler = async (e) => {
     e.preventDefault();
@@ -76,6 +29,7 @@ export default function Actions({
       const { data } = await axios.put("/api/user/wishlist", {
         product_id: product._id,
         style: productStyle,
+        size: productSize,
       });
       toast.success(data.message);
     } catch (error) {
@@ -94,7 +48,16 @@ export default function Actions({
       <Tooltip title={<p>Add to Cart</p>} placement="left" arrow>
         <button
           className={styled.actions__addToCart}
-          onClick={addToCartHandler}
+          onClick={(e) =>
+            addToCartHandler(
+              e,
+              product._id,
+              productStyle,
+              productSize,
+              cart,
+              dispatch
+            )
+          }
         >
           <FcPaid />
         </button>

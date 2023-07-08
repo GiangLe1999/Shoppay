@@ -15,6 +15,11 @@ import { saveCart } from "@/utils/request";
 import axios from "axios";
 import { updateCart } from "@/store/cartSlice";
 import Footer from "@/components/Footer";
+import {
+  calculateSubPrice,
+  calculateTotal,
+  calculateTotalShipping,
+} from "@/utils/productUltils";
 
 const Cart = () => {
   const { data: session } = useSession();
@@ -34,27 +39,15 @@ const Cart = () => {
   //Tính giá tiền
   useEffect(() => {
     setShippingFee(() => {
-      const newShippingFee = selected?.reduce(
-        (a, c) => a + Number(c.shipping),
-        0
-      );
-      return Number(newShippingFee).toFixed(2);
+      return calculateTotalShipping(selected);
     });
 
     setSubTotal(() => {
-      const newSubTotal = selected?.reduce(
-        (a, c) => a + Number(c.price) * c.qty,
-        0
-      );
-      return Number(newSubTotal).toFixed(2);
+      return calculateSubPrice(selected);
     });
 
     setTotal(() => {
-      const newTotal = selected?.reduce(
-        (a, c) => a + Number(c.shipping) + Number(c.price) * c.qty,
-        0
-      );
-      return Number(newTotal).toFixed(2);
+      return calculateTotal(selected);
     });
   }, [JSON.stringify(selected)]);
 

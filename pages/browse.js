@@ -27,6 +27,8 @@ import Footer from "@/components/Footer";
 import { useMediaQuery } from "react-responsive";
 import { calculateFiltersApplied } from "@/utils/objectUltils";
 import NextImage from "@/components/NextImage";
+import { RevealWrapper } from "next-reveal";
+import AnimateWrapper from "@/components/AnimateWrapper";
 
 export default function BrowsePage({
   categories,
@@ -176,109 +178,118 @@ export default function BrowsePage({
     <div className={styled.browse}>
       <Header searchHandler={searchHandler} />
       <div className={styled.browse__container}>
-        <div className={styled.browse__path}>
-          <BreadCrumb
-            category={"Browse"}
-            categoryLink="/browse"
-            subCategories={[]}
-          />
-        </div>
-
-        <div className={styled.browse__tags}>
-          {categories.map((c) => (
-            <Link href="" key={c._id}>
-              {c.name}
-            </Link>
-          ))}
-        </div>
-
-        <div className={styled.browse__store}>
-          <div
-            className={`${styled.browse__store_filters} ${styled.scrollbar}`}
-          >
-            <div className={styled.browse__clearBtn}>
-              <Button
-                variant="contained"
-                onClick={() => router.push("/browse")}
-              >
-                Clear All ({calculateFiltersApplied(router.query)})
-              </Button>
-            </div>
-
-            <CategoryFilter
-              categories={categories}
-              subCategories={subCategories}
-              categoryHandler={categoryHandler}
-              checkChecked={checkChecked}
-            />
-
-            <SizesFilter
-              sizes={sizes}
-              sizeHandler={sizeHandler}
-              checkChecked={checkChecked}
-            />
-
-            <ColorsFilter
-              colors={colors}
-              colorHandler={colorHandler}
-              checkChecked={checkChecked}
-            />
-
-            <BrandsFilter
-              brands={brands}
-              brandHandler={brandHandler}
-              checkChecked={checkChecked}
-            />
-
-            <StylesFilter
-              styles={styles}
-              styleHandler={styleHandler}
-              checkChecked={checkChecked}
-            />
-
-            <PatternsFilter
-              patterns={patterns}
-              patternHandler={patternHandler}
-              checkChecked={checkChecked}
-            />
-
-            <MaterialsFilter
-              materials={materials}
-              materialHandler={materialHandler}
-              checkChecked={checkChecked}
-            />
-
-            <GenderFilter
-              genderHandler={genderHandler}
-              checkChecked={checkChecked}
-            />
-
-            <StarsFilter
-              checkChecked={checkChecked}
-              ratingHandler={ratingHandler}
-            />
-
-            <ShippingFeeFilter
-              checkChecked={checkChecked}
-              shippingHandler={shippingHandler}
+        <AnimateWrapper>
+          <div className={styled.browse__path}>
+            <BreadCrumb
+              category={"Browse"}
+              categoryLink="/browse"
+              subCategories={[]}
             />
           </div>
+
+          <div className={styled.browse__tags}>
+            {categories.map((c) => (
+              <Link href="" key={c._id}>
+                {c.name}
+              </Link>
+            ))}
+          </div>
+        </AnimateWrapper>
+
+        <div className={styled.browse__store}>
+          <AnimateWrapper origin="left">
+            <div
+              className={`${styled.browse__store_filters} ${styled.scrollbar}`}
+            >
+              <div className={styled.browse__clearBtn}>
+                <Button
+                  variant="contained"
+                  onClick={() => router.push("/browse")}
+                >
+                  Clear All ({calculateFiltersApplied(router.query)})
+                </Button>
+              </div>
+
+              <CategoryFilter
+                categories={categories}
+                subCategories={subCategories}
+                categoryHandler={categoryHandler}
+                checkChecked={checkChecked}
+              />
+
+              <SizesFilter
+                sizes={sizes}
+                sizeHandler={sizeHandler}
+                checkChecked={checkChecked}
+              />
+
+              <ColorsFilter
+                colors={colors}
+                colorHandler={colorHandler}
+                checkChecked={checkChecked}
+              />
+
+              <BrandsFilter
+                brands={brands}
+                brandHandler={brandHandler}
+                checkChecked={checkChecked}
+              />
+
+              <StylesFilter
+                styles={styles}
+                styleHandler={styleHandler}
+                checkChecked={checkChecked}
+              />
+
+              <PatternsFilter
+                patterns={patterns}
+                patternHandler={patternHandler}
+                checkChecked={checkChecked}
+              />
+
+              <MaterialsFilter
+                materials={materials}
+                materialHandler={materialHandler}
+                checkChecked={checkChecked}
+              />
+
+              <GenderFilter
+                genderHandler={genderHandler}
+                checkChecked={checkChecked}
+              />
+
+              <StarsFilter
+                checkChecked={checkChecked}
+                ratingHandler={ratingHandler}
+              />
+
+              <ShippingFeeFilter
+                checkChecked={checkChecked}
+                shippingHandler={shippingHandler}
+              />
+            </div>
+          </AnimateWrapper>
+
           <div className={styled.browse__store_products_wrap}>
-            <HeadingFilters
-              priceHandler={priceHandler}
-              multiPriceHandler={multiPriceHandler}
-              sortHandler={sortHandler}
-            />
+            <AnimateWrapper>
+              <HeadingFilters
+                priceHandler={priceHandler}
+                multiPriceHandler={multiPriceHandler}
+                sortHandler={sortHandler}
+              />
+            </AnimateWrapper>
+
             <div className={styled.browse__store_products}>
               {products.length > 0 ? (
-                products.map((product) => (
-                  <ProductCard
-                    key={product._id}
-                    product={product}
-                    className={
-                      isLarge ? "grid__4" : isMedium ? "grid__3" : "grid__2"
-                    }
-                  />
+                products.map((product, index) => (
+                  <AnimateWrapper delay={50 * index} key={product._id}>
+                    <ProductCard
+                      product={product}
+                      className={
+                        isLarge ? "grid__4" : isMedium ? "grid__3" : "grid__2"
+                      }
+                    />
+                  </AnimateWrapper>
                 ))
               ) : (
                 <div className={styled.browse__store_empty}>

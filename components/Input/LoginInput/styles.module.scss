@@ -30,6 +30,12 @@
     &::placeholder {
       color: #aaa;
     }
+
+    &:disabled {
+      color: #bfbfbf;
+      cursor: not-allowed;
+      user-select: none;
+    }
   }
 }
 
