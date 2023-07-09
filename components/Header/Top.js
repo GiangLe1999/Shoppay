@@ -39,7 +39,7 @@ const Top = ({ country }) => {
           </li>
           <li className={styled.li}>
             <HiHeart />
-            <Link href="/profile/wishlist">
+            <Link href="/profile/wishlist?tab=2&q=wishlist">
               <span>Wishlist</span>
             </Link>
           </li>

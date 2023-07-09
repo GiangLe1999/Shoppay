@@ -3,6 +3,7 @@ import { VscDebugBreakpointFunction } from "react-icons/vsc";
 import { BsArrowReturnRight } from "react-icons/bs";
 
 import styled from "./styles.module.scss";
+import NextImage from "../NextImage";
 
 const Products = ({ cart }) => {
   return (
@@ -24,7 +25,7 @@ const Products = ({ cart }) => {
           return (
             <div className={styled.product} key={index}>
               <div className={styled.product__image}>
-                <img src={product.image} alt="" />
+                <NextImage src={product.image} />
               </div>
               <div className={styled.product__infos_wrapper}>
                 <h3>{product.name}</h3>

@@ -221,7 +221,7 @@ export default function Wishlist({ user, tab }) {
 export async function getServerSideProps(ctx) {
   const { query, req } = ctx;
 
-  const tab = query.tab || 0;
+  const tab = query.tab || 2;
   const session = await getSession(ctx);
   const user = await User.findById(session.user.id)
     .select("image name wishlist")

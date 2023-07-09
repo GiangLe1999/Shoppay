@@ -2,7 +2,7 @@ import Link from "next/link";
 import { RiSearch2Line } from "react-icons/ri";
 import { FaOpencart } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import NextImage from "../NextImage";
@@ -16,11 +16,32 @@ import {
   calculateTotalShipping,
 } from "@/utils/productUltils";
 import { Button } from "@mui/material";
+import SearchResults from "./SearchResults/";
+import axios from "axios";
 
 const Main = ({ searchHandler2 }) => {
   const { cart } = useSelector((state) => ({ ...state }));
   const router = useRouter();
   const [query, setQuery] = useState(router.query.search || "");
+  const [products, setProducts] = useState([]);
+  const [showSearchResults, setShowSearchResults] = useState(false);
+
+  const searchChangeHandler = (e) => {
+    setQuery(e.target.value);
+  };
+
+  useEffect(() => {
+    const timerId = setTimeout(async () => {
+      if (query.length > 0) {
+        const { data } = await axios(`/api/search?query=${query}`);
+        setProducts(data);
+      }
+    }, 500);
+
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, [query]);
 
   const searchHandler = (e) => {
     e.preventDefault();
@@ -55,8 +76,15 @@ const Main = ({ searchHandler2 }) => {
           <input
             type="text"
             placeholder="Search..."
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={searchChangeHandler}
             value={query}
+            onBlur={() => setShowSearchResults(false)}
+            onFocus={() => setShowSearchResults(true)}
+          />
+          <SearchResults
+            products={products}
+            showSearchResults={showSearchResults}
+            query={query}
           />
           <button type="submit" className={styled.search__icon}>
             <RiSearch2Line />

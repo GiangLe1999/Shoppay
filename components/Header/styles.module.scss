@@ -254,11 +254,13 @@
 
   .search {
     display: flex;
+    position: relative;
     align-items: center;
     flex: 1;
     background-color: #eeeeeebc;
     height: 40px;
     border-radius: 3px;
+    z-index: 99;
 
     input {
       border: none;
@@ -274,7 +276,7 @@
       height: 40px;
       display: grid;
       place-items: center;
-      background-color: $blue-color;
+      background-color: $admin-text;
       border-top-right-radius: 5px;
       border-bottom-right-radius: 5px;
       cursor: pointer;
@@ -285,6 +287,115 @@
         fill: #fff;
       }
     }
+
+    &__heading,
+    &__seeAll {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      height: 45px;
+      background-color: $admin-text;
+      color: #fff;
+      font-weight: 600;
+      font-size: 15px;
+      border-top-left-radius: 3px;
+      border-top-right-radius: 3px;
+      padding-left: 14px;
+    }
+
+    &__seeAll {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 3px;
+      border-bottom-left-radius: 3px;
+
+      &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+
+    &__results {
+      position: absolute;
+      width: 100%;
+      top: calc(100% + 3px);
+      left: 0;
+      background-color: #fff;
+      box-shadow: $shadow-1;
+      z-index: 9999;
+      border-radius: 3px;
+      transform-origin: top;
+      transition: all 0.2s;
+    }
+
+    &__body {
+      padding: 0 1rem 0.5rem;
+
+      &_item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 1rem 0;
+        border-bottom: 1px solid #ededed;
+
+        &:last-of-type {
+          border-bottom: none;
+        }
+
+        &:hover {
+          background-color: #f7f7f7;
+          transition: all 0.2s;
+        }
+      }
+
+      &_img {
+        width: 60px;
+        aspect-ratio: 0.8;
+        position: relative;
+        border-radius: 3px;
+        flex-shrink: 0;
+        border: 1px solid #e5e5e5;
+      }
+
+      &_infos {
+        width: 78%;
+        flex: 1;
+        color: #666;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        p {
+          font-weight: 600;
+          font-size: 14px;
+
+          &:first-of-type {
+            font-size: 14px;
+            max-width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          &:last-of-type {
+            color: $blue-color;
+          }
+        }
+      }
+
+      &_sale {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 13px;
+        font-weight: 500;
+
+        span {
+          color: $redish-color;
+          font-weight: 600;
+        }
+      }
+    }
   }
 
   .cart {
@@ -292,7 +403,7 @@
 
     &:hover {
       svg {
-        fill: $blue-color;
+        fill: $admin-text;
       }
 
       svg,
@@ -318,7 +429,7 @@
       position: absolute;
       top: -5px;
       right: -10px;
-      background-color: $blue-color;
+      background-color: $admin-text;
       width: 23px;
       height: 23px;
       border-radius: 50%;
@@ -485,7 +596,7 @@
     }
 
     &__seeAll {
-      background-color: $blue-color;
+      background-color: $admin-text;
       color: #fff;
       border-bottom-left-radius: 3px;
       border-bottom-right-radius: 3px;
@@ -495,7 +606,6 @@
       font-size: 15px;
 
       &:hover {
-        background-color: $hover-color;
         text-decoration: underline;
       }
     }

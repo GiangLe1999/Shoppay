@@ -4,7 +4,7 @@ import DotLoader from "react-spinners/DotLoader";
 const StyledDotLoader = ({ loading }) => {
   return (
     <div className={styled.loader}>
-      <DotLoader color="#2f82ff" loading={loading} />
+      <DotLoader color="#1976d2" loading={loading} />
     </div>
   );
 };

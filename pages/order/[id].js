@@ -14,6 +14,7 @@ import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import StripePayment from "@/components/StripePayment";
 import axios from "axios";
 import { useState } from "react";
+import NextImage from "@/components/NextImage";
 
 const OrderPage = ({ orderData, paypal_client_id, stripe_public_key }) => {
   const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
@@ -109,7 +110,7 @@ const OrderPage = ({ orderData, paypal_client_id, stripe_public_key }) => {
               {orderData.products.map((product) => (
                 <div key={product._id} className={styled.product}>
                   <div className={styled.product__img}>
-                    <img src={product.image} alt={product.name} />
+                    <NextImage src={product.image} alt={product.name} />
                   </div>
                   <div className={styled.product__infos}>
                     <h3 className={styled.product__infos_name}>
@@ -137,7 +138,8 @@ const OrderPage = ({ orderData, paypal_client_id, stripe_public_key }) => {
                 </div>
               ))}
               <div className={styled.order__total}>
-                {orderData.couponApplied ? (
+                {orderData.couponApplied &&
+                orderData.totalBeforeDiscount > orderData.total ? (
                   <>
                     <div className={styled.order__total_sub}>
                       <span>Subtotal</span>
@@ -186,7 +188,9 @@ const OrderPage = ({ orderData, paypal_client_id, stripe_public_key }) => {
             <h2 className={styled.heading}>Customer&apos;s order</h2>
             <div className={styled.order__address}>
               <div className={styled.order__address_userInfos}>
-                <img src={orderData.user.image} alt="" />
+                <div className={styled.order__address_userImage}>
+                  <NextImage src={orderData.user.image} />
+                </div>
                 <div className={styled.order__address_userName}>
                   <span>{orderData.user.name}</span>
                   <span>{orderData.user.email}</span>

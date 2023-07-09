@@ -10,6 +10,7 @@ import { useMediaQuery } from "react-responsive";
 
 import styled from "./styles.module.scss";
 import Link from "next/link";
+import NextImage from "../NextImage";
 
 const Product = ({ product, selected, setSelected }) => {
   const { cart } = useSelector((state) => ({ ...state }));
@@ -130,7 +131,11 @@ const Product = ({ product, selected, setSelected }) => {
             className={`${styled.checkbox} ${active ? styled.active : ""}`}
             onClick={selectHandler}
           ></div>
-          {!isSmall && <img src={product.images[0].url} alt="" />}
+          {!isSmall && (
+            <div className={styled.image}>
+              <NextImage src={product.images[0].url} />
+            </div>
+          )}
           <div className={styled.detail}>
             <h3>{product.name}</h3>
             {product.size && (
