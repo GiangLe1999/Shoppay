@@ -20,8 +20,8 @@ export default function HeaderCartItem({ item }) {
       <div className={styled.cart__item_info}>
         <p>{item.name.substring(0, 40) + "..."}</p>
         <p>
-          <span>${item.price.toFixed(2)}</span>
-          <strike>${item.priceBefore.toFixed(2)}</strike>
+          <span>${item.price?.toFixed(2)}</span>
+          <strike>${item.priceBefore?.toFixed(2)}</strike>
         </p>
       </div>
       <div className={styled.cart__item_amount}>

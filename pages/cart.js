@@ -25,8 +25,6 @@ const Cart = () => {
   const { data: session } = useSession();
   const { cart } = useSelector((state) => ({ ...state }));
 
-  console.log(cart);
-
   const dispatch = useDispatch();
   const Router = useRouter();
 

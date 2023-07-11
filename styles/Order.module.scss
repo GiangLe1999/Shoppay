@@ -96,9 +96,10 @@
         flex-direction: column;
         gap: 10px;
         color: #666;
+        flex: 1;
 
         &_name {
-          font-size: 17px;
+          font-size: 15px;
           font-weight: 600;
           color: #000;
         }

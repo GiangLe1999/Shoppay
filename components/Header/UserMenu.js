@@ -27,7 +27,9 @@ const UserMenu = ({ session }) => {
         </div>
       ) : (
         <div className={styled.flex}>
-          <button className={styled.btn__primary}>Register</button>
+          <button className={styled.btn__primary} onClick={() => signIn()}>
+            Register
+          </button>
           <button className={styled.btn__outline} onClick={() => signIn()}>
             Login
           </button>

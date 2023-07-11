@@ -132,9 +132,13 @@ const Product = ({ product, selected, setSelected }) => {
             onClick={selectHandler}
           ></div>
           {!isSmall && (
-            <div className={styled.image}>
+            <Link
+              target="_blank"
+              href={`/product/${product.slug}?style=${product.style}&size=${product.sizeIndex}`}
+              className={styled.image}
+            >
               <NextImage src={product.images[0].url} />
-            </div>
+            </Link>
           )}
           <div className={styled.detail}>
             <h3>{product.name}</h3>
