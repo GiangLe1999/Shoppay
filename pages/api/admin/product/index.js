@@ -10,6 +10,7 @@ const handler = nc().use(auth).use(admin);
 
 handler.post(async (req, res) => {
   try {
+    console.log(req.body);
     await db.connectDb();
     if (req.body.parent) {
       const parent = await Product.findById(req.body.parent);

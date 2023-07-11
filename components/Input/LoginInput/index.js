@@ -6,10 +6,16 @@ import { MdRepeatOn } from "react-icons/md";
 import { useField } from "formik";
 
 import styled from "./styles.module.scss";
-import { FaUserTie } from "react-icons/fa";
+import { FaRegEye, FaRegEyeSlash, FaUserTie } from "react-icons/fa";
+import { useState } from "react";
 
 const LoginInput = ({ icon, ...props }) => {
   const [field, meta] = useField(props);
+  const [isPassword, setIsPassword] = useState(true);
+
+  const showHidePasswordHandler = () => {
+    setIsPassword((prev) => !prev);
+  };
   return (
     <>
       {meta.error && meta.touched ? (
@@ -40,7 +46,25 @@ const LoginInput = ({ icon, ...props }) => {
         ) : (
           ""
         )}
-        <input {...field} {...props} onClick={props.onClick} />
+        <input
+          {...field}
+          {...props}
+          onClick={props.onClick}
+          type={
+            props.type !== "password"
+              ? props.type
+              : props.type === "password" && isPassword
+              ? "password"
+              : "text"
+          }
+        />
+        {icon === "password" || icon === "repeat" ? (
+          <div className={styled.showHide} onClick={showHidePasswordHandler}>
+            {isPassword ? <FaRegEye /> : <FaRegEyeSlash />}
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     </>
   );

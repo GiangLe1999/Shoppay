@@ -4,6 +4,10 @@
   grid-template-columns: 1fr 4fr;
   margin-top: 1rem;
 
+  @media screen and (max-width: 950px) {
+    grid-template-columns: unset;
+  }
+
   &__right {
     width: 100%;
     display: flex;
@@ -18,6 +22,42 @@
     max-height: 100vh;
     position: sticky;
     top: 20px;
+
+    @media screen and (max-width: 950px) {
+      display: none;
+    }
+  }
+
+  &__cateMobile {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    bottom: 0;
+    z-index: 99;
+    transition: all 0.5s ease;
+  }
+
+  &__backdrop {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    z-index: 98;
+  }
+
+  .activeBackdrop {
+    display: flex;
+    opacity: 1;
+  }
+
+  .active {
+    left: 0;
   }
 
   .menu {
@@ -47,13 +87,28 @@
       border-top-left-radius: 3px;
       border-top-right-radius: 3px;
       color: #fff;
-      box-shadow: $shadow-2;
       font-weight: 600;
       font-size: 15px;
+      position: relative;
+
+      &_btn {
+        position: absolute;
+        top: 0;
+        right: -4px;
+        background-color: transparent;
+        cursor: pointer;
+        display: none;
+
+        @media screen and (max-width: 950px) {
+          display: block;
+        }
+
+        svg {
+          color: #fff;
+        }
+      }
 
       svg {
-        height: 25px;
-        width: 25px;
         margin-left: 5px;
       }
     }
@@ -127,6 +182,10 @@
       -webkit-box-align: center;
       align-items: center;
       gap: 5px;
+
+      @media screen and (max-width: 495px) {
+        flex-direction: column;
+      }
 
       h3 {
         font-weight: 700;

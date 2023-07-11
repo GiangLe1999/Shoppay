@@ -9,11 +9,11 @@ import "swiper/css";
 import "swiper/css/pagination";
 import styled from "./styles.module.scss";
 import { goodPrices } from "@/data/home";
-import Image from "next/image";
 import NextImage from "@/components/NextImage";
 
 export default function GoodPrice() {
-  const isMobile = useMediaQuery({ query: "(max-width: 500px)" });
+  const isMedium = useMediaQuery({ minWidth: 481, maxWidth: 740 });
+  const isSmall = useMediaQuery({ maxWidth: 480 });
 
   return (
     <div className={styled.goodPrice}>
@@ -22,7 +22,7 @@ export default function GoodPrice() {
         <img src="/images/good-price.png" alt="Official" />
       </div>
       <Swiper
-        slidesPerView={isMobile ? 2 : 3}
+        slidesPerView={isSmall ? 1 : isMedium ? 2 : 3}
         spaceBetween={20}
         pagination={{
           clickable: true,

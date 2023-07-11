@@ -280,3 +280,69 @@ $cubic-bezier: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 .grid__4 {
   width: 260px;
 }
+
+.grid__3 {
+  width: 290px;
+
+  &_2 {
+    width: 270px;
+  }
+
+  &_3 {
+    width: 250px;
+  }
+}
+
+.grid__2 {
+  width: 360px;
+
+  &_2 {
+    width: 340px;
+  }
+
+  &_3 {
+    width: 310px;
+  }
+
+  &_4 {
+    width: 290px;
+  }
+
+  &_5 {
+    width: 270px;
+  }
+
+  &_6 {
+    width: 250px;
+  }
+}
+
+.grid__1 {
+  width: 450px;
+
+  &_2 {
+    width: 400px;
+  }
+
+  &_3 {
+    width: 360px;
+  }
+
+  &_4 {
+    width: 300px;
+  }
+
+  &_5 {
+    width: 250px;
+  }
+}
+
+// Keyframes
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -64,6 +64,13 @@
   margin: 0;
 }
 
+.showHide {
+  position: absolute;
+  right: 12px;
+  top: 15px;
+  cursor: pointer;
+}
+
 .errorMessage {
   display: flex;
   align-items: center;

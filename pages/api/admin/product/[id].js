@@ -14,7 +14,7 @@ handler.get(async (req, res) => {
 
     const product = await Product.findById(productId).lean();
 
-    console.log(product);
+    console.log(req);
 
     if (!product) {
       res.status(404).json({ message: "Product not found!" });

@@ -18,6 +18,7 @@ import {
 import { Button } from "@mui/material";
 import SearchResults from "./SearchResults/";
 import axios from "axios";
+import { BiLoader } from "react-icons/bi";
 
 const Main = ({ searchHandler2 }) => {
   const { cart } = useSelector((state) => ({ ...state }));
@@ -25,6 +26,7 @@ const Main = ({ searchHandler2 }) => {
   const [query, setQuery] = useState(router.query.search || "");
   const [products, setProducts] = useState([]);
   const [showSearchResults, setShowSearchResults] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const searchChangeHandler = (e) => {
     setQuery(e.target.value);
@@ -33,8 +35,10 @@ const Main = ({ searchHandler2 }) => {
   useEffect(() => {
     const timerId = setTimeout(async () => {
       if (query.length > 0) {
+        setLoading(true);
         const { data } = await axios(`/api/search?query=${query}`);
         setProducts(data);
+        setLoading(false);
       }
     }, 500);
 
@@ -85,9 +89,15 @@ const Main = ({ searchHandler2 }) => {
             products={products}
             showSearchResults={showSearchResults}
             query={query}
+            loading={loading}
           />
           <button type="submit" className={styled.search__icon}>
-            <RiSearch2Line />
+            {loading && (
+              <span>
+                <BiLoader />
+              </span>
+            )}
+            {!loading && <RiSearch2Line />}
           </button>
         </form>
 

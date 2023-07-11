@@ -1,19 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
-import { useMediaQuery } from "react-responsive";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
+import Link from "next/link";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Navigation } from "swiper";
+import { SwiperSlide } from "swiper/react";
 
 import "swiper/css";
 import "swiper/css/pagination";
 import styled from "./styles.module.scss";
 import ProductCard from "@/components/ProductCard";
-import Link from "next/link";
+import CommonSwiper from "./CommonSwiper";
 
 export default function FeaturedProducts({ featuredProducts }) {
-  const isMobile = useMediaQuery({ query: "(max-width: 500px)" });
-
   return (
     <div className={styled.featuredProducts}>
       <div className={styled.featuredProducts__title}>
@@ -26,17 +23,7 @@ export default function FeaturedProducts({ featuredProducts }) {
           <MdOutlineKeyboardDoubleArrowRight />
         </Link>
       </div>
-      <Swiper
-        slidesPerView={isMobile ? 2 : 3}
-        spaceBetween={20}
-        pagination={{
-          clickable: true,
-        }}
-        navigation={true}
-        modules={[Pagination, Navigation]}
-        className="products_swiper"
-        rewind={true}
-      >
+      <CommonSwiper>
         {featuredProducts.map((product, index) => {
           return (
             <SwiperSlide key={index}>
@@ -44,7 +31,7 @@ export default function FeaturedProducts({ featuredProducts }) {
             </SwiperSlide>
           );
         })}
-      </Swiper>
+      </CommonSwiper>
     </div>
   );
 }

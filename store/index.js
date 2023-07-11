@@ -6,8 +6,9 @@ import { persistReducer } from "redux-persist";
 
 import cart from "./cartSlice";
 import expandSidebar from "./expandSlice";
+import showMobileCate from "./mobileCateSlice";
 
-const reducers = combineReducers({ cart, expandSidebar });
+const reducers = combineReducers({ cart, expandSidebar, showMobileCate });
 
 const config = {
   key: "root",

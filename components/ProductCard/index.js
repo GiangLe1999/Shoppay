@@ -113,7 +113,7 @@ const ProductCard = ({ product, className }) => {
                       className={sizeActive === i && styled.sizeActive}
                       htmlFor="size"
                     >
-                      {size.size}
+                      {size.size ? size.size : "No"}
                     </button>
                   </div>
                 );

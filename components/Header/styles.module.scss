@@ -10,12 +10,30 @@
   border-bottom: 1px solid #eee;
 
   &__container {
-    max-width: 95%;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 5px;
+    padding: 10px 1rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    .menuIcon {
+      align-items: center;
+      color: $admin-text;
+      cursor: pointer;
+      display: none;
+
+      &:hover {
+        svg {
+          color: $hover-color;
+          transition: $transition-1;
+        }
+      }
+
+      @media screen and (max-width: 950px) {
+        display: flex;
+      }
+    }
   }
 
   &__list {
@@ -106,14 +124,6 @@
         svg {
           fill: #666;
           transition: $transition-1;
-        }
-      }
-
-      @media screen and (max-width: 670px) {
-        &:nth-of-type(2),
-        &:nth-of-type(3),
-        &:nth-of-type(4) {
-          display: none;
         }
       }
     }
@@ -260,7 +270,7 @@
     background-color: #eeeeeebc;
     height: 40px;
     border-radius: 3px;
-    z-index: 99;
+    z-index: 96;
 
     input {
       border: none;
@@ -285,6 +295,12 @@
         width: 21px;
         height: 21px;
         fill: #fff;
+      }
+
+      span {
+        display: flex;
+        align-items: center;
+        animation: spin 1s linear infinite;
       }
     }
 
@@ -313,6 +329,12 @@
         text-decoration: underline;
         cursor: pointer;
       }
+    }
+
+    &__notFound {
+      position: relative;
+      width: 80%;
+      aspect-ratio: 2.6;
     }
 
     &__results {

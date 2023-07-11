@@ -27,7 +27,11 @@ handler.post(async (req, res) => {
     await review.save();
 
     await db.disConnectDb();
-    return res.status(200).json(await Review.find().populate("reviewBy"));
+    return res
+      .status(200)
+      .json(
+        await Review.find({ product: review.product }).populate("reviewBy")
+      );
   } catch (error) {
     await db.disConnectDb();
     return res.status(500).json({ message: error.message });

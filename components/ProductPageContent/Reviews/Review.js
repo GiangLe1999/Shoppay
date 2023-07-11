@@ -70,12 +70,12 @@ const Review = ({ review, setReviews }) => {
                   {review.size}
                   &nbsp;&nbsp;| &nbsp;&nbsp;
                   <span>Style : </span>&nbsp;&nbsp;
-                  {review.style.colorImg ? (
-                    <img src={review.style.colorImg} alt="" />
+                  {review.style?.colorImg ? (
+                    <img src={review.style?.colorImg} alt="" />
                   ) : (
                     <span
                       style={{
-                        background: review.style.color,
+                        background: review.style?.color,
                         width: 35,
                         height: 35,
                         display: "inline-block",

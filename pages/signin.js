@@ -142,12 +142,12 @@ const SigninPage = ({ providers, callbackUrl, csrfToken }) => {
       <div className={styled.login}>
         <div className={styled.login__container}>
           <div className={styled.login__header}>
-            <div className={styled.back__svg}>
+            <div onClick={() => Router.back()} className={styled.back__svg}>
               <AiOutlineBackward />
             </div>
             <span>
               We&apos;d be happy to have you join us!{" "}
-              <Link href="/">Go Store</Link>
+              <Link href="/browse">Go Store</Link>
             </span>
           </div>
           <div className={styled.login__form}>
@@ -174,10 +174,10 @@ const SigninPage = ({ providers, callbackUrl, csrfToken }) => {
                   <LoginInput
                     icon="email"
                     placeholder="Your email address"
-                    type="text"
                     id="login_email"
                     name="login_email"
                     label="Email"
+                    type="email"
                     onChange={inputChangeHandler}
                   />
                   <LoginInput
@@ -185,8 +185,8 @@ const SigninPage = ({ providers, callbackUrl, csrfToken }) => {
                     icon="password"
                     id="login_password"
                     placeholder="Your password"
-                    type="text"
                     name="login_password"
+                    type="password"
                     onChange={inputChangeHandler}
                   />
                   <div className={styled.forgot}>
@@ -250,10 +250,10 @@ const SigninPage = ({ providers, callbackUrl, csrfToken }) => {
                   <LoginInput
                     icon="user"
                     placeholder="Your full name"
-                    type="text"
                     id="full_name"
                     name="full_name"
                     label="Full name"
+                    type="text"
                     onChange={inputChangeHandler}
                   />
                   <LoginInput
@@ -261,8 +261,8 @@ const SigninPage = ({ providers, callbackUrl, csrfToken }) => {
                     icon="email"
                     id="email"
                     placeholder="Your email address"
-                    type="text"
                     name="email"
+                    type="email"
                     onChange={inputChangeHandler}
                   />
                   <LoginInput
@@ -270,8 +270,8 @@ const SigninPage = ({ providers, callbackUrl, csrfToken }) => {
                     icon="password"
                     id="password"
                     placeholder="Your password"
-                    type="text"
                     name="password"
+                    type="password"
                     onChange={inputChangeHandler}
                   />
                   <LoginInput
@@ -279,8 +279,8 @@ const SigninPage = ({ providers, callbackUrl, csrfToken }) => {
                     icon="repeat"
                     id="confirm_password"
                     placeholder="Retype your password"
-                    type="text"
                     name="confirm_password"
+                    type="password"
                     onChange={inputChangeHandler}
                   />
                   <div className={styled.signUpBtnWrap}>

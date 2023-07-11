@@ -20,6 +20,7 @@ import { FcShipped, FcDeployment } from "react-icons/fc";
 import styled from "./styles.module.scss";
 import StyledAccordion from "./StyledAccordion";
 import Ratings from "../Ratings";
+import { addToCartHandler } from "@/utils/productUltils";
 
 const Infos = ({ product, setActiveImg, setImages }) => {
   const Router = useRouter();

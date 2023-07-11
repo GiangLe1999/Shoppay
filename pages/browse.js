@@ -189,7 +189,13 @@ export default function BrowsePage({
 
           <div className={styled.browse__tags}>
             {categories.map((c) => (
-              <Link href="" key={c._id}>
+              <Link
+                className={
+                  router.query.category.includes(c._id) && styled.activeTag
+                }
+                href={`/browse?category=${c._id}`}
+                key={c._id}
+              >
                 {c.name}
               </Link>
             ))}
