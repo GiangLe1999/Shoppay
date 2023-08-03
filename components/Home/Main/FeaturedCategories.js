@@ -23,7 +23,10 @@ export default function FeaturedCategories() {
           .map((category, index) => {
             return (
               <SwiperSlide key={index}>
-                <Link className={styled.featuredCategories__item} href="">
+                <Link
+                  className={styled.featuredCategories__item}
+                  href={`/browse?category=${category.link}`}
+                >
                   <div style={{ display: "grid", placeItems: "center" }}>
                     <div className={styled.featuredCategories__item_img}>
                       <NextImage

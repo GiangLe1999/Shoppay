@@ -8,6 +8,7 @@ import db from "@/utils/db";
 import styled from "../styles/Home.module.scss";
 import AllProducts from "@/components/Home/AllProducts";
 import AnimateWrapper from "@/components/AnimateWrapper";
+import axios from "axios";
 
 export default function Home({
   country,
@@ -91,15 +92,15 @@ export async function getStaticProps() {
     .filter((p) => p.shipping === 0)
     .slice(0, 10);
 
-  // let country;
-  // try {
-  //   let data = await axios.get(
-  //     "https://api.ipregistry.co/?key=ng3oke5gnbj5os01"
-  //   );
-  //   country = data?.data.location?.country;
-  // } catch (err) {
-  //   console.log(err);
-  // }
+  let country;
+  try {
+    let data = await axios.get(
+      "https://api.ipregistry.co/?key=ng3oke5gnbj5os01"
+    );
+    country = data?.data.location?.country;
+  } catch (err) {
+    console.log(err);
+  }
 
   return {
     props: {
@@ -107,10 +108,7 @@ export async function getStaticProps() {
       flashDeals: JSON.parse(JSON.stringify(flashDealsArray)),
       featuredProducts: JSON.parse(JSON.stringify(featuredProducts)),
       freeShippingProducts: JSON.parse(JSON.stringify(freeShippingProducts)),
-      country: {
-        name: "Viet Nam",
-        flag: "https://cdn.ipregistry.co/flags/emojitwo/vn.svg",
-      },
+      country: { name: country.name, flag: country.flag.emojitwo },
     },
   };
 }
