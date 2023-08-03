@@ -4,7 +4,6 @@
 Website gồm:
 
 - Giao diện phục vụ khách hàng
-
 - Admin Dashboard
 
 **Công nghệ sử dụng**
@@ -20,8 +19,15 @@ Website gồm:
 **Một số tính năng chính**
 ----------------------------------------
 
-- Giao diện phục vụ khách hàng
-- Admin Dashboard
+- Manage authentication bằng Next Auth.
+- Cho phép đăng nhập bằng tài khoản mật khẩu tự tạo hoặc bằng các Provider: Github, Facebook, Google, Twitter, Auth0, ...
+- Hỗ trợ phục hồi mật khẩu tài khoản. Tự động gửi Email bằng Nodemailer.
+- Filter, search, sort, pagination.
+- Mỗi sản phẩm gồm nhiều biến thể, phân loại theo size và màu sắc.
+- Manage cart bằng Redux Toolkit.
+- Thanh toán trực tuyến bằng Paypal và Credit card (được hỗ trợ bởi Stripe).
+- Admin page cho phép thao tác CRUD sản phẩm, danh mục, user, coupon.
+- Responsive trên nhiều thiết bị.
 
 **Giao diện Website phục vụ khách hàng**
 ----------------------------------------
